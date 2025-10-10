@@ -112,26 +112,66 @@ Diese Architektur erfüllt alle technischen und organisatorischen Anforderungen.
 | Benutzer-Ebene | **Web-Dashboard / Mobile App** | Zugriff für Host und Gäste |
 
 ### 2. Begründung der Framework-Wahl
-**HiveMQ Cloud** erfüllt die Kriterien eines IoT-Frameworks:
-- Standardprotokoll **MQTT 3.1.1/5.0** für Gerätekommunikation  
-- **Cloud-fähig**, skalierbar, TLS-gesichert  
-- **Zentrale Nachrichtenvermittlung** zwischen Häusern und Controller  
-- **APIs & Extensions** für Integration, Monitoring und Persistenz  
-- **On-Premise-Version** (HiveMQ Enterprise) verfügbar
+**systemisch betrachtet**
+Die Kombination HiveMQ + Node-RED adressiert alle Schichten einer IoT-Architektur:
 
-**Node-RED** ergänzt HiveMQ als logische Steuerungsschicht:
-- Visuelle Flow-Programmierung ohne komplexen Code  
-- Direkte MQTT-Unterstützung  
-- Web-Dashboard für zentrale Überwachung  
-- Open-Source, leichtgewichtig, Docker-fähig
+| Schicht | Framework | Hauptfunktion |
+|----------|------------|----------------|
+| IoT-Gerät | ESP32 | Sensordatenerfassung und MQTT-Client |
+| Kommunikation | HiveMQ | Sichere, skalierbare Datenübertragung |
+| Logik / Steuerung | Node-RED | Prozesslogik, Datenrouting, Reaktionen |
+| Visualisierung | Node-RED Dashboard | Monitoring, Steuerung, Status |
+| Integration | HiveMQ / Node-RED APIs | Anbindung an Cloud, Datenbanken oder Mobile Apps |
+
+
+**Kommunikation**
+HiveMQ erfüllt zentrale Anforderungen eines modernen IoT-Frameworks auf der **Kommunikationsebene**:
+
+| Kriterium | Beschreibung |
+|------------|--------------|
+| **Standardisierung** | Unterstützt MQTT 3.1.1 und 5.0 – das weltweit etablierte IoT-Kommunikationsprotokoll. |
+| **Interoperabilität** | Funktioniert mit allen gängigen Mikrocontrollern (ESP32, Raspberry Pi, Arduino). Keine herstellerspezifischen Bindungen. |
+| **Sicherheit** | TLS-Verschlüsselung, Benutzer-Authentifizierung, Zugriffsbeschränkungen (ACLs). |
+| **Skalierbarkeit** | Cloud-nativ, skalierbar auf Hunderte Clients. Ideal auch für spätere Erweiterung (weitere Häuser, Sensoren). |
+| **Zuverlässigkeit** | Session-Persistence, Last Will, QoS-Level (0–2) für gesicherte Nachrichtenübertragung. |
+| **Cloud-Fähigkeit** | Vollständig gemanagte Umgebung, keine lokale Installation nötig. Zugriff auch über Hotspot möglich. |
+| **On-Premise-Fähigkeit** | Mit HiveMQ Enterprise oder lokalem Docker-Setup möglich – OnPrem als Alternative beschreibbar. |
+| **Integrationen** | REST-API, Kafka-Connector, WebSocket-API, Monitoring-Tools → Integration mit Data Analytics oder externem Dashboard. |
+
+→ **Fazit:** HiveMQ ist nicht nur ein MQTT-Broker, sondern ein **IoT-Kommunikations-Framework**, das zentrale Aufgaben von Datenerfassung, Sicherheitsmanagement und Integrationslogik übernimmt.
+
+---
+
+**Steuerung**
+Node-RED erweitert HiveMQ auf der **Prozess- und Integrations-Ebene**:
+
+| Kriterium | Beschreibung |
+|------------|--------------|
+| **Flow-basierte Entwicklung** | Visuelle Programmierung ermöglicht schnelle Logik-Erstellung ohne komplexen Code. |
+| **MQTT-native Integration** | Direkte Unterstützung für HiveMQ-Themen (Publish/Subscribe) – keine zusätzliche Middleware nötig. |
+| **Echtzeitverarbeitung** | Ereignisgesteuerte Reaktionen (z. B. Sturmwarnung → Fenster schließen in allen Häusern). |
+| **Web-Dashboard** | Eingebaute Visualisierung für Sensorwerte, Warnungen und Gerätestatus. |
+| **Erweiterbarkeit** | Hunderte Nodes für API-Aufrufe, Datenbanken, Logging und Cloud-Dienste. |
+| **Cloud- und Serverfähigkeit** | Betrieb auf eigenem Server (Docker, Linux, Windows) oder auf Plattformen wie Render/Railway. |
+| **On-Premise-Betrieb** | Node-RED kann lokal mit Mosquitto oder HiveMQ Enterprise genutzt werden. |
+
+→ **Fazit:** Node-RED bildet das **logische Framework** zur Steuerung, Analyse und Visualisierung des Smart-Home-Systems.
+
 
 ### 3. Vorteile gegenüber Alternativen
-| Alternative | Nachteile im Projektkontext |
-|--------------|-----------------------------|
-| **Home Assistant / ESPHome** | LAN-zentriert, erfordert lokales Netzwerk |
-| **Azure IoT / AWS IoT Core** | Komplex, kostenpflichtig, Overkill für 3 Geräte |
-| **Eigener Mosquitto-Server** | NAT-Problem bei Hotspots, keine öffentliche Erreichbarkeit |
-| **Blynk / Adafruit IO** | Proprietär, eingeschränkte Integrationsfreiheit |
+| Framework | Bewertung | Nachteile im Projektkontext |
+|------------|------------|-----------------------------|
+| **AWS IoT Core** | sehr leistungsfähig | Komplexe Einrichtung, kostenpflichtig, zu schwergewichtig |
+| **Azure IoT Hub** | skalierbar | Hoher Setup-Aufwand, proprietär, Cloud-only |
+| **Home Assistant / ESPHome** | einfach im LAN | Nicht Cloud-fähig, erfordert lokale Infrastruktur |
+| **Adafruit IO / Blynk** | schnell startklar | Begrenzte Flexibilität, API-Einschränkungen, proprietär |
+| **Mosquitto (lokal)** | leichtgewichtig | Keine Cloud-Reichweite, NAT-Probleme bei Hotspots |
+| **HiveMQ + Node-RED** | optimal | Stabil, Cloud-fähig, modular, sicher, kostenlos im Free-Tier |
+
+→ **Schlussfolgerung:** HiveMQ + Node-RED bietet das beste Verhältnis aus Einfachheit, Stabilität und Cloud-Tauglichkeit für ein verteiltes IoT-Szenario mit Hotspot-Verbindungen.
+
+
+
 
 ### 4. Cloud- und On-Premise-Fähigkeit
 | Einsatzform | Beschreibung |
