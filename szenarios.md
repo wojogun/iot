@@ -1,8 +1,8 @@
-## Projekt-Szenario: Smart Beach Resort am niederländischen Strand
+# Projekt-Szenario: Smart Beach Resort am niederländischen Strand
 
 Unser Projekt umfasst drei intelligente Ferienhäuser, die in unmittelbarer Nähe zum niederländischen Meeresstrand stehen und über Airbnb vermietet werden. Die besonderen Herausforderungen dieser Lage sind die hohe Luftfeuchtigkeit, Sandstürme, Salzwasser-Korrosion und die Notwendigkeit einer effizienten Ferienhaus-Verwaltung.
 
-### Individuelle Use Cases
+## Individuelle Use Cases
 
 **Haus 1: Wetter & Sturm-Überwachung**
 Das erste Haus fungiert als intelligente Wetterstation für das gesamte Resort. Es überwacht kontinuierlich Temperatur und Luftfeuchtigkeit, um frühzeitig auf Sturmgefahren und extreme Wetterbedingungen zu reagieren. Der integrierte Dampfsensor erkennt die hohe Feuchtigkeit der Meeresluft und warnt vor potenzieller Korrosion. Bei ungewöhnlichen Bewegungen durch den PIR-Sensor wird automatisch eine Sicherheitswarnung ausgelöst. Der Gas-Sensor überwacht die Konzentration von Verbrennungsgasen (CO, H₂) im Haus und der Buzzer alarmiert bei Sturmwarnungen oder Gas-Alarmen alle Bewohner des Resorts.
@@ -36,7 +36,7 @@ Das dritte Haus konzentriert sich auf Energieeffizienz und Wartungsoptimierung. 
 - LCD Display (System-Status-Anzeige)
 - Gas Sensor (Überwachung von Verbrennungsgasen für Gästesicherheit)
 
-### Gemeinsamer Use Case: Smart Beach Resort Management
+## Gemeinsamer Use Case: Smart Beach Resort Management
 
 Alle drei Häuser bilden zusammen ein intelligentes Ferienhaus-Ökosystem, das sowohl über lokale Bluetooth-Kommunikation als auch über individuelle Handy-Hotspots mit dem Internet verbunden ist. Die Häuser stehen in einem Klassenzimmer, wodurch die Bluetooth-Kommunikation zwischen ihnen optimal funktioniert. Ein zentrales Dashboard ermöglicht es dem Airbnb-Host, alle drei Häuser gleichzeitig zu überwachen und zu verwalten. Bei Sturmwarnungen werden automatisch alle Fenster in allen Häusern geschlossen und die Lüftung wird deaktiviert, um Sand und Sturm fernzuhalten. Das System organisiert die Reinigung bei Gäste-Wechsel und überwacht kontinuierlich die Umgebungsbedingungen in allen Gebäuden. Gäste können über eine mobile App einchecken, Service anfordern und wichtige Resort-Informationen abrufen, während das System automatisch die Lüftung während eines Sturmes deaktiviert.
 Bei längerem Leerstand aktiviert sich regelmäßige Lüftung.
@@ -55,28 +55,28 @@ Bei längerem Leerstand aktiviert sich regelmäßige Lüftung.
 - **Cloud-Kommunikation**: Host-Dashboard, Gäste-App, Daten-Logging
 - **Klassenzimmer-Umgebung**: Optimale BT-Reichweite für direkte Haus-zu-Haus-Kommunikation
 
-## Szenario der Gruppe B
+# Szenario der Gruppe B
 Wir haben drei mittels Online-Buchungssystem mietbare Häuser an der niederländischen Nordseeküste. Die Usecases sind dabei folgende:
-### Haus 1: Wetter & Sturm-Überwachung
+## Haus 1: Wetter & Sturm-Überwachung
 - Temp and Hum Sensor für Innenklima
 - Steam Sensor für Feuchtigkeit (Salzwasser-Korrosion)
 - PIR Motion Sensor für unerlaubte Zutritte
 - Gas Sensor für Heizung/Gas-Überwachung
 - Passive Buzzer für Sturmwarnungen
-### Haus 2: Gäste-Komfort & Sicherheit
+## Haus 2: Gäste-Komfort & Sicherheit
 - RFID Module für Schlüssel-Ersatz (Gäste-Cards)
 - Button Module für Service-Anfragen
 - LCD Display für Check-in/Check-out Info
 - RGB LED für Stimmungs-Beleuchtung
 - Servo Motor für automatische Rollos (Sandschutz)
-### Haus 3: Energie & Wartung
+## Haus 3: Energie & Wartung
 - Motor/Fan für Lüftung (Sand-Filter)
 - Passive Buzzer für Wartungs-Alerts
 - Button Module für Reinigungs-Status
 - LCD Display für Energieverbrauch
 - Gas Sensor für CO-Monitoring
 
-### Gemeinsamer Use Case: Smart Beach Resort Management
+## Gemeinsamer Use Case: Smart Beach Resort Management
 Ferienhaus-Ökosystem:
 - Zentrales Airbnb-Management Dashboard
 - Automatische Check-in/Check-out (RFID-basiert)
@@ -95,3 +95,97 @@ Business-Logic:
 - Automatische Beheizung vor Ankunft
 - Sturmwarnung → alle Rollos runter
 - Reinigungs-Status zwischen Buchungen
+
+# Umsetzung
+
+## IoT-Framework: HiveMQ + Node-RED
+### Überblick
+Für das Projekt *Smart Beach Resort* wird eine **Kombination aus HiveMQ Cloud** (MQTT-Framework) und **Node-RED** (Orchestrierungs- und Visualisierungsplattform) gewählt.  
+Diese Architektur erfüllt alle technischen und organisatorischen Anforderungen.
+
+### 1. Framework-Komponenten
+| Ebene | Technologie | Funktion |
+|-------|--------------|-----------|
+| Geräteebene | **ESP32 + Sensorik** | Lokale Datenerfassung, MQTT-Client |
+| Kommunikations-Framework | **HiveMQ Cloud** | Sichere, skalierbare IoT-Kommunikation über MQTT |
+| Steuerungs-/Integrations-Ebene | **Node-RED** | Datenfluss-Logik, zentrale Steuerung, Visualisierung |
+| Benutzer-Ebene | **Web-Dashboard / Mobile App** | Zugriff für Host und Gäste |
+
+### 2. Begründung der Framework-Wahl
+**HiveMQ Cloud** erfüllt die Kriterien eines IoT-Frameworks:
+- Standardprotokoll **MQTT 3.1.1/5.0** für Gerätekommunikation  
+- **Cloud-fähig**, skalierbar, TLS-gesichert  
+- **Zentrale Nachrichtenvermittlung** zwischen Häusern und Controller  
+- **APIs & Extensions** für Integration, Monitoring und Persistenz  
+- **On-Premise-Version** (HiveMQ Enterprise) verfügbar
+
+**Node-RED** ergänzt HiveMQ als logische Steuerungsschicht:
+- Visuelle Flow-Programmierung ohne komplexen Code  
+- Direkte MQTT-Unterstützung  
+- Web-Dashboard für zentrale Überwachung  
+- Open-Source, leichtgewichtig, Docker-fähig
+
+### 3. Vorteile gegenüber Alternativen
+| Alternative | Nachteile im Projektkontext |
+|--------------|-----------------------------|
+| **Home Assistant / ESPHome** | LAN-zentriert, erfordert lokales Netzwerk |
+| **Azure IoT / AWS IoT Core** | Komplex, kostenpflichtig, Overkill für 3 Geräte |
+| **Eigener Mosquitto-Server** | NAT-Problem bei Hotspots, keine öffentliche Erreichbarkeit |
+| **Blynk / Adafruit IO** | Proprietär, eingeschränkte Integrationsfreiheit |
+
+### 4. Cloud- und On-Premise-Fähigkeit
+| Einsatzform | Beschreibung |
+|--------------|--------------|
+| **Cloud** | HiveMQ Cloud + Node-RED (auf eigenem oder Cloud-Server)|
+| **On-Premise** | HiveMQ Enterprise + Node-RED lokal (zB. Raspberry Pi oder PC) möglich, aber nur bei stabiler LAN/WLAN-Infrastruktur praktikabel |
+
+### 5. Kostenübersicht
+
+| Komponente | Kosten |
+|-------------|--------|
+| HiveMQ Cloud (Serverless) | kostenlos (Free Tier) |
+| Node-RED (eigener Server) | kostenlos, nur Stromkosten |
+| Alternativ: Node-RED auf vorhandenem Server |
+| Hardware (3 × KS5009-Kits) | von FH bereitgestellt |
+| **Gesamt** | **ß € einmalig + 0 €/Monat** |
+
+### 6. Fazit
+HiveMQ fungiert als **IoT-Kommunikationsframework** mit klarer Geräte-, Sicherheits- und Integrationslogik.  
+Node-RED erweitert es zu einem vollständigen **End-to-End-IoT-System**, das Cloud-fähig, verteilbar und präsentationssicher ist.  
+Diese Kombination ist robust, leicht wartbar und erfüllt die Anforderungen an den Gruppen- und Gesamt-Use-Case.
+
+## sonstige Fragen
+### kann man hiveMQ überhaupt als IoT-Framework verstehen? warum?
+Ja. HiveMQ erfüllt die Kriterien eines IoT-Frameworks.
+
+Begründung:
+1. **Definition**
+   Ein IoT-Framework ist eine Infrastruktur, die das **Sammeln, Übertragen, Verarbeiten und Visualisieren** von Sensordaten zwischen verteilten Geräten, Gateways und Cloud-Diensten ermöglicht.
+
+2. **HiveMQ-Funktionalität**
+   HiveMQ bietet genau diese Infrastruktur:
+- **Nachrichtenvermittlung (MQTT Broker):** verbindet viele Geräte gleichzeitig, bidirektional.
+- **Sicherheits-Layer:** TLS, Auth/ACLs, Session-Management.
+- **Integrationen:** REST-API, WebSocket-API, Kafka-Connector, Prometheus-Monitoring, Cloud-Connectoren.
+- **Skalierbarkeit:** Cluster-fähig (HiveMQ Enterprise/Cloud), Auto-Scaling in Cloud-Umgebungen.
+- **Erweiterbarkeit:** durch MQTT-Extensions, etwa Daten-Filter, Rule-Engines, Persistenz.
+  → Damit bildet HiveMQ die *Middleware-Schicht* zwischen Hardware (ESP32-Sensorik) und Applikation (Node-RED, Dashboard, App).
+
+3. **Warum als Framework anerkennbar**
+   Ein Framework muss nicht zwingend „vollständige Applikationslogik“ enthalten. In der IoT-Systemarchitektur ist das Messaging-Framework (MQTT-Broker) das Kernstück der Kommunikation und Integrationslogik. HiveMQ stellt also das **IoT-Kommunikationsframework** bereit, auf dem ihr eure Anwendung aufbaut.
+
+4. **Cloud-Fähigkeit**
+   HiveMQ Cloud ist vollständig Cloud-basiert (Serverless oder Managed Cluster). Geräte verbinden sich per TLS aus beliebigen Netzen (Hotspot, LAN, Campus). → Hochverfügbarkeit ohne eigenen Server.
+
+5. **On-Premise-Fähigkeit**
+   HiveMQ Enterprise kann lokal betrieben werden (Docker, Linux, Windows). → Antwort auf On-Premise-Frage: *Ja, möglich – aber komplexer und wartungsintensiver als Cloud-Betrieb.*
+
+6. **Zusammengefasst**
+   HiveMQ = IoT-Framework auf der Kommunikations- und Integrations-Ebene:
+- Gerätekommunikation (MQTT)
+- Security & Session Management
+- Skalierung
+- Integration in Analytik- und Managementsysteme
+
+Wir ergänzen dieses Framework durch Node-RED (Prozess-/Automationslogik) und die ESP32-Firmware (Geräteebene).
+→ Das ergibt eine vollständige IoT-Systemarchitektur.
