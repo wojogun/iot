@@ -7,8 +7,14 @@ void setup()
 
 void loop()  
 {     // The code inside loop function runs repeatedly  
-  digitalWrite(led_y, HIGH);  // Set led_y pin to HIGH (turns on the LED)  
-  delay(200);     // Delay in milliseconds  
-  digitalWrite(led_y, LOW);   // Set led_y pin to LOW (turns off the LED)  
-  delay(200);  
+  // Blink 3 times
+  for(int i = 0; i < 3; i++) {
+    digitalWrite(led_y, HIGH);  // Set led_y pin to HIGH (turns on the LED)  
+    delay(200);     // Delay in milliseconds  
+    digitalWrite(led_y, LOW);   // Set led_y pin to LOW (turns off the LED)  
+    delay(200);  
+  }
+  
+  // Wait 2 seconds before next 3-blink sequence
+  delay(2000);
 }

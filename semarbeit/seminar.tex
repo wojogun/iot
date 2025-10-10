@@ -1,211 +1,50 @@
-\documentclass[12pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[ngerman]{babel}
-\usepackage{geometry}
-\usepackage{graphicx}
-\usepackage{setspace}
-\usepackage{enumitem}
-\usepackage{hyperref}
-\usepackage{csquotes}
-\usepackage{natbib}
-\geometry{margin=2.5cm}
-\setstretch{1.2}
+\documentclass[nonacm]{acmart}
 
-\title{Smart Beach Resort – IoT-basiertes Ferienhausmanagement}
-\author{Gruppe B -- IoT Seminararbeit}
-\date{2025}
+
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+	\providecommand\BibTeX{{%
+			\normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+
+%%
+%% These commands are for a JOURNAL article.
+%% PLEASE IGNORE THEM!
+\acmJournal{TOIT}
+\acmVolume{37}
+\acmNumber{4}
+\acmArticle{111}
+\acmMonth{8}
+
+%%
+%% end of the preamble, start of the body of the document source.
+\usepackage{textcomp}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\setcopyright{none}
+\settopmatter{printacmref=false} % Removes citation information below abstract
+\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
+\pagestyle{plain}
 
 \begin{document}
+\input{title}
+\input{authors}
+
+\settopmatter{printfolios=true}
 \maketitle
 \tableofcontents
 \newpage
 
-\section{Einleitung}
-Das Projekt \textit{Smart Beach Resort} zeigt, wie IoT-Technologien ein vernetztes Ferienhaus-Ökosystem bilden können.
-Drei intelligente Ferienhäuser an der niederländischen Nordseeküste werden über Sensorik und Cloud-Kommunikation gesteuert.
-Besondere Herausforderungen der Umgebung sind hohe Luftfeuchtigkeit, Salz, Sand und Sturm.
-
-Ziel ist es, drei Einzel-Use-Cases zu entwickeln und zu einem Gesamt-Use-Case zu integrieren.
-Die Lösung adressiert Betreiber, Facility-Manager und Ferienhausvermieter, die ein skalierbares, wartungsarmes System benötigen.
-
-Mehrwert:
-\begin{itemize}[noitemsep]
-  \item Automatisierte Sturm- und Sicherheitswarnungen
-  \item Energieeffizientes Gebäudemanagement
-  \item Digitale Check-in/Check-out-Abläufe
-  \item Geringe Betriebskosten durch Fernsteuerung
-\end{itemize}
-
-\newpage
-\section{Use Case View}
-
-\subsection{Einzel-Use Cases}
-\textbf{Haus 1 – Wetter \& Sturm-Überwachung}\\
-Sensoren: Temperatur-, Feuchte-, Dampf-, Gas-, Bewegungsmelder.\\
-Aktoren: Buzzer, LCD-Display.\\
-Funktion: Frühwarnung bei Sturm oder Gas, Korrosionsschutz, Sicherheitsalarm.
-
-\vspace{0.5em}
-\textbf{Haus 2 – Gäste-Komfort \& Sicherheit}\\
-Sensorik/Aktorik: RFID, Buttons, LCD, RGB-LED, Servo, Yellow-LED.\\
-Funktion: kontaktloser Zugang, Service-Anfragen, automatische Rollos, Beleuchtungssteuerung.
-
-\vspace{0.5em}
-\textbf{Haus 3 – Energie \& Wartung}\\
-Sensorik/Aktorik: Motor/Lüfter, Gas-Sensor, Buzzer, LCD, Button.\\
-Funktion: Lüftungssteuerung, Wartungsalarm, Reinigungssignalisierung.
-
-\subsection{Gesamt-Use Case – Smart Beach Resort Management}
-Alle drei Häuser bilden ein gemeinsames IoT-System:
-\begin{itemize}[noitemsep]
-  \item Zentrales Dashboard (Node-RED) zur Gesamtsteuerung
-  \item Automatische Fenster- und Lüftungssteuerung bei Sturm
-  \item Synchronisierte Reinigungs- und Energieprozesse
-  \item Bluetooth für lokale Haus-zu-Haus-Kommunikation
-  \item Internet-Anbindung über Handy-Hotspots
-\end{itemize}
-
-\begin{quote}
-Abbildung 1: Use-Case-Diagramm mit Akteuren (Gast, Host, Reinigungspersonal)
-\end{quote}
-
-\newpage
-\section{Logical View}
-Die logische Architektur besteht aus vier Schichten:
-\begin{enumerate}[noitemsep]
-  \item \textbf{Device Layer:} ESP32-Controller mit Sensor- und Aktorschnittstellen.
-  \item \textbf{Communication Layer:} MQTT über HiveMQ Cloud.
-  \item \textbf{Logic Layer:} Node-RED-Flows für Ereignisverarbeitung.
-  \item \textbf{Application Layer:} Dashboard und mobile App.
-\end{enumerate}
-
-\textbf{Kernkomponenten:}
-\begin{itemize}[noitemsep]
-  \item \texttt{SensorManager} – Erfassung und Kalibrierung
-  \item \texttt{MQTTClient} – Verbindungsaufbau, Publish/Subscribe
-  \item \texttt{RuleEngine} – Regelbasierte Logik (z. B. Sturm)
-  \item \texttt{DisplayManager} – Statusausgabe
-  \item \texttt{ServiceInterface} – Kommunikation mit App
-\end{itemize}
-
-\begin{quote}
-Abbildung 2: Klassendiagramm mit MQTT-Themen und Zustandsbeziehungen
-\end{quote}
-
-\section{Development View}
-Das System ist modular entwickelt.
-Jede Entwickler*in implementiert ein Haus-Modul mit identischer Kommunikationsschnittstelle.
-
-\textbf{Software-Management:}
-\begin{itemize}[noitemsep]
-  \item Versionskontrolle über GitHub
-  \item Arduino IDE 2.x für ESP32
-  \item Node-RED-Flows als JSON-Dateien
-\end{itemize}
-
-\begin{verbatim}
-/house1/firmware/
-/house2/firmware/
-/house3/firmware/
-/node-red/flows.json
-/docs/architecture/
-\end{verbatim}
-
-\textbf{Kommunikation:}
-MQTT-Topics wie \texttt{resort/house1/telemetry/temp} oder
-\texttt{resort/all/cmd/storm} steuern alle Interaktionen.
-QoS 1 für sicherheitsrelevante Daten, Retained Status für Systemzustände.
-
-\begin{quote}
-Abbildung 3: Komponentendiagramm (3 ESP32 + Node-RED + HiveMQ)
-\end{quote}
-
-\newpage
-\section{Process View}
-\subsection{Beispielprozess – Sturmwarnung}
-\begin{enumerate}[noitemsep]
-  \item Haus 1 erkennt erhöhte Feuchtigkeit und Temperaturabfall.
-  \item MQTT-Nachricht \texttt{resort/all/cmd/storm\_alert=true}.
-  \item Node-RED sendet Befehle:
-  \begin{itemize}
-    \item \texttt{resort/house2/cmd/shutters=DOWN}
-    \item \texttt{resort/house3/cmd/ventilation=OFF}
-  \end{itemize}
-  \item Häuser bestätigen Status über \texttt{resort/{house}/status}.
-\end{enumerate}
-
-\subsection{Kommunikationsparameter}
-\begin{itemize}[noitemsep]
-  \item Keep-Alive 60 s, Heartbeat 30 s  
-  \item QoS 1 für kritische Events  
-  \item Nachrichtengröße ≈ 150 Byte  
-  \item Datenrate ≈ 6–12 kB pro Sensor und Stunde
-\end{itemize}
-
-\subsection{Beispielprozess – Gästewechsel}
-\begin{enumerate}[noitemsep]
-  \item RFID-Check-out → Event \texttt{checkout}.
-  \item Node-RED startet Reinigungstimer für Haus 3.
-  \item Reinigung meldet Button-Event \texttt{cleaned}.
-  \item Node-RED reaktiviert Lüftung und bereitet Check-in vor.
-\end{enumerate}
-
-\begin{quote}
-Abbildung 4: Sequenzdiagramm für Sturm- und Check-out-Prozesse
-\end{quote}
-
-\newpage
-\section{Physical View}
-\textbf{Hardware-Mapping:}
-
-\begin{tabular}{p{4cm}p{10cm}}
-\textbf{Komponente} & \textbf{Beschreibung} \\
-ESP32 DevBoard & Controller mit WiFi und Bluetooth \\
-Sensoren & DHT11, Steam, Gas, PIR, RFID, Buttons \\
-Aktoren & Buzzer, Servo, LED, Lüfter \\
-Gateway & Smartphone-Hotspot pro Haus \\
-Broker & HiveMQ Cloud (Serverless) \\
-Controller & Node-RED auf privatem Server \\
-\end{tabular}
-
-\vspace{1em}
-Netzstruktur:
-\begin{itemize}[noitemsep]
-  \item Jedes Haus → eigenes IoT-Node mit Hotspot-Anbindung.
-  \item Kommunikation über MQTT zu HiveMQ Cloud.
-  \item Node-RED abonniert \texttt{resort/\#} für zentrale Steuerung.
-\end{itemize}
-
-\begin{quote}
-Abbildung 5: Deployment-Diagramm (ESP32 – HiveMQ – Node-RED – App)
-\end{quote}
-
-\section{Schlussfolgerungen}
-Das Projekt zeigt, dass ein verteiltes IoT-System mit mobilen Hotspots zuverlässig funktioniert, wenn ein Cloud-basiertes Kommunikationsframework eingesetzt wird.  
-HiveMQ + Node-RED bietet eine modulare, skalierbare Architektur.
-
-\textbf{Ergebnisse:}
-\begin{itemize}[noitemsep]
-  \item Sichere, stabile Kommunikation über MQTT Cloud-Broker
-  \item Automatisierte Prozesssteuerung per Node-RED
-  \item Cloud- und On-Premise-Betrieb möglich
-  \item Dezentrale Entwicklung ohne physische Vernetzung
-\end{itemize}
-
-\textbf{Kosten:}
-\begin{itemize}[noitemsep]
-  \item Hardware: ≈ 210 € (3 × KS5009-Kits)
-  \item Cloud-Infrastruktur: 0–10 €/Monat
-\end{itemize}
-
-\textbf{Key Take-Aways:}
-\begin{itemize}[noitemsep]
-  \item MQTT ist das stabilste Kommunikationsprotokoll für IoT.
-  \item Cloud-Broker beseitigen NAT-Probleme bei Hotspots.
-  \item Node-RED vereinfacht Regellogik und Visualisierung.
-  \item System ist erweiterbar und demofähig unter realen Bedingungen.
-\end{itemize}
+\input{content/01_einleitung}
+\input{content/02_usecaseview}
+\input{content/03_logicalview}
+\input{content/04_developmentview}
+\input{content/05_processview}
+\input{content/06_physicalview}
+\input{content/07_schlussfolgerung}
 
 \newpage
 \bibliographystyle{apalike}

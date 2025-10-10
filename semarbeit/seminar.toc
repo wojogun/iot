@@ -1,0 +1,14 @@
+\contentsline {section}{Contents}{1}{section*.1}%
+\contentsline {section}{\numberline {1}Einleitung}{2}{section.1}%
+\contentsline {section}{\numberline {2}Use Case View}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Einzel-Use Cases}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Gesamt-Use Case – Smart Beach Resort Management}{2}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Logical View}{2}{section.3}%
+\contentsline {section}{\numberline {4}Development View}{3}{section.4}%
+\contentsline {section}{\numberline {5}Process View}{5}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Beispielprozess – Sturmwarnung}{5}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Kommunikationsparameter}{5}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Beispielprozess – Gästewechsel}{5}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Physical View}{6}{section.6}%
+\contentsline {section}{\numberline {7}Schlussfolgerungen}{6}{section.7}%
+\contentsline {section}{References}{8}{section*.8}%

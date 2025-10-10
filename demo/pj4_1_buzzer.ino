@@ -5,7 +5,7 @@ BuzzerESP32 buzzer(25); // Initialize buzzer on GPIO25
 void setup() 
 {
   buzzer.setTimbre(30); // Set timbre (sound quality)
-  birthday();          // Play birthday melody
+  smokonthewater();    // Play Smoke on the Water melody
 }
 
 void loop() 
@@ -37,5 +37,56 @@ void birthday()
   buzzer.playTone(532, 250);  // C5 (slightly sharp)
   buzzer.playTone(587, 250);  // D5
   buzzer.playTone(532, 500);  // C5 (slightly sharp) - longer duration
+  buzzer.playTone(0, 0);      // Turn off buzzer
+}
+
+void smokonthewater() 
+{
+  // Play Smoke on the Water by Deep Purple - the famous riff
+  // The iconic opening riff: G-G-G, Bb-Bb-Bb, G-G-G, Bb-Bb-Bb
+  
+  // First phrase: G-G-G
+  buzzer.playTone(392, 400);  // G4
+  buzzer.playTone(392, 400);  // G4
+  buzzer.playTone(392, 400);  // G4
+  buzzer.playTone(0, 100);    // Short pause
+  
+  // Second phrase: Bb-Bb-Bb
+  buzzer.playTone(466, 400);  // Bb4
+  buzzer.playTone(466, 400);  // Bb4
+  buzzer.playTone(466, 400);  // Bb4
+  buzzer.playTone(0, 100);    // Short pause
+  
+  // Third phrase: G-G-G
+  buzzer.playTone(392, 400);  // G4
+  buzzer.playTone(392, 400);  // G4
+  buzzer.playTone(392, 400);  // G4
+  buzzer.playTone(0, 100);    // Short pause
+  
+  // Fourth phrase: Bb-Bb-Bb
+  buzzer.playTone(466, 400);  // Bb4
+  buzzer.playTone(466, 400);  // Bb4
+  buzzer.playTone(466, 400);  // Bb4
+  buzzer.playTone(0, 200);    // Longer pause
+  
+  // Second part of the riff: F-F-F, Bb-Bb-Bb, F-F-F, Bb-Bb-Bb
+  buzzer.playTone(349, 400);  // F4
+  buzzer.playTone(349, 400);  // F4
+  buzzer.playTone(349, 400);  // F4
+  buzzer.playTone(0, 100);    // Short pause
+  
+  buzzer.playTone(466, 400);  // Bb4
+  buzzer.playTone(466, 400);  // Bb4
+  buzzer.playTone(466, 400);  // Bb4
+  buzzer.playTone(0, 100);    // Short pause
+  
+  buzzer.playTone(349, 400);  // F4
+  buzzer.playTone(349, 400);  // F4
+  buzzer.playTone(349, 400);  // F4
+  buzzer.playTone(0, 100);    // Short pause
+  
+  buzzer.playTone(466, 400);  // Bb4
+  buzzer.playTone(466, 400);  // Bb4
+  buzzer.playTone(466, 400);  // Bb4
   buzzer.playTone(0, 0);      // Turn off buzzer
 }
