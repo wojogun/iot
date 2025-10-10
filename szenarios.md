@@ -112,8 +112,7 @@ Diese Architektur erfüllt alle technischen und organisatorischen Anforderungen.
 | Benutzer-Ebene | **Web-Dashboard / Mobile App** | Zugriff für Host und Gäste |
 
 ### 2. Begründung der Framework-Wahl
-**systemisch betrachtet**
-Die Kombination HiveMQ + Node-RED adressiert alle Schichten einer IoT-Architektur:
+**systemisch** adressiert die Kombination von HiveMQ und Node-RED alle Schichten einer IoT-Architektur:
 
 | Schicht | Framework | Hauptfunktion |
 |----------|------------|----------------|
@@ -122,7 +121,6 @@ Die Kombination HiveMQ + Node-RED adressiert alle Schichten einer IoT-Architektu
 | Logik / Steuerung | Node-RED | Prozesslogik, Datenrouting, Reaktionen |
 | Visualisierung | Node-RED Dashboard | Monitoring, Steuerung, Status |
 | Integration | HiveMQ / Node-RED APIs | Anbindung an Cloud, Datenbanken oder Mobile Apps |
-
 
 **Kommunikation**
 HiveMQ erfüllt zentrale Anforderungen eines modernen IoT-Frameworks auf der **Kommunikationsebene**:
@@ -170,9 +168,6 @@ Node-RED erweitert HiveMQ auf der **Prozess- und Integrations-Ebene**:
 
 → **Schlussfolgerung:** HiveMQ + Node-RED bietet das beste Verhältnis aus Einfachheit, Stabilität und Cloud-Tauglichkeit für ein verteiltes IoT-Szenario mit Hotspot-Verbindungen.
 
-
-
-
 ### 4. Cloud- und On-Premise-Fähigkeit
 | Einsatzform | Beschreibung |
 |--------------|--------------|
@@ -180,7 +175,6 @@ Node-RED erweitert HiveMQ auf der **Prozess- und Integrations-Ebene**:
 | **On-Premise** | HiveMQ Enterprise + Node-RED lokal (zB. Raspberry Pi oder PC) möglich, aber nur bei stabiler LAN/WLAN-Infrastruktur praktikabel |
 
 ### 5. Kostenübersicht
-
 | Komponente | Kosten |
 |-------------|--------|
 | HiveMQ Cloud (Serverless) | kostenlos (Free Tier) |
@@ -195,14 +189,14 @@ Node-RED erweitert es zu einem vollständigen **End-to-End-IoT-System**, das Clo
 Diese Kombination ist robust, leicht wartbar und erfüllt die Anforderungen an den Gruppen- und Gesamt-Use-Case.
 
 ## sonstige Fragen
-### kann man hiveMQ überhaupt als IoT-Framework verstehen? warum?
+### Kann man HiveMQ überhaupt als IoT-Framework verstehen? Warum?
 Ja. HiveMQ erfüllt die Kriterien eines IoT-Frameworks.
 
-Begründung:
-1. **Definition**
+**Begründung:**
+1. per **Definition**
    Ein IoT-Framework ist eine Infrastruktur, die das **Sammeln, Übertragen, Verarbeiten und Visualisieren** von Sensordaten zwischen verteilten Geräten, Gateways und Cloud-Diensten ermöglicht.
 
-2. **HiveMQ-Funktionalität**
+2. per **Funktionalität**
    HiveMQ bietet genau diese Infrastruktur:
 - **Nachrichtenvermittlung (MQTT Broker):** verbindet viele Geräte gleichzeitig, bidirektional.
 - **Sicherheits-Layer:** TLS, Auth/ACLs, Session-Management.
@@ -212,15 +206,12 @@ Begründung:
   → Damit bildet HiveMQ die *Middleware-Schicht* zwischen Hardware (ESP32-Sensorik) und Applikation (Node-RED, Dashboard, App).
 
 3. **Warum als Framework anerkennbar**
-   Ein Framework muss nicht zwingend „vollständige Applikationslogik“ enthalten. In der IoT-Systemarchitektur ist das Messaging-Framework (MQTT-Broker) das Kernstück der Kommunikation und Integrationslogik. HiveMQ stellt also das **IoT-Kommunikationsframework** bereit, auf dem ihr eure Anwendung aufbaut.
+   Ein Framework muss nicht zwingend „vollständige Applikationslogik“ enthalten. In der IoT-Systemarchitektur ist das Messaging-Framework (MQTT-Broker) das Kernstück der Kommunikation und Integrationslogik. HiveMQ stellt also das **IoT-Kommunikationsframework** bereit, auf dem unsere Anwendung aufbaut.
 
 4. **Cloud-Fähigkeit**
-   HiveMQ Cloud ist vollständig Cloud-basiert (Serverless oder Managed Cluster). Geräte verbinden sich per TLS aus beliebigen Netzen (Hotspot, LAN, Campus). → Hochverfügbarkeit ohne eigenen Server.
+   HiveMQ Cloud ist vollständig Cloud-basiert (Serverless oder Managed Cluster). Geräte verbinden sich per TLS aus beliebigen Netzen (Handy-Hotspot, LAN, Campus). → Hochverfügbarkeit ohne eigenen Server.
 
-5. **On-Premise-Fähigkeit**
-   HiveMQ Enterprise kann lokal betrieben werden (Docker, Linux, Windows). → Antwort auf On-Premise-Frage: *Ja, möglich – aber komplexer und wartungsintensiver als Cloud-Betrieb.*
-
-6. **Zusammengefasst**
+**Zusammengefasst**
    HiveMQ = IoT-Framework auf der Kommunikations- und Integrations-Ebene:
 - Gerätekommunikation (MQTT)
 - Security & Session Management
