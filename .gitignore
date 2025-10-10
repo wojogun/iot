@@ -1,0 +1,39 @@
+# --- Standard LaTeX temporäre Dateien ---
+*.aux
+*.bbl
+*.blg
+*.bcf
+*.log
+*.out
+*.run.xml
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+# --- Backup-Dateien ---
+*~
+*.bak
+*.tmp
+*.old
+
+# --- Editor-spezifisch ---
+# VS Code
+.vscode/
+# macOS Finder
+.DS_Store
+# Windows Explorer
+Thumbs.db
+# TeXstudio / TeXworks / Overleaf Cache
+*.synctex
+*.synctex.gz(busy)
+*.acn
+*.acr
+*.alg
+
