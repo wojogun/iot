@@ -4,7 +4,7 @@ Unser Projekt umfasst drei intelligente Ferienhäuser, die in unmittelbarer Näh
 
 ## Individuelle Use Cases
 
-**Haus 1: Wetter & Sturm-Überwachung**
+### Haus 1: Wetter & Sturm-Überwachung
 Das erste Haus fungiert als intelligente Wetterstation für das gesamte Resort. Es überwacht kontinuierlich Temperatur und Luftfeuchtigkeit, um frühzeitig auf Sturmgefahren und extreme Wetterbedingungen zu reagieren. Der integrierte Dampfsensor erkennt die hohe Feuchtigkeit der Meeresluft und warnt vor potenzieller Korrosion. Bei ungewöhnlichen Bewegungen durch den PIR-Sensor wird automatisch eine Sicherheitswarnung ausgelöst. Der Gas-Sensor überwacht die Konzentration von Verbrennungsgasen (CO, H₂) im Haus und der Buzzer alarmiert bei Sturmwarnungen oder Gas-Alarmen alle Bewohner des Resorts.
 
 **Verwendete Sensoren und Module:**
@@ -15,7 +15,7 @@ Das erste Haus fungiert als intelligente Wetterstation für das gesamte Resort. 
 - Passive Buzzer (Alarmierung bei Sturmwarnungen und Gas-Alarmen)
 - LCD Display (Anzeige der aktuellen Wetterdaten)
 
-**Haus 2: Gäste-Komfort & Sicherheit**
+### Haus 2: Gäste-Komfort & Sicherheit
 Das zweite Haus ist auf maximalen Gäste-Komfort und Sicherheit ausgerichtet. Gäste erhalten RFID-Karten für kontaktlosen Zugang, wodurch der traditionelle Schlüsseltausch entfällt. Über Button-Module können Gäste direkt Service-Anfragen tätigen, während das LCD-Display wichtige Informationen zu Check-in und Check-out anzeigt. Die RGB-LED-Beleuchtung schafft eine entspannte Atmosphäre, und der Servo-Motor steuert automatisch die Fenster zum Schutz vor Sand und Sturm.
 
 **Verwendete Sensoren und Module:**
@@ -26,7 +26,7 @@ Das zweite Haus ist auf maximalen Gäste-Komfort und Sicherheit ausgerichtet. G�
 - Servo Motor (Automatisches Fenster-Schließen für Sandschutz)
 - Yellow LED Module (Zusätzliche Beleuchtung)
 
-**Haus 3: Energie & Wartung**
+### Haus 3: Energie & Wartung
 Das dritte Haus konzentriert sich auf Energieeffizienz und Wartungsoptimierung. Der Motor mit Ventilator sorgt für kontinuierliche Lüftung und Luftzirkulation im Haus. Das LCD-Display zeigt den aktuellen Status der Haussysteme an, während der Buzzer bei Wartungsbedarf alarmiert. Button-Module ermöglichen es dem Reinigungspersonal, die abgeschlossene Hausreinigung zu melden, und der Gas-Sensor überwacht die Konzentration von Verbrennungsgasen für die Sicherheit der Gäste.
 
 **Verwendete Sensoren und Module:**
@@ -36,9 +36,23 @@ Das dritte Haus konzentriert sich auf Energieeffizienz und Wartungsoptimierung. 
 - LCD Display (System-Status-Anzeige)
 - Gas Sensor (Überwachung von Verbrennungsgasen für Gästesicherheit)
 
+### Haus 4: Umwelt- und Nachhaltigkeitsmanagement
+Vorschlag:
+Haus 4 erweitert das Resort um ein automatisiertes Umweltmonitoring, das den Ressourcenverbrauch misst, optimiert und Nachhaltigkeitswarnungen an das zentrale System (Node-RED-Dashboard) sendet.
+Es unterstützt den Host dabei, Wasser- und Energieverbrauch zu minimieren und Umweltbelastungen durch ineffizienten Betrieb zu erkennen.
+
+**Verwendete Sensoren und Module:**
+- Lichtsensor (Photoresistor / Light Sensor): Erfassung der Umgebungshelligkeit
+- Soil Moisture Sensor (oder DHT11 als Ersatz): Simulation von Boden- oder Luftfeuchtigkeit
+- Temp & Hum Sensor: Raumklima-Überwachung
+- Button Module: Manueller Eco-Mode-Trigger (zB. Energiesparmodus aktivieren)
+- Relay oder LED-Modul: Symbolische Steuerung von Pumpe oder Licht
+- Buzzer	Alarm: bei Ressourcenverschwendung (zB. Wasser läuft zu lange)
+- LCD-Display: Anzeige des aktuellen Energie- oder Feuchtigkeitsstatus
+
 ## Gemeinsamer Use Case: Smart Beach Resort Management
 
-Alle drei Häuser bilden zusammen ein intelligentes Ferienhaus-Ökosystem, das sowohl über lokale Bluetooth-Kommunikation als auch über individuelle Handy-Hotspots mit dem Internet verbunden ist. Die Häuser stehen in einem Klassenzimmer, wodurch die Bluetooth-Kommunikation zwischen ihnen optimal funktioniert. Ein zentrales Dashboard ermöglicht es dem Airbnb-Host, alle drei Häuser gleichzeitig zu überwachen und zu verwalten. Bei Sturmwarnungen werden automatisch alle Fenster in allen Häusern geschlossen und die Lüftung wird deaktiviert, um Sand und Sturm fernzuhalten. Das System organisiert die Reinigung bei Gäste-Wechsel und überwacht kontinuierlich die Umgebungsbedingungen in allen Gebäuden. Gäste können über eine mobile App einchecken, Service anfordern und wichtige Resort-Informationen abrufen, während das System automatisch die Lüftung während eines Sturmes deaktiviert.
+Alle vier Häuser bilden zusammen ein intelligentes Ferienhaus-Ökosystem, das sowohl über lokale Bluetooth-Kommunikation als auch über individuelle Handy-Hotspots mit dem Internet verbunden ist. Die Häuser stehen in einem Klassenzimmer, wodurch die Bluetooth-Kommunikation zwischen ihnen optimal funktioniert. Ein zentrales Dashboard ermöglicht es dem Airbnb-Host, alle drei Häuser gleichzeitig zu überwachen und zu verwalten. Bei Sturmwarnungen werden automatisch alle Fenster in allen Häusern geschlossen und die Lüftung wird deaktiviert, um Sand und Sturm fernzuhalten. Das System organisiert die Reinigung bei Gäste-Wechsel und überwacht kontinuierlich die Umgebungsbedingungen in allen Gebäuden. Gäste können über eine mobile App einchecken, Service anfordern und wichtige Resort-Informationen abrufen, während das System automatisch die Lüftung während eines Sturmes deaktiviert.
 Bei längerem Leerstand aktiviert sich regelmäßige Lüftung.
 
 **Verwendete Technologien und Module:**
@@ -100,7 +114,7 @@ Business-Logic:
 
 ## IoT-Framework: HiveMQ + Node-RED
 ### Überblick
-Für das Projekt *Smart Beach Resort* wird eine **Kombination aus HiveMQ Cloud** (MQTT-Framework) und **Node-RED** (Orchestrierungs- und Visualisierungsplattform) gewählt.  
+Für das Projekt *Smart Beach Resort* wird eine **Kombination aus HiveMQ Cloud** (MQTT-Framework) und **Node-RED** (Orchestrierungs- und Visualisierungsplattform) gewählt.
 Diese Architektur erfüllt alle technischen und organisatorischen Anforderungen.
 
 ### 1. Framework-Komponenten
@@ -184,8 +198,8 @@ Node-RED erweitert HiveMQ auf der **Prozess- und Integrations-Ebene**:
 | **Gesamt** | **ß € einmalig + 0 €/Monat** |
 
 ### 6. Fazit
-HiveMQ fungiert als **IoT-Kommunikationsframework** mit klarer Geräte-, Sicherheits- und Integrationslogik.  
-Node-RED erweitert es zu einem vollständigen **End-to-End-IoT-System**, das Cloud-fähig, verteilbar und präsentationssicher ist.  
+HiveMQ fungiert als **IoT-Kommunikationsframework** mit klarer Geräte-, Sicherheits- und Integrationslogik.
+Node-RED erweitert es zu einem vollständigen **End-to-End-IoT-System**, das Cloud-fähig, verteilbar und präsentationssicher ist.
 Diese Kombination ist robust, leicht wartbar und erfüllt die Anforderungen an den Gruppen- und Gesamt-Use-Case.
 
 ## sonstige Fragen
