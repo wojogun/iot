@@ -1,15 +1,42 @@
 \section{Einleitung}
-Das Projekt \textit{Smart Beach Resort} zeigt, wie IoT-Technologien ein vernetztes Ferienhaus-Ökosystem bilden können.
-Drei intelligente Ferienhäuser (hier in Form von keyestudio-Häusern dargestellt) an der niederländischen Nordseeküste werden über Sensorik und Cloud-Kommunikation gesteuert.
-Besondere Herausforderungen der Umgebung sind hohe Luftfeuchtigkeit, Salz, Sand und Sturm.
+Das Projekt \textit{Smart Beach Resort} untersucht, wie moderne IoT-Technologien in einem praxisnahen Umfeld einsetzbar sind, um den Betrieb von Ferienhäusern effizienter, sicherer und nachhaltiger zu gestalten. 
+An der niederländischen Nordseeküste stehen drei intelligente Modellhäuser, die gemeinsam ein digitales Resort bilden. 
+Die Häuser sind durch ein hybrides Kommunikationssystem miteinander verbunden, das lokale Bluetooth-Verbindungen mit einer Cloud-basierten MQTT-Infrastruktur kombiniert. 
+Jedes Haus erfüllt eine spezifische Funktion und trägt zum Gesamtsystem bei: Überwachung von Wetter und Sturm, Gäste-Komfort und Sicherheit sowie Energie- und Wartungsmanagement. 
+Die Verbindung dieser Einzelfunktionen schafft ein autonom agierendes System, das auf Umweltbedingungen und Nutzeraktionen selbstständig reagiert.
 
-Ziel ist es, drei Einzel-Use-Cases zu entwickeln und zu einem Gesamt-Use-Case zu integrieren.
-Die Lösung adressiert Betreiber, Facility-Manager und Ferienhausvermieter, die ein skalierbares, wartungsarmes System benötigen.
+Die physische Umgebung stellt besondere technische Herausforderungen dar. 
+Salzhaltige Luft, hohe Luftfeuchtigkeit, Sandablagerungen und häufige Stürme führen zu Korrosionsgefahr, Sensorbelastung und instabilen Funkbedingungen. 
+Ziel des Projekts ist daher nicht nur die Entwicklung funktionaler Einzellösungen, sondern auch der Nachweis, dass ein IoT-System unter realistischen Umweltbedingungen zuverlässig arbeiten kann. 
+Darüber hinaus soll gezeigt werden, wie drei getrennt entwickelte Einheiten zu einem konsistenten Gesamtsystem verknüpft werden können, das sowohl lokal als auch cloudbasiert funktioniert.
 
-Mehrwert:
-\begin{itemize}[noitemsep]
-	\item Automatisierte Sturm- und Sicherheitswarnungen
-	\item Energieeffizientes Gebäudemanagement
-	\item Digitale Check-in/Check-out-Abläufe
-	\item Geringe Betriebskosten durch Fernsteuerung
-\end{itemize}
+Der Ansatz basiert auf der Nutzung standardisierter IoT-Komponenten. 
+Die Häuser sind mit einem \textbf{ESP32}-Controller ausgestattet, der Sensordaten über Temperatur, Luftfeuchtigkeit, Bewegung, Gasgehalt oder RFID-basierte Zugänge erfasst. 
+Die Daten werden über das \textbf{MQTT-Protokoll} an den Cloud-Broker \textbf{HiveMQ} übertragen und dort verarbeitet. 
+Ein zentraler \textbf{Node-RED}-Server übernimmt die Steuerungslogik, aggregiert Ereignisse und reagiert auf erkannte Zustände, beispielsweise durch das Schließen von Fenstern bei Sturm oder das Abschalten der Lüftung bei hoher Feuchtigkeit. 
+Damit entsteht eine klare funktionale Trennung zwischen Geräte-, Kommunikations- und Steuerungsebene.
+
+Die Entwicklung erfolgt dezentral. 
+Jede Teilgruppe arbeitet an einem eigenen Hausmodul, das unabhängig funktionsfähig ist, sich jedoch über ein gemeinsames Topic-System in die Resort-Architektur integrieren lässt. 
+Da die Entwickler an unterschiedlichen Standorten arbeiten, wird die Verbindung über mobile Hotspots realisiert. 
+Dies zeigt, dass auch verteilte Entwicklungsteams IoT-Systeme aufbauen können, ohne auf lokale Netzwerke oder physische Kopplung angewiesen zu sein. 
+Die Cloud-Anbindung erlaubt die Zusammenarbeit in Echtzeit und vereinfacht die Integration der einzelnen Module zu einem gemeinsamen Use Case.
+
+Das Projekt richtet sich an Betreiber von Ferienanlagen, kleine Hotels und Gebäudeverwalter, die ihre Objekte aus der Ferne überwachen und steuern möchten. 
+Die Kombination aus kostengünstiger Mikrocontroller-Hardware, Cloud-Integration und visueller Steuerungslogik (Node-RED) zeigt, dass sich ein voll funktionsfähiges Smart-Home-System auch ohne teure Speziallösungen realisieren lässt. 
+Der Lösungsansatz kann auf andere Einsatzgebiete wie Studentenwohnheime, Serviced Apartments oder modulare Ferienparks übertragen werden. 
+Wirtschaftlich betrachtet bietet das System eine Reduktion von Personalaufwand und Energieverbrauch sowie eine Erhöhung der Betriebssicherheit und Gästezufriedenheit.
+
+\begin{quote}
+	\textbf{Mehrwert:}
+	\begin{itemize}[noitemsep]
+		\item Automatisierte Sturm- und Sicherheitswarnungen für das gesamte Resort
+		\item Energieeffizientes Gebäudemanagement durch bedarfsorientierte Steuerung
+		\item Digitale Check-in/Check-out-Prozesse über RFID-Zugangssysteme
+		\item Vereinfachte Wartungskoordination und Zustandsüberwachung in Echtzeit
+		\item Skalierbarkeit auf größere Ferienanlagen durch Cloud-Integration
+	\end{itemize}
+\end{quote}
+
+Insgesamt zeigt das \textit{Smart Beach Resort}-Projekt, dass ein durchdachtes Zusammenspiel von Sensorik, Cloud-Infrastruktur und Automatisierungslogik eine robuste IoT-Architektur ermöglicht, die sowohl für die Forschung als auch für den praktischen Einsatz in der Gebäudeverwaltung relevant ist. 
+Es dient als Blaupause für verteilte Smart-Home-Systeme und demonstriert, dass Cloud-fähige IoT-Frameworks wie HiveMQ und Node-RED die Grundlage für zukunftsfähige, modulare und wartbare Smart-Environment-Lösungen bilden.
