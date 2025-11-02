@@ -1,56 +1,71 @@
-# Elevator Pitch: Smart Beach Resort – IoT für intelligente Ferienhäuser
+**Elevator Pitch – Smart Beach Resort**
+*(Dauer: ca. 5 Minuten, Sprechgeschwindigkeit 120 Wörter/Minute ≈ 600 Wörter)*
+In Form von: Mitarbeiter redet Chef im Aufzug an...
+Überschriften dienen nur der Strukturierung - nicht vortragen!
+---
 
-## [0:00 – 0:45] Problem und Motivation
-Ferienhäuser an der Küste sind schön – aber technisch anspruchsvoll.
-Salznebel, Feuchtigkeit, Sand und Wind belasten Gebäude und Geräte.
-Betreiber müssen außerdem Reinigung, Energie, Gäste-Zugang und Sicherheit koordinieren – oft aus der Ferne.
-Unser Ziel: ein System, das diese Herausforderungen automatisiert bewältigt.
-Wir wollen zeigen, dass sich mit erschwinglicher IoT-Technik ein komplettes digitales Resort steuern lässt – einfach, sicher und nachhaltig.
+### **Einleitung – Interesse wecken (0:00 – 1:00)**
 
-## [0:45 – 1:45] Unsere Lösung
-Unser Projekt heißt Smart Beach Resort.
-Es besteht aus vier intelligenten Modellhäusern, die über Sensoren, Aktoren und Cloud-Kommunikation miteinander verbunden sind.
-Jedes Haus hat eine eigene Aufgabe:
+Stellen Sie sich ein Ferienresort vor, das sich selbst organisiert – vom Check-in über die Raumluft bis hin zur Sturmwarnung.
+Genau das demonstriert unser Projekt **Smart Beach Resort**: ein vollständig vernetztes IoT-System, das vier Ferienhäuser zu einem intelligenten Gesamtsystem verbindet.
+Ziel ist es, ein **funktionsfähiges, modulares und cloudbasiertes IoT-Ökosystem** aufzubauen, das zentrale Aufgaben wie Gäste-Management, Umweltüberwachung, Sicherheit und Entertainment digital abbildet.
+Das Projekt zeigt nicht Theorie, sondern Umsetzung – von der Sensordatenerfassung über MQTT-Kommunikation bis hin zur Visualisierung im zentralen Dashboard mit **Node-RED**.
 
-**Haus 1** Wetter- und Sturmüberwachung. Es misst Temperatur, Feuchtigkeit und Gaswerte und löst Sturmwarnungen aus.
+---
 
-**Haus 2** Gäste-Komfort und Sicherheit. RFID-Zugang, Service-Buttons, automatische Rollos und Lichtsteuerung.
+### **Systemübersicht (1:00 – 2:00)**
 
-**Haus 3** Energie und Wartung. Überwacht Lüftung, meldet Reinigungsstatus und Wartungsbedarf.
+Alle vier Häuser basieren auf dem **ESP32-Controller** aus dem Keyestudio-Kit KS5009.
+Sie sind über das Internet mit der **HiveMQ Cloud** verbunden, die den Datenaustausch über das IoT-Protokoll **MQTT** ermöglicht.
+**Node-RED**, betrieben in einem Docker-Container, übernimmt die Steuerung und Visualisierung.
+Es sammelt Sensordaten, wertet sie aus, reagiert auf Ereignisse und stellt sie im Dashboard bereit – für Host, Servicepersonal und Gäste.
+Die Architektur deckt damit alle Ebenen eines realen IoT-Systems ab:
+**Geräte → Kommunikation → Logik → Visualisierung → Benutzer.**
+Das Resort fungiert somit als Modell für eine skalierbare, cloudbasierte Infrastruktur, wie sie in modernen Ferienanlagen oder Smart-Building-Umgebungen eingesetzt werden kann.
 
-**Haus 4** Umwelt und Nachhaltigkeit. Erfasst Licht, Boden- und Luftfeuchte, aktiviert Eco-Modus und reduziert Ressourcenverbrauch.
+---
 
-Alle vier Häuser sind über das MQTT-Protokoll verbunden und kommunizieren über die Cloud.
-Ein Node-RED-Dashboard dient als Zentrale: Hier sieht der Betreiber live Temperatur, Feuchtigkeit, Energie- und Umweltwerte – und kann eingreifen, wenn nötig.
+### **Einzelne Häuser (2:00 – 4:00)**
 
-## [1:45 – 3:00] Technologie und Architektur
-Jedes Haus verwendet einen ESP32-Mikrocontroller – das Herzstück unserer IoT-Architektur.
-Die Datenübertragung läuft über HiveMQ Cloud – ein sicheres, Cloud-fähiges MQTT-Framework.
-Damit funktioniert die Kommunikation auch hinter mobilen Hotspots, ohne komplexe Netzwerkkonfiguration.
-Node-RED auf unserem Server übernimmt die Logik:
-Wenn Haus 1 einen Sturm erkennt, schickt Node-RED Befehle an alle anderen Häuser:
-Haus 2 schließt Rollos, Haus 3 stoppt Lüftung, Haus 4 deaktiviert Bewässerung.
-Nach dem Ereignis gehen alle Systeme automatisch in den Normalmodus zurück.
-So entsteht ein echtes, verteiltes IoT-Ökosystem – nicht nur ein Smart Home, sondern ein Smart Resort.
+**Haus 1 – Wetter & Perimeterschutz**
+Haus 1 dient als zentrales Warnsystem. Es misst Temperatur, Luftfeuchtigkeit und Bewegung.
+Bei hoher Feuchte oder einer simulierten Sturmwarnung aktiviert es den *Sturmmodus* – alle Häuser schließen Fenster, stoppen Lüftung und schalten Warnsignale.
+Das LCD-Display zeigt aktuelle Wetterdaten, der Buzzer gibt akustische Hinweise.
 
-## [3:00 – 4:00] Mehrwert und Vorteile
-Der größte Vorteil: Automatisierung.
-Der Betreiber sieht alle wichtigen Informationen zentral und muss nicht ständig vor Ort sein.
-Das spart Energie, Personal und Reaktionszeit.
-Außerdem denken wir Nachhaltigkeit mit:
-Haus 4 reduziert Wasser- und Energieverbrauch, Haus 3 optimiert Lüftungszeiten, und Haus 1 schützt Gebäude vor Feuchtigkeitsschäden.
-Die Kommunikation über HiveMQ Cloud ist skalierbar – das System könnte morgen nicht nur vier, sondern vierzig Häuser verwalten.
-Und weil alles auf offenen Standards basiert (ESP32, MQTT, Node-RED), bleibt die Lösung erweiterbar und vendor-unabhängig.
+**Haus 2 – Gäste-Komfort & Sicherheit**
+Hier liegt der Fokus auf dem Aufenthalt. Ein **RFID-Sensor** ersetzt den Schlüssel, Buttons ermöglichen Check-out oder Serviceanfragen.
+Ein **Servo** simuliert Rollos oder Türen, während eine **RGB-LED** den Belegungsstatus signalisiert.
+Das System bildet so einen automatisierten, kontaktlosen Gästeprozess ab – technisch plausibel und übertragbar auf reale Vermietungssysteme.
 
-## [4:00 – 4:45] Demonstration und Umsetzung
-Für die Präsentation verwenden wir vier Keyestudio-Modellhäuser KS5009.
-Jedes ist über ein Handy-Hotspot mit der Cloud verbunden.
-Wir zeigen live, wie eine Sturmwarnung in Haus 1 alle anderen Häuser synchron steuert.
-Alle Sensordaten erscheinen sofort im Dashboard.
-Das ist ein realistisches Mini-Abbild eines vernetzten Ferienresorts – technisch robust, einfach verständlich und optisch überzeugend.
+**Haus 3 – Partyhaus**
+Dieses Haus steht für Entertainment und Szenensteuerung.
+Über das Dashboard kann eine *Party* aktiviert werden – **RGB-LEDs** und **Buzzer** erzeugen Licht- und Ton-Effekte.
+Wird der *Sturmmodus* ausgelöst, beendet das System automatisch alle Aktivitäten – eine klare Demonstration zentraler Steuerlogik über mehrere IoT-Knoten hinweg.
 
-## [4:45 – 5:00] Fazit und Ausblick
-Smart Beach Resort beweist, dass sich komplexe Gebäudesteuerung auch mit einfachen Mitteln realisieren lässt.
-Die Architektur ist Cloud-fähig, modular und skalierbar – und kann künftig um Smart-City- oder Energie-Sharing-Funktionen erweitert werden.
-Unser Ziel war, aus vier einzelnen Häusern ein intelligentes, kooperierendes System zu machen.
-Ergebnis: Ein kleines Modell mit großem Potenzial – ein smarter Strand, der wirklich mitdenkt.
+**Haus 4 – Luftqualität & Automatische Lüftung**
+Haus 4 sorgt für Sicherheit und Komfort. Ein **Gas-Sensor** überwacht CO- oder H₂-Konzentrationen.
+Bei Überschreitung startet automatisch der **Ventilator**, das Dashboard zeigt eine Warnung, und ein Signalton informiert den Betreiber.
+Sinken die Werte wieder, schaltet das System selbstständig zurück in den Normalbetrieb.
+Ein **Button** dient zur manuellen Rücksetzung.
+
+---
+
+### **Gesamtsystem und Kommunikation (4:00 – 4:30)**
+
+Alle vier Häuser sind über MQTT-Topics in der **HiveMQ Cloud** vernetzt.
+**Node-RED** fungiert als zentrale Steuer- und Analyseinstanz.
+Es synchronisiert gemeinsame Ereignisse wie den *Sturmmodus*, visualisiert Sensorwerte, dokumentiert Systemzustände und ermöglicht gezielte Eingriffe.
+So entsteht ein vollständig integriertes IoT-Ökosystem – modular, erweiterbar und betriebssicher.
+
+---
+
+### **Schluss – Warum es finanzierbar ist (4:30 – 5:00)**
+
+Das *Smart Beach Resort* zeigt, wie sich komplexe IoT-Konzepte mit günstiger, verfügbarer Hardware praktisch realisieren lassen.
+Das System ist offen, skalierbar und direkt auf andere Anwendungen übertragbar – etwa Energieoptimierung, Smart-Office-Umgebungen oder Hotel-Automation.
+Mit geringem Investitionsaufwand entsteht eine **reale Demonstrationsplattform**, die Technik-, Informatik- und Wirtschaftsaspekte vereint.
+Eine Finanzierung dieses Projekts bedeutet, in eine **funktionsfähige IoT-Lehr- und Testumgebung** zu investieren – eine Basis, um Studierende, Entwickler oder Entscheidungsträger praxisnah an moderne IoT-Systemarchitekturen heranzuführen.
+
+---
+
+
