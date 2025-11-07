@@ -4,7 +4,7 @@ Unser Projekt umfasst vier intelligente Ferienhäuser, die in unmittelbarer Näh
 
 ## Individuelle Use Cases
 
-### Haus 1: Wetter & Sturm-Überwachung
+### Haus 1: Wetter & Sturm-Überwachung (Lisa)
 Zweck: Umweltlage erfassen und Resort-Alarme auslösen.
 Module: Temp/Feuchte, Steam-Sensor, PIR, Buzzer, LCD.
 - Hohe Feuchte + Windwarnung (über Dashboard simuliert) → „Sturmmodus“ an alle.
@@ -12,7 +12,7 @@ Module: Temp/Feuchte, Steam-Sensor, PIR, Buzzer, LCD.
 LCD Display: Anzeige der aktuellen Wetterdaten
 Gemeinsam: Sturmmodus → Servo schließt, gelbe LED auf Warnzustand, Buzzer
 
-### Haus 2 - Gäste-Komfort & Sicherheit
+### Haus 2 - Gäste-Komfort & Sicherheit (Christoph)
 Zweck: Zutritt, Statusanzeige, Bedienung.
 Module: RFID, Buttons, LCD, RGB-LED, Servo.
 - RFID ok → „belegt“, Servo öffnet Fenster/Rollo, Tür dreht
@@ -20,7 +20,7 @@ Module: RFID, Buttons, LCD, RGB-LED, Servo.
 LCD Display: Anzeige des Belegungstatus
 Gemeinsam: Sturmmodus → Servo schließt, gelbe LED auf Warnzustand, Buzzer
 
-### Haus 3 - Partyhaus
+### Haus 3 - Partyhaus (Wolfi)
 Zweck: Musik, Lichtspiele für junge und junggebliebene Menschen. Party über Dashboard buchbar.
 - RGB-Modul für Lichtspiele
 - Buzzer für Melodien
@@ -28,7 +28,7 @@ LCD Display: Anzeige der nächsten Party
 Gemeinsam: Sturmmodus → Servo schließt, gelbe LED auf Warnzustand, Buzzer.
 Igor: startet die Party, machen alle anderen Häuser die Fenster zu
 
-### Haus 4 -Luftqualität & Automatische Lüftung
+### Haus 4 -Luftqualität & Automatische Lüftung (Alex)
 Zweck: Es soll automatisch für frische Luft und sichere Raumluftqualität gesorgt werden. Der Gas-Sensor erkennt erhöhte Konzentrationen (CO, H₂ o.ä.), das System reagiert mit automatischer Lüftung und meldet den Vorfall ans Dashboard. - Gas anormal → Sofortalarm + Lüften anfordern.
 - Gas Sensor
 - RGB-Modul für Warnanzeige
