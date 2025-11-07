@@ -36,6 +36,7 @@ Zweck: Es soll automatisch für frische Luft und sichere Raumluftqualität gesor
 LCD Display: Luftwerte werden angezeigt, ggf. Warnung und Lüfterstatus.
 Gemeinsam: Sturmmodus → Servo schließt, gelbe LED auf Warnzustand, Buzzer.
 Igor: bei Gaswarnung sollen alle Häuser rot blinken!
+Hinweis von Denninger: Gassensor kann auf analog umgekabelt werden. Dann sind Abstufungen möglich.
 
 ## Gemeinsamer Use Case: Smart Beach Resort Management
 Alle vier Häuser bilden zusammen ein intelligentes Ferienhaus-Ökosystem, das sowohl über lokale Bluetooth-Kommunikation als auch über individuelle Handy-Hotspots mit dem Internet verbunden ist. Ein zentrales Dashboard ermöglicht es dem Airbnb-Host, alle vier Häuser gleichzeitig zu überwachen und zu verwalten. Bei Sturmwarnungen werden automatisch alle Fenster in allen Häusern geschlossen und die Lüftung wird deaktiviert, um Sand und Sturm fernzuhalten.
