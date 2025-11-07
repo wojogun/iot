@@ -8,7 +8,7 @@ Unser Projekt umfasst vier intelligente Ferienhäuser, die in unmittelbarer Näh
 Zweck: Umweltlage erfassen und Resort-Alarme auslösen.
 Module: Temp/Feuchte, Steam-Sensor, PIR, Buzzer, LCD.
 - Hohe Feuchte + Windwarnung (über Dashboard simuliert) → „Sturmmodus“ an alle.
-- PIR bei Leerstand → Sicherheitsalarm über RGB-LED (rot).  
+- PIR bei Leerstand → Sicherheitsalarm über RGB-LED (rot).
 LCD Display: Anzeige der aktuellen Wetterdaten
 Gemeinsam: Sturmmodus → Servo schließt, gelbe LED auf Warnzustand, Buzzer
 
@@ -26,6 +26,7 @@ Zweck: Musik, Lichtspiele für junge und junggebliebene Menschen. Party über Da
 - Buzzer für Melodien
 LCD Display: Anzeige der nächsten Party
 Gemeinsam: Sturmmodus → Servo schließt, gelbe LED auf Warnzustand, Buzzer.
+Igor: startet die Party, machen alle anderen Häuser die Fenster zu
 
 ### Haus 4 -Luftqualität & Automatische Lüftung
 Zweck: Es soll automatisch für frische Luft und sichere Raumluftqualität gesorgt werden. Der Gas-Sensor erkennt erhöhte Konzentrationen (CO, H₂ o.ä.), das System reagiert mit automatischer Lüftung und meldet den Vorfall ans Dashboard. - Gas anormal → Sofortalarm + Lüften anfordern.
@@ -34,6 +35,7 @@ Zweck: Es soll automatisch für frische Luft und sichere Raumluftqualität gesor
 - Button Module 1: Rücksetzung
 LCD Display: Luftwerte werden angezeigt, ggf. Warnung und Lüfterstatus.
 Gemeinsam: Sturmmodus → Servo schließt, gelbe LED auf Warnzustand, Buzzer.
+Igor: bei Gaswarnung sollen alle Häuser rot blinken!
 
 ## Gemeinsamer Use Case: Smart Beach Resort Management
-Alle vier Häuser bilden zusammen ein intelligentes Ferienhaus-Ökosystem, das sowohl über lokale Bluetooth-Kommunikation als auch über individuelle Handy-Hotspots mit dem Internet verbunden ist. Ein zentrales Dashboard ermöglicht es dem Airbnb-Host, alle vier Häuser gleichzeitig zu überwachen und zu verwalten. Bei Sturmwarnungen werden automatisch alle Fenster in allen Häusern geschlossen und die Lüftung wird deaktiviert, um Sand und Sturm fernzuhalten. 
+Alle vier Häuser bilden zusammen ein intelligentes Ferienhaus-Ökosystem, das sowohl über lokale Bluetooth-Kommunikation als auch über individuelle Handy-Hotspots mit dem Internet verbunden ist. Ein zentrales Dashboard ermöglicht es dem Airbnb-Host, alle vier Häuser gleichzeitig zu überwachen und zu verwalten. Bei Sturmwarnungen werden automatisch alle Fenster in allen Häusern geschlossen und die Lüftung wird deaktiviert, um Sand und Sturm fernzuhalten.
