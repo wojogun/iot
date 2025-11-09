@@ -84,7 +84,7 @@ Node-RED erweitert HiveMQ auf der **Prozess- und Integrations-Ebene**:
 | HiveMQ Cloud (Serverless) | kostenlos (Free Tier) |
 | Node-RED (eigener Server) | kostenlos, nur Stromkosten |
 | Alternativ: Node-RED auf vorhandenem Server |
-| Hardware (3 × KS5009-Kits) | von FH bereitgestellt |
+| Hardware (4 × KS5009-Kits) | von FH bereitgestellt |
 | **Gesamt** | **ß € einmalig + 0 €/Monat** |
 
 ### 6. Fazit
@@ -92,9 +92,36 @@ HiveMQ fungiert als **IoT-Kommunikationsframework** mit klarer Geräte-, Sicherh
 Node-RED erweitert es zu einem vollständigen **End-to-End-IoT-System**, das Cloud-fähig, verteilbar und präsentationssicher ist.
 Diese Kombination ist robust, leicht wartbar und erfüllt die Anforderungen an den Gruppen- und Gesamt-Use-Case.
 
-## sonstige Fragen
-### Kann man HiveMQ überhaupt als IoT-Framework verstehen? Warum?
+
+## Anmerkungen
+### ad nodeRed
+nodeRed läuft unter https://iot.flowerstore.at in einem Docker.
+
+#### sind die Daten von nodeRed persistent?
+ja, das data-Verzeichnis ist im Docker persistent angelegt:
+```
+> cat docker-compose.yaml
+services:
+  nodered:
+    image: nodered/node-red:latest
+    container_name: nodered
+    environment:
+      - TZ=Europe/Vienna
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
+```
+
+Auch ein testweise durchgeführter Neustart hat dies bestätigt.
+
+
+
+### ad HiveMQ
+#### Kann man HiveMQ überhaupt als IoT-Framework verstehen? Warum?
 Ja. HiveMQ erfüllt die Kriterien eines IoT-Frameworks.
+
 
 **Begründung:**
 1. per **Definition**
