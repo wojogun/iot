@@ -114,7 +114,17 @@ services:
     restart: unless-stopped
 ```
 
-Auch ein testweise durchgeführter Neustart hat dies bestätigt.
+Auch ein testweise durchgeführter Neustart des Dockers
+```
+> docker compose down && docker compose up -d
+[+] Running 2/2
+ ✔ Container nodered                 Removed                            0.6s
+ ✔ Network iotflowerstoreat_default  Removed                            0.1s
+[+] Running 2/2
+ ✔ Network iotflowerstoreat_default  Created                            0.1s
+ ✔ Container nodered                 Started                            0.5s
+```
+hat dies bestätigt.
 
 
 
