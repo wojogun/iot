@@ -5,9 +5,7 @@
 // ipStr      = z.B. "192.168.100.244"
 // modeText   = z.B. "NORMAL", "PARTY", "STURM"
 // statusMessage = Text für die Fußzeile ("Party gestartet", ...)
-String buildRootPage(const String& ipStr,
-                     const String& modeText,
-                     const String& statusMessage) {
+String buildRootPage(const String& ipStr, const String& modeText, const String& statusMessage) {
   String s;
   s.reserve(2048);
 

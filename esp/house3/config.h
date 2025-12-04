@@ -14,7 +14,8 @@ extern const int   MQTT_PORT;
 extern const char* MQTT_USER;
 extern const char* MQTT_PASSWORD;
 
-// ==== STATIC IP (optional) ====
+// ==== STATIC IP / DHCP ====
+extern const bool USE_STATIC_IP;
 extern IPAddress local_IP;
 extern IPAddress gateway;
 extern IPAddress subnet;
