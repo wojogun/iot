@@ -79,14 +79,14 @@ void startParty(bool publish) {
   //smokeOnTheWater();
 
   if (publish && mqttClient.connected()) {
-    mqttClient.publish(TOPIC_BC_PARTY, "STARTED");
+    mqttClient.publish(TOPIC_BC_PARTY, "START");
     mqttClient.publish(TOPIC_STATUS_HOUSE3, "PARTY");
   }
 }
 
 void stopParty(bool publish) {
   if (currentMode != MODE_PARTY) return;
-  
+
   playSong(SongId::SONG5);
   //werHatAnDerUhrGedreht();
   currentMode = MODE_NORMAL;
@@ -98,9 +98,9 @@ void stopParty(bool publish) {
   ctrWindow(WINDOW_OPEN);
   ctrDoor(DOOR_OPEN);
   printLcd(	"Nächste Party:", nextPartyText, false);
-  
+
   if (publish && mqttClient.connected()) {
-    mqttClient.publish(TOPIC_BC_PARTY, "STOPPED");
+    mqttClient.publish(TOPIC_BC_PARTY, "STOP");
     mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL");
   }
 }
@@ -114,7 +114,7 @@ void startStorm(bool publish) {
   buzzer.playTone(0, 0);
 
   digitalWrite(PIN_LED_YELLOW, HIGH);
-  printLcd(	"STURMWARNUNG", "", true);	
+  printLcd(	"STURMWARNUNG", "", true);
 
   if (publish && mqttClient.connected()) {
     mqttClient.publish(TOPIC_BC_STORM, "ON");
