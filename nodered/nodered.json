@@ -1,0 +1,1811 @@
+[
+    {
+        "id": "2db7a37be5d36cbd",
+        "type": "tab",
+        "label": "Auswahl",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2c844c3793f1d538",
+        "type": "tab",
+        "label": "Lisa",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "bf482b05d167439a",
+        "type": "tab",
+        "label": "Christoph",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e418cf23a41a22ec",
+        "type": "tab",
+        "label": "Wolfi",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e0e6e27fee6730d6",
+        "type": "tab",
+        "label": "Alex",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "286557666808980f",
+        "type": "tab",
+        "label": "Demo",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "05760b3c32ad25bd",
+        "type": "tab",
+        "label": "Simulation",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7330420b6e6914f6",
+        "type": "mqtt-broker",
+        "name": "HiveMQ",
+        "broker": "5e16dbde757548029c0591f1f71f376c.s1.eu.hivemq.cloud",
+        "port": "8883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "393d55300471bee4",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-custom",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "reset": false
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#4B7930",
+                    "value": "#4B7930",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#4B7930",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#6db046",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#4b7930",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "true",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD.MM.YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "8731ae327fd6bcc6",
+        "type": "ui_tab",
+        "name": "TabHaus2",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "0bb41b5d881f5f19",
+        "type": "ui_tab",
+        "name": "TabHaus1",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "af7176426eca9192",
+        "type": "ui_tab",
+        "name": "TabHausAuswahl",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "1db96a5bd014e04f",
+        "type": "ui_tab",
+        "name": "demo",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": true,
+        "hidden": false
+    },
+    {
+        "id": "28c5ad1ca752bc29",
+        "type": "ui_tab",
+        "name": "TabHaus3",
+        "icon": "dashboard",
+        "order": 5,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "386d33745bb63295",
+        "type": "ui_tab",
+        "name": "TabHaus4",
+        "icon": "dashboard",
+        "order": 6,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "1de936037ac43e28",
+        "type": "ui_group",
+        "name": "Gruppe 1",
+        "tab": "1db96a5bd014e04f",
+        "order": 1,
+        "disp": false,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2ee087cc471ddf3b",
+        "type": "ui_group",
+        "name": "Group 2",
+        "tab": "1db96a5bd014e04f",
+        "order": 3,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c9ce7202cfd50d48",
+        "type": "ui_group",
+        "name": "BtnAuswahl",
+        "tab": "af7176426eca9192",
+        "order": 2,
+        "disp": false,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "423d54cdcab51aad",
+        "type": "ui_group",
+        "name": "Haus 3: Partysteuerung (w)",
+        "tab": "28c5ad1ca752bc29",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7bb816e53b4fd81d",
+        "type": "ui_spacer",
+        "z": "286557666808980f",
+        "name": "spacer",
+        "group": "2ee087cc471ddf3b",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "6f4f647f9ed97810",
+        "type": "ui_group",
+        "name": "Navigation",
+        "tab": "28c5ad1ca752bc29",
+        "order": 3,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f1301ef20b18c6b9",
+        "type": "ui_group",
+        "name": "Haus 4: Luftqualität (A)",
+        "tab": "386d33745bb63295",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d71f0e3b0e2238d0",
+        "type": "ui_group",
+        "name": "Haus 1: Wetter & Sturm (L)",
+        "tab": "0bb41b5d881f5f19",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1e8024d9de399da1",
+        "type": "ui_group",
+        "name": "Navigation",
+        "tab": "0bb41b5d881f5f19",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0cb304ec2680f172",
+        "type": "ui_group",
+        "name": "Haus 2: Komfort & Sicherheit (C)",
+        "tab": "8731ae327fd6bcc6",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "bf25b00b83e88dd5",
+        "type": "ui_group",
+        "name": "Navigation",
+        "tab": "8731ae327fd6bcc6",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4f58ccc89db32579",
+        "type": "ui_group",
+        "name": "Navigation",
+        "tab": "386d33745bb63295",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e564f0026669e056",
+        "type": "ui_group",
+        "name": "Wurlitzer",
+        "tab": "28c5ad1ca752bc29",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "64825012a596ae10",
+        "type": "ui_tab",
+        "name": "TabSimulation",
+        "icon": "dashboard",
+        "order": 7,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "b79f18d8edb48dbf",
+        "type": "ui_group",
+        "name": "Navigation",
+        "tab": "64825012a596ae10",
+        "order": 3,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "07edb1714217ca9f",
+        "type": "ui_group",
+        "name": "STURM",
+        "tab": "64825012a596ae10",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "bfac8de079d501c5",
+        "type": "ui_group",
+        "name": "PARTY",
+        "tab": "64825012a596ae10",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "6b8a05d262ab0379",
+        "type": "ui_button",
+        "z": "2db7a37be5d36cbd",
+        "name": "",
+        "group": "c9ce7202cfd50d48",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Haus 1",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "looks_one",
+        "payload": "{ \"tab\": \"TabHaus1\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "7a47b70113f9b2b6"
+            ]
+        ]
+    },
+    {
+        "id": "7a47b70113f9b2b6",
+        "type": "ui_ui_control",
+        "z": "2db7a37be5d36cbd",
+        "name": "TabHaus1",
+        "events": "all",
+        "x": 320,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "402b3cd4b33cba74",
+        "type": "ui_button",
+        "z": "2db7a37be5d36cbd",
+        "name": "",
+        "group": "c9ce7202cfd50d48",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Haus 2",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "looks_two",
+        "payload": "{ \"tab\": \"TabHaus2\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 120,
+        "y": 140,
+        "wires": [
+            [
+                "943e1daf0f4f71ef"
+            ]
+        ]
+    },
+    {
+        "id": "943e1daf0f4f71ef",
+        "type": "ui_ui_control",
+        "z": "2db7a37be5d36cbd",
+        "name": "TabHaus2",
+        "events": "all",
+        "x": 320,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5ab577cacb293d32",
+        "type": "ui_button",
+        "z": "2db7a37be5d36cbd",
+        "name": "",
+        "group": "c9ce7202cfd50d48",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Haus 3",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "looks_3",
+        "payload": "{ \"tab\": \"TabHaus3\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 120,
+        "y": 180,
+        "wires": [
+            [
+                "b2b058aae03d0756"
+            ]
+        ]
+    },
+    {
+        "id": "b2b058aae03d0756",
+        "type": "ui_ui_control",
+        "z": "2db7a37be5d36cbd",
+        "name": "TabHaus3",
+        "events": "change",
+        "x": 320,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "25ab2e27c8fb7e78",
+        "type": "ui_button",
+        "z": "2db7a37be5d36cbd",
+        "name": "",
+        "group": "c9ce7202cfd50d48",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Haus 4",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "looks_4",
+        "payload": "{ \"tab\": \"TabHaus4\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "8233cd0e93c6b588"
+            ]
+        ]
+    },
+    {
+        "id": "8233cd0e93c6b588",
+        "type": "ui_ui_control",
+        "z": "2db7a37be5d36cbd",
+        "name": "TabHaus4",
+        "events": "all",
+        "x": 320,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e4d8083ceef0521d",
+        "type": "comment",
+        "z": "2db7a37be5d36cbd",
+        "name": "Dashboard zur Hausauswahl",
+        "info": "",
+        "x": 180,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "199af4ad1656d28f",
+        "type": "ui_button",
+        "z": "2db7a37be5d36cbd",
+        "name": "",
+        "group": "c9ce7202cfd50d48",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Simulation",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "{ \"tab\": \"TabSimulation\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 130,
+        "y": 300,
+        "wires": [
+            [
+                "30be9a43f454c047"
+            ]
+        ]
+    },
+    {
+        "id": "30be9a43f454c047",
+        "type": "ui_ui_control",
+        "z": "2db7a37be5d36cbd",
+        "name": "TabSimulation",
+        "events": "all",
+        "x": 340,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "be79fe1645d534af",
+        "type": "comment",
+        "z": "2c844c3793f1d538",
+        "name": "Haus 1: Wetter & Sturm-Überwachung",
+        "info": "",
+        "x": 190,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "c5161f0831cb356d",
+        "type": "ui_ui_control",
+        "z": "2c844c3793f1d538",
+        "name": "zurück",
+        "events": "change",
+        "x": 270,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "40627b843187f189",
+        "type": "ui_button",
+        "z": "2c844c3793f1d538",
+        "name": "",
+        "group": "1e8024d9de399da1",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "zurück",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "{ \"tab\": \"TabHausAuswahl\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 70,
+        "y": 700,
+        "wires": [
+            [
+                "c5161f0831cb356d"
+            ]
+        ]
+    },
+    {
+        "id": "e5f5c40bea5c1e87",
+        "type": "comment",
+        "z": "bf482b05d167439a",
+        "name": "Haus 2 - Gäste-Komfort & Sicherheit",
+        "info": "",
+        "x": 180,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "43da920e253f2be1",
+        "type": "ui_ui_control",
+        "z": "bf482b05d167439a",
+        "name": "zurück",
+        "events": "change",
+        "x": 290,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "99d6e569a9132832",
+        "type": "ui_button",
+        "z": "bf482b05d167439a",
+        "name": "",
+        "group": "bf25b00b83e88dd5",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "zurück",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "{ \"tab\": \"TabHausAuswahl\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 90,
+        "y": 760,
+        "wires": [
+            [
+                "43da920e253f2be1"
+            ]
+        ]
+    },
+    {
+        "id": "7bcd232ccd2a9159",
+        "type": "mqtt out",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "topic": "resort/house3/party/cmd",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 590,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "933a7b2e5a826465",
+        "type": "ui_button",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "group": "423d54cdcab51aad",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Spontan starten",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "START",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 120,
+        "y": 180,
+        "wires": [
+            [
+                "7bcd232ccd2a9159",
+                "ac08162c3a7a09fb",
+                "a894e4bc051156fb",
+                "24e40fb67a5d87f5",
+                "bc23059aaa5f8c0e"
+            ]
+        ]
+    },
+    {
+        "id": "d424a53f92c98fe7",
+        "type": "ui_button",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "group": "423d54cdcab51aad",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "sofort beenden",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "STOP",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "7bcd232ccd2a9159"
+            ]
+        ]
+    },
+    {
+        "id": "551277af6dc4f792",
+        "type": "ui_button",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "group": "423d54cdcab51aad",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Party buchen",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "party/book",
+        "topicType": "msg",
+        "x": 110,
+        "y": 420,
+        "wires": [
+            [
+                "6e26917ea22f199d"
+            ]
+        ]
+    },
+    {
+        "id": "f191207527f28720",
+        "type": "ui_text",
+        "z": "e418cf23a41a22ec",
+        "group": "423d54cdcab51aad",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "nächste Party:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 560,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "84a07eafd0a1b3f2",
+        "type": "function",
+        "z": "e418cf23a41a22ec",
+        "name": "saveDate",
+        "func": "flow.set('partyDateTimeString', msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 380,
+        "wires": [
+            [
+                "ac08162c3a7a09fb"
+            ]
+        ]
+    },
+    {
+        "id": "ac08162c3a7a09fb",
+        "type": "debug",
+        "z": "e418cf23a41a22ec",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "6e26917ea22f199d",
+        "type": "function",
+        "z": "e418cf23a41a22ec",
+        "name": "bookParty",
+        "func": "// aus der util-function\nconst toTimestamp = flow.get('toTimestamp');\nconst formatLocal = flow.get('formatLocal');\nif (typeof toTimestamp !== 'function' || typeof formatLocal !== 'function') {\n    node.error(\"Utils nicht initialisiert\");\n    return msg;\n}\n\n// Rohwert holen\nlet raw = flow.get('partyDateTimeString');\nconst bookingTs = toTimestamp(raw);\nif (!bookingTs) {\n    msg.payload = \"Ungültige oder leere Datum/Zeit-Eingabe.\";\n    return msg;\n}\n\nflow.set(\"partyBookingTs\", bookingTs);\nflow.set(\"partyTriggered\", false);\n\n//msg.payload = \"Party gebucht für: \" + dt.toLocaleString();\nmsg.payload = formatLocal(bookingTs);\n\nconst msgMqtt = {\n    topic: \"resort/house3/party/next\",\n    payload: formatLocal(bookingTs)\n};\n\nreturn [msg, msgMqtt];\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 420,
+        "wires": [
+            [
+                "ac08162c3a7a09fb",
+                "f191207527f28720",
+                "bd45afae07cf9e87"
+            ]
+        ]
+    },
+    {
+        "id": "44bbc3f2f254801c",
+        "type": "inject",
+        "z": "e418cf23a41a22ec",
+        "name": "cron",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "iso",
+        "payloadType": "date",
+        "x": 90,
+        "y": 340,
+        "wires": [
+            [
+                "2ec6d6320977fdfd"
+            ]
+        ]
+    },
+    {
+        "id": "2ec6d6320977fdfd",
+        "type": "function",
+        "z": "e418cf23a41a22ec",
+        "name": "cronFunction",
+        "func": "const formatLocal = flow.get('formatLocal');\nconst bookingTs = flow.get('partyBookingTs');\nconst triggered = flow.get('partyTriggered') || false;\n\nif (!bookingTs || triggered) return null;\n\nconst now = Date.now();\nconst windowMs = 1 * 60 * 1000; // Toleranzfenster, z.B. 1 Minuten nach Buchungszeit\n\n// Debug, um zu sehen was passiert\nnode.log(\"Check booking: now=\" + now + \" bookingTs=\" + bookingTs);\n\n// Liegen wir im Zeitfenster?\nif (now >= bookingTs && now <= bookingTs + windowMs) {\n    flow.set('partyTriggered', true);\n\n    // Nachricht an Haus 3 -> Party START\n    const outMqtt = {\n        topic: \"resort/house3/party/cmd\",\n        payload: \"START\"\n    };\n\n    // Status fürs Dashboard\n    const outStatus = {\n        payload: \"Party automatisch gestartet um \" + formatLocal(bookingTs)\n    };\n\n    return [outMqtt, outStatus];\n}\n\n// Noch zu früh oder schon vorbei\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 340,
+        "wires": [
+            [
+                "7bcd232ccd2a9159",
+                "f191207527f28720"
+            ]
+        ]
+    },
+    {
+        "id": "cfdf95c01ec96bc6",
+        "type": "ui_text_input",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "label": "Datum/Zeit für Party",
+        "tooltip": "YYYY-MM-DD HH:MM",
+        "group": "423d54cdcab51aad",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "datetime-local",
+        "delay": 300,
+        "topic": "party/datetime",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 140,
+        "y": 380,
+        "wires": [
+            [
+                "84a07eafd0a1b3f2"
+            ]
+        ]
+    },
+    {
+        "id": "852e1b96158503d7",
+        "type": "function",
+        "z": "e418cf23a41a22ec",
+        "name": "utils",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "//\n// Universelle Timestamp-Verarbeitung im Flow-Kontext\n// - parse Eingaben: Number, ISO, ISO+Z, \"YYYY-MM-DD HH:MM\"\n// - Ausgabe: Timestamp in ms\n// - formatLocal: Ausgabe \"YYYY-MM-DD HH:MM\" in lokaler Zeit\n//\n\nflow.set('toTimestamp', function (raw) {\n    if (raw === null || raw === undefined || raw === \"\") return null;\n\n    // A: Already a timestamp number\n    if (typeof raw === \"number\") {\n        return raw;\n    }\n\n    // B: String → bereinigen\n    let s = raw.toString().trim();\n    if (!s) return null;\n\n    // \"YYYY-MM-DD HH:MM\" → \"YYYY-MM-DDTHH:MM\"\n    if (s.includes(\" \") && !s.includes(\"T\")) {\n        s = s.replace(\" \", \"T\");\n    }\n\n    // ISO-Parsing\n    const d = new Date(s);\n    if (!isNaN(d.getTime())) {\n        return d.getTime();\n    }\n\n    return null;\n});\n\nflow.set('formatLocal', function (ts) {\n    const d = new Date(ts);\n    if (isNaN(d.getTime())) return \"INVALID\";\n\n    const year = d.getFullYear();\n    const month = String(d.getMonth() + 1).padStart(2, \"0\");\n    const day = String(d.getDate()).padStart(2, \"0\");\n    const hour = String(d.getHours()).padStart(2, \"0\");\n    const min = String(d.getMinutes()).padStart(2, \"0\");\n\n    return `${year}-${month}-${day} ${hour}:${min}`;\n});\n\nnode.log(\"Flow-Utils bereitgestellt.\");\nreturn msg;\n",
+        "finalize": "",
+        "libs": [],
+        "x": 90,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bd45afae07cf9e87",
+        "type": "mqtt out",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "topic": "resort/house3/party/next",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 590,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "a894e4bc051156fb",
+        "type": "mqtt out",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "topic": "resort/house1/party/cmd",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 590,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "24e40fb67a5d87f5",
+        "type": "mqtt out",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "topic": "resort/house2/party/cmd",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 590,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "bc23059aaa5f8c0e",
+        "type": "mqtt out",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "topic": "resort/house4/party/cmd",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 590,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "39f2d1c1b28abbc4",
+        "type": "comment",
+        "z": "e418cf23a41a22ec",
+        "name": "Haus 3 - Partyhaus",
+        "info": "",
+        "x": 130,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "1f230d75c3607661",
+        "type": "ui_ui_control",
+        "z": "e418cf23a41a22ec",
+        "name": "zurück",
+        "events": "change",
+        "x": 290,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "513ad0815bc4681e",
+        "type": "ui_button",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "group": "6f4f647f9ed97810",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "zurück",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "{ \"tab\": \"TabHausAuswahl\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 90,
+        "y": 980,
+        "wires": [
+            [
+                "1f230d75c3607661"
+            ]
+        ]
+    },
+    {
+        "id": "79ae01d7184614ba",
+        "type": "mqtt in",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "topic": "resort/house3/party/song",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 580,
+        "wires": [
+            [
+                "77731675084af5d1"
+            ]
+        ]
+    },
+    {
+        "id": "77731675084af5d1",
+        "type": "ui_text",
+        "z": "e418cf23a41a22ec",
+        "group": "423d54cdcab51aad",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Song:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 410,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "56bd27d2ccc2b14e",
+        "type": "ui_button",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "group": "e564f0026669e056",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Song 1",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 100,
+        "y": 660,
+        "wires": [
+            [
+                "1ec27bb0d98cabe2"
+            ]
+        ]
+    },
+    {
+        "id": "1ec27bb0d98cabe2",
+        "type": "mqtt out",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "topic": "resort/house3/party/song/cmd",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 450,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "d3f32323feb0d20a",
+        "type": "ui_button",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "group": "e564f0026669e056",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Song 2",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "2",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 100,
+        "y": 700,
+        "wires": [
+            [
+                "1ec27bb0d98cabe2"
+            ]
+        ]
+    },
+    {
+        "id": "1c454df354420c19",
+        "type": "ui_button",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "group": "e564f0026669e056",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Song 3",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "3",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 100,
+        "y": 740,
+        "wires": [
+            [
+                "1ec27bb0d98cabe2"
+            ]
+        ]
+    },
+    {
+        "id": "52dbbc89fce11447",
+        "type": "ui_button",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "group": "e564f0026669e056",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Song 4",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "4",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 100,
+        "y": 780,
+        "wires": [
+            [
+                "1ec27bb0d98cabe2"
+            ]
+        ]
+    },
+    {
+        "id": "cedeeec53509572f",
+        "type": "ui_button",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "group": "e564f0026669e056",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Song 5",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "5",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 100,
+        "y": 820,
+        "wires": [
+            [
+                "1ec27bb0d98cabe2"
+            ]
+        ]
+    },
+    {
+        "id": "f75607c65d1a2e44",
+        "type": "comment",
+        "z": "e0e6e27fee6730d6",
+        "name": "Haus 4 -Luftqualität & Automatische Lüftung ",
+        "info": "",
+        "x": 210,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "3623221ace3b9176",
+        "type": "ui_ui_control",
+        "z": "e0e6e27fee6730d6",
+        "name": "zurück",
+        "events": "change",
+        "x": 290,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c40f2977c3710636",
+        "type": "ui_button",
+        "z": "e0e6e27fee6730d6",
+        "name": "",
+        "group": "4f58ccc89db32579",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "zurück",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "{ \"tab\": \"TabHausAuswahl\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 90,
+        "y": 820,
+        "wires": [
+            [
+                "3623221ace3b9176"
+            ]
+        ]
+    },
+    {
+        "id": "a7814b8c52236ca2",
+        "type": "mqtt in",
+        "z": "286557666808980f",
+        "name": "",
+        "topic": "Test",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 570,
+        "y": 320,
+        "wires": [
+            [
+                "12babb0c25b08024"
+            ]
+        ]
+    },
+    {
+        "id": "2cb4d5ed10dc2e14",
+        "type": "mqtt out",
+        "z": "286557666808980f",
+        "name": "",
+        "topic": "Test",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 330,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "12babb0c25b08024",
+        "type": "debug",
+        "z": "286557666808980f",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "8c1e0bcd0f19247f",
+        "type": "inject",
+        "z": "286557666808980f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 440,
+        "wires": [
+            [
+                "2cb4d5ed10dc2e14"
+            ]
+        ]
+    },
+    {
+        "id": "bc3ffc1edb58e37e",
+        "type": "inject",
+        "z": "286557666808980f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Hier kommt Alex",
+        "payloadType": "str",
+        "x": 160,
+        "y": 260,
+        "wires": [
+            [
+                "eb068d76b930125a"
+            ]
+        ]
+    },
+    {
+        "id": "eb068d76b930125a",
+        "type": "function",
+        "z": "286557666808980f",
+        "name": "function 1",
+        "func": "if (msg.payload ==\"Hier kommt Alex\") {\n    msg.payload = \"Alex ist da\"\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 360,
+        "wires": [
+            [
+                "2cb4d5ed10dc2e14"
+            ]
+        ]
+    },
+    {
+        "id": "4a563ae963211768",
+        "type": "ui_button",
+        "z": "286557666808980f",
+        "name": "",
+        "group": "1de936037ac43e28",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Knopfal",
+        "tooltip": "Huchuuu",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "Jetzt kommt Christoph",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 360,
+        "y": 100,
+        "wires": [
+            [
+                "12babb0c25b08024"
+            ]
+        ]
+    },
+    {
+        "id": "5f1825a2d44b6b1a",
+        "type": "ui_gauge",
+        "z": "286557666808980f",
+        "name": "",
+        "group": "2ee087cc471ddf3b",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperatur",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "30",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 790,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a2d300e2151a13df",
+        "type": "ui_slider",
+        "z": "286557666808980f",
+        "name": "",
+        "label": "slider",
+        "tooltip": "",
+        "group": "2ee087cc471ddf3b",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "30",
+        "step": 1,
+        "className": "",
+        "x": 550,
+        "y": 60,
+        "wires": [
+            [
+                "5f1825a2d44b6b1a"
+            ]
+        ]
+    },
+    {
+        "id": "10acd402a5768bc3",
+        "type": "comment",
+        "z": "286557666808980f",
+        "name": "",
+        "info": "rechts oben kann man auf Dashboard wechseln",
+        "x": 660,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "dbe37db88e6ed05b",
+        "type": "ui_ui_control",
+        "z": "05760b3c32ad25bd",
+        "name": "zurück",
+        "events": "change",
+        "x": 310,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9fbd754c8bfd9201",
+        "type": "ui_button",
+        "z": "05760b3c32ad25bd",
+        "name": "",
+        "group": "b79f18d8edb48dbf",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "zurück",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "{ \"tab\": \"TabHausAuswahl\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 110,
+        "y": 300,
+        "wires": [
+            [
+                "dbe37db88e6ed05b"
+            ]
+        ]
+    },
+    {
+        "id": "bf4f131f5a820820",
+        "type": "ui_button",
+        "z": "05760b3c32ad25bd",
+        "name": "",
+        "group": "07edb1714217ca9f",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Sturm Modus EIN",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "thunderstorm",
+        "payload": "ON",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 150,
+        "y": 60,
+        "wires": [
+            [
+                "3f1059e2c3d55d60"
+            ]
+        ]
+    },
+    {
+        "id": "da74292f3eff3069",
+        "type": "ui_button",
+        "z": "05760b3c32ad25bd",
+        "name": "",
+        "group": "07edb1714217ca9f",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Sturm Modus AUS",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "sunny",
+        "payload": "OFF",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "3f1059e2c3d55d60"
+            ]
+        ]
+    },
+    {
+        "id": "3f1059e2c3d55d60",
+        "type": "mqtt out",
+        "z": "05760b3c32ad25bd",
+        "name": "",
+        "topic": "resort/broadcast/storm",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 560,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "4136e5ce22cdf09f",
+        "type": "ui_button",
+        "z": "05760b3c32ad25bd",
+        "name": "",
+        "group": "bfac8de079d501c5",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Party EIN",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "celebration",
+        "payload": "START",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "4246e04f78efd6f4"
+            ]
+        ]
+    },
+    {
+        "id": "1482028943fee65d",
+        "type": "ui_button",
+        "z": "05760b3c32ad25bd",
+        "name": "",
+        "group": "bfac8de079d501c5",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Party AUS",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "access_alarm",
+        "payload": "STOP",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 130,
+        "y": 200,
+        "wires": [
+            [
+                "4246e04f78efd6f4"
+            ]
+        ]
+    },
+    {
+        "id": "4246e04f78efd6f4",
+        "type": "mqtt out",
+        "z": "05760b3c32ad25bd",
+        "name": "",
+        "topic": "resort/house3/party/cmd",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 570,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "be806035c65d204e",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]

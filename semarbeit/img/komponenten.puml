@@ -1,0 +1,47 @@
+@startuml
+' Pakete für Entwicklungsdomänen
+package "Embedded / ESP32-Firmware" {
+  [Haus1-Firmware\n(Weather & Perimeter)] as H1
+  [Haus2-Firmware\n(Access & Comfort)]   as H2
+  [Haus3-Firmware\n(Party)]             as H3
+  [Haus4-Firmware\n(Air Quality)]       as H4
+}
+
+package "Server / Orchestrierung" {
+  [Node-RED\n(Flows, Logik, Dashboard-Backend)] as NODERED
+  [MQTT-Client\n(Node-RED)] as NRMQTT
+}
+
+package "Cloud" {
+  [HiveMQ Cloud\n(MQTT Broker)] as BROKER
+}
+
+package "User Interfaces" {
+  [Node-RED Dashboard\n(Web-UI für Host/Gäste)] as DASH
+}
+
+package "Entwicklung / Management" {
+  [Git-Repository\n(Firmware + Node-RED-Flows)] as GIT
+}
+
+' Beziehungen zur Versionsverwaltung
+H1 -[#gray,dashed]-> GIT
+H2 -[#gray,dashed]-> GIT
+H3 -[#gray,dashed]-> GIT
+H4 -[#gray,dashed]-> GIT
+NODERED -[#gray,dashed]-> GIT
+
+' MQTT-Kommunikation: alle Firmware-Komponenten sprechen mit HiveMQ
+H1 -[#blue]-> BROKER : MQTT publish/subscribe
+H2 -[#blue]-> BROKER : MQTT publish/subscribe
+H3 -[#blue]-> BROKER : MQTT publish/subscribe
+H4 -[#blue]-> BROKER : MQTT publish/subscribe
+
+' Node-RED hängt ebenfalls am Broker
+NRMQTT -[#blue]-> BROKER : MQTT publish/subscribe
+NODERED -[#black]-> NRMQTT : nutzt
+
+' Dashboard spricht nur mit Node-RED
+DASH -[#green]-> NODERED : HTTP/Websocket
+
+@enduml

@@ -1,29 +1,15 @@
 \section{Development View}
-Das System ist modular entwickelt.
-Jede Entwickler*in implementiert ein Haus-Modul mit identischer Kommunikationsschnittstelle.
+Das Gesamtsystem besteht aus zwei klar getrennten Entwicklungsdomänen: der eingebetteten Software auf den ESP32-basierten Häusern und der Steuerungslogik innerhalb von Node-RED auf dem Resort-Server. Diese Trennung spiegelt sowohl den technischen Aufbau als auch die Verantwortung der Komponenten wider. Die Software der vier Häuser ist modular aufgebaut, wobei alle ESP32-Controller ein identisches Grundgerüst nutzen, das aus drei logischen Paketen besteht: einem Hardware-Abstraktionsmodul, einem MQTT-Kommunikationsmodul und einem hausindividuellen Service-Modul. Die Hardware-Abstraktion kapselt sämtliche Sensor- und Aktorzugriffe in wiederverwendbare Funktionen, sodass die Applikationslogik nicht direkt mit GPIO-Konfigurationen oder Gerätespezifika interagiert. Das Kommunikationsmodul implementiert die Anbindung an die HiveMQ Cloud über MQTT und stellt publish/subscribe-Schnittstellen bereit. Die eigentlichen fachlichen Verhaltensweisen der Häuser – Wetteranalyse, Zugangskontrolle, Partylogik und Luftqualitätsmanagement – befinden sich in den hausindividuellen Service-Modulen, die auf die beiden Basispakete zugreifen.
 
-\textbf{Software-Management:}
-\begin{itemize}[noitemsep]
-	\item Versionskontrolle über GitHub
-	\item Arduino IDE 2.x für ESP32
-	\item Node-RED-Flows als JSON-Dateien
-\end{itemize}
+Node-RED bildet die zweite Entwicklungsdomäne und ist als visuelles Integrations- und Prozessautomationssystem strukturiert. Die Node-RED-Implementierung besteht aus mehreren Flows, die in logisch getrennte Funktionsbereiche unterteilt sind. Ein Flow ist für die Entgegennahme aller MQTT-Nachrichten zuständig und übersetzt sie in semantische Systemereignisse. Ein weiterer Flow verwaltet globale Zustände, etwa den Sturmmodus oder synchronisierte Aktionen über mehrere Häuser hinweg. Zusätzlich existieren dedizierte Haus-Flows, die UI-Elemente, Dashboard-Ausgaben und Servicefunktionen bündeln. Da Node-RED in einem Docker-Container betrieben wird, lässt sich die gesamte Entwicklungsumgebung reproduzierbar versionieren und isolieren. Der Quelltext der Flows wird in einer JSON-Repräsentation gespeichert, wodurch Änderungen nachverfolgbar bleiben und in Git verwaltet werden können.
 
-\begin{verbatim}
-	/house1/firmware/
-	/house2/firmware/
-	/house3/firmware/
-	/node-red/flows.json
-	/docs/architecture/
-\end{verbatim}
+Die Zusammenarbeit zwischen ESP32-Software und Node-RED basiert auf klar definierten MQTT-Themenstrukturen. Dadurch entsteht kein Kopplungsbedarf zwischen Entwicklungsteams oder Geräten, sondern eine lose, nachrichtenbasierte Architektur. Änderungen an einem Haus betreffen nur dessen Service-Modul, solange die veröffentlichten Themen und Nachrichtenformate unverändert bleiben. Diese Entkopplung erleichtert sowohl Wartung als auch Erweiterung: Ein zusätzliches Haus kann eingebunden werden, indem lediglich ein weiteres Service-Modul auf Basis der bestehenden Grundkomponenten erstellt und an die MQTT-Struktur angebunden wird.
 
-\textbf{Kommunikation:}
-MQTT-Topics wie \texttt{resort/house1/telemetry/temp} oder
-\texttt{resort/all/cmd/storm} steuern alle Interaktionen.
-QoS 1 für sicherheitsrelevante Daten, Retained Status für Systemzustände.
+Aus Entwicklersicht ist die Architektur so aufgebaut, dass Verantwortlichkeiten sichtbar voneinander getrennt sind. Hardware-Nähe, Kommunikationsinfrastruktur und fachliche Logik sind in getrennte Module gefasst, während Node-RED die Rolle eines zentralen Integrationslayers einnimmt. Diese Modularisierung erleichtert Fehlerlokalisation, erlaubt parallele Entwicklung und reduziert Konflikte zwischen Funktionsbereichen. Durch die Nutzung eines Git-Repositories können sowohl die Firmware der Häuser als auch die Node-RED-Flows versioniert werden, wodurch eine klare Trennung zwischen stabilen Releases und experimentellen Entwicklungsständen möglich wird.
+
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/tbd.jpg}
-	\caption{Komponentendiagramm (3 ESP32 + Node-RED + HiveMQ)}
+	\includegraphics[width=0.8\textwidth]{img/komponenten.png}
+	\caption{Komponentendiagramm}
 	\label{fig:systemuebersicht}
 \end{figure}

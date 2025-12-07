@@ -1,0 +1,53 @@
+@startuml
+class SmartBeachResort {
+  +manageHouses()
+  +handleGlobalEvents()
+}
+
+class House {
+  +houseId : int
+  +currentState : String
+}
+
+SmartBeachResort "1" o-- "4" House
+
+class WeatherModule {
+  +analyzeWeather()
+  +triggerStormMode()
+}
+
+class AccessModule {
+  +checkIn()
+  +checkOut()
+}
+
+class PartyModule {
+  +startParty()
+  +stopParty()
+  +selectSong()
+}
+
+class AirQualityModule {
+  +measureGasLevels()
+  +controlVentilation()
+}
+
+House "1" o-- "1" WeatherModule
+House "1" o-- "1" AccessModule
+House "1" o-- "1" PartyModule
+House "1" o-- "1" AirQualityModule
+
+class MQTTClient {
+  +publish()
+  +subscribe()
+}
+
+class Dashboard {
+  +displayStates()
+  +sendCommands()
+}
+
+SmartBeachResort <..> MQTTClient
+Dashboard ..> MQTTClient : publish()
+MQTTClient ..> Dashboard : notify()
+@enduml
