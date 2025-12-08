@@ -156,5 +156,40 @@ void mqttCallback(char* topic, byte* payload, unsigned int length) {
       stopStorm(false);
     }
 ```
+Files und Funktionen daraus, die vermutlich jedes Haus betreffen wären also
+- config.h/cpp
+- hardware.h/cpp
+- mod_lcd.h/cpp
+- mod_mqtt.h/cpp
+- mod_wifi.h/cpp
 
+Will man sein Haus auch lokal über eine HTML-Seite steuern, dann braucht man auch noch eine angepasste mod_html.h (hier steht dann HTML für die Steuerung drinnen)
+
+Zusätzlich muss man ein eigenes INO-File anlegen. Meins heißt beispielsweise haus3_party.ino und stellt die Hauptdatei dar. Drinnen stehen drei Bereich - includes, setup und loop:
+```
+#include <Arduino.h>
+#include "config.h"
+#include "mod_wifi.h"
+#include "mod_mqtt.h"
+#include "mod_lcd.h"
+#include "mod_rfid.h"
+#include "mod_partylogic.h"
+
+void setup() {
+    Serial.begin(115200);
+    initLcd();
+    initWiFi();
+    initMQTT();
+    initPartyLogic();
+    initRFID();
+}
+
+void loop() {
+    wiFiLoop();
+    mqttLoop();       
+    partyLoop();
+    rfidLoop();
+    lcdUpdate();
+}
+```
 
