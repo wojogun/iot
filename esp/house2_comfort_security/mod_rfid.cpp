@@ -1,10 +1,8 @@
 #include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-LiquidCrystal_I2C mylcd(0x27,16,2);
-#include <Wire.h>
 #include "MFRC522_I2C.h"
 #include "mod_window.h"
 #include "mod_door.h"
+#include "mod_lcd.h"
 
 // IIC pins default to GPIO21 and GPIO22 of ESP32
 // 0x28 is the i2c address of SDA, if doesn't match，please check your address with i2c.
@@ -16,14 +14,9 @@ String password = "";
 
 void initRFID() {
   Serial.begin(115200);           // initialize and PC's serial communication
-  mylcd.init();
-  mylcd.backlight();
   Wire.begin();                   // initialize I2C
   mfrc522.PCD_Init();             // initialize MFRC522
   Serial.println(F("Scan PICC to see UID, type, and data blocks..."));
-
-  mylcd.setCursor(0, 0);
-  mylcd.print("Card");
 }
 
 void loopRFID() {
@@ -37,9 +30,7 @@ void loopRFID() {
       if(btnVal == 0)  //If door close button is pressed (active-low)
       {
         Serial.println("close");
-        mylcd.setCursor(0, 0);
-        mylcd.print("close");
-        //myservo.write(0);
+        printLcd("Status:", "Leerstand", false);
         closeWindow();
         closeDoor();
         btnFlag = 0;
@@ -62,9 +53,7 @@ void loopRFID() {
   if(password) // opens if any key is presented - add key later
   {
     Serial.println("open");
-    mylcd.setCursor(0, 0);
-    mylcd.clear();
-    mylcd.print("open");
+    printLcd("Status:", "Belegt", false);
     openWindow();
     openDoor();
     password = "";
@@ -73,8 +62,7 @@ void loopRFID() {
   else   //Card number error,dispaly error
   {
     password = "";
-    mylcd.setCursor(0, 0);
-    mylcd.print("error");
+    printLcd("Fehler:", "Falscher Key", false);
   }
   //Serial.println(password);
 }
