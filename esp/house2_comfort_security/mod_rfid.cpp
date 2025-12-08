@@ -1,5 +1,6 @@
 #include <Wire.h>
 #include "MFRC522_I2C.h"
+#include "config.h"
 #include "mod_window.h"
 #include "mod_door.h"
 #include "mod_lcd.h"
@@ -49,8 +50,7 @@ void loopRFID() {
     Serial.print(mfrc522.uid.uidByte[i]);
     password = password + String(mfrc522.uid.uidByte[i]);
   }
-  //if(password == "219622227")  //Card number is correct,open the door
-  if(password) // opens if any key is presented - add key later
+  if(password == RFID_KEY)  // if Card number is correct, open the door and window
   {
     Serial.println("open");
     printLcd("Status:", "Belegt", false);
@@ -59,7 +59,7 @@ void loopRFID() {
     password = "";
     btnFlag = 1;
   }
-  else   //Card number error,dispaly error
+  else   //if Card number error, dispaly error
   {
     password = "";
     printLcd("Fehler:", "Falscher Key", false);
