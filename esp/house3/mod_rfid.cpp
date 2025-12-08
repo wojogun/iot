@@ -13,7 +13,7 @@ void initRFID() {
   mfrc522.PCD_Init();
 }
 
-void rfidLoop() {
+void loopRfid() {
   if (!mfrc522.PICC_IsNewCardPresent()) return;
   if (!mfrc522.PICC_ReadCardSerial())   return;
 
@@ -23,6 +23,16 @@ void rfidLoop() {
     uidHex += String(mfrc522.uid.uidByte[i], HEX);
   }
   uidHex.toUpperCase();
+  Serial.print("RFID erkannt: ");
+  Serial.println(uidHex);
+  Serial.println("-> ");
+
+  SongId s = getSongForTag(uidHex);
+  if (s == SongId::NONE) {
+      Serial.println("no match");
+  } else {
+      Serial.println(songName(s));   // liefert richtigen Songnamen
+  }
 
   if (currentMode != MODE_PARTY) {
     printTempLcd("NO PARTY", "NO SONG", 3000);

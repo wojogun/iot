@@ -1,11 +1,19 @@
 Ein paar kleine Learning aus meinem bisherigen Häuslbaun:
+
+# Tutorial beachten
+[Tutorial für KS5009](https://docs.keyestudio.com/projects/KS5009/en/latest/docs/Arduino/arduino.html#getting-started-with-arduino)
+
 # Muster-Sketches
 sind ausgesprochen hilfreich, um die Funktionen des Hauses zu verstehen. Auch die Pin-Belegungen kann man ihnen entnehmen - z.B. ist der Buzzer über Pin 25 angeschlossen.
+Einfach Punkt für Punkt durchgehen. Am Ende hast Du Arduino IDE, cp2012 und Demosketches.
+
+# Eigenen Sketch anlegen
+ich hab meinen haus3_party genannt. Die Erweiterung dieses Files wäre ".ino". Natürlich kann man nun alles in einem File lassen aber dann wird es sehr schnell unübersichtlich. Daher habe ich die config, die Hardwaredefinitionen und sonstiges in eigene Module (mod_...) ausgelagert.
 
 # Config auslagern
 In der C/C++ Welt ist es üblich die Deklaration und Definition zu trennen. Das soll Wiederverwendbarkeit, klare Schnittstellen und weniger Chaos im Hauptsketch bringen.
-- **config.h** enthält nur Deklarationen und Konstanten, aber keine Werte. 
-- **config.cpp** enthält nun die eigentlichen Werte. Da hier auch das WiFi-Passwort und andere Secrets abgespeichert sind, ist diese Datei im Repo nur als **config.cpp.muster** hinterlegt. Die eigentliche config.cpp liegt nur Lokal und sollte auch in der Datei **.gitignore** enthalten sein.
+- **config.h** enthält nur Deklarationen und Konstanten, aber keine Werte. ("h"=header")
+- **config.cpp** enthält nun die eigentlichen Werte. Da hier auch das WiFi-Passwort und andere Secrets abgespeichert sind, ist diese Datei im Repo nur als **config.cpp.muster** hinterlegt. Die eigentliche config.cpp liegt nur Lokal und sollte auch in der Datei **.gitignore** enthalten sein. ("cpp"=C++ 'plusplus')
 
 ## config.h
 Was passiert hier drinnen?
@@ -14,7 +22,7 @@ Was passiert hier drinnen?
 #ifndef CONFIG_H
 #define CONFIG_H
 ```
-Das sind so genannte Header Guards, die bewirken, dass die config nur ein mal ausgeführt wird - "if not defined". 
+Das sind so genannte Header Guards, die bewirken, dass die config nur ein mal ausgeführt wird - "if not defined".
 
 ### Grundfunktionen
 ```
@@ -37,8 +45,11 @@ extern IPAddress dns;
 ### Variable
 - für das WLAN
 ```
-extern const char* WIFI_SSID;
-extern const char* WIFI_PASSWORD;
+const WiFiEntry WIFI_LIST[] = {
+    { "SSID1", "pw1"},
+    { "SSID2", "pw2"},
+    ...
+ }
 ```
 - für MQTT
 ```
@@ -48,11 +59,11 @@ extern const char* MQTT_USER;
 extern const char* MQTT_PASSWORD;
 ```
 
-- für mDNS Name 
+- für mDNS Name
 ```
-extern const char* MDNS_NAME;  
+extern const char* MDNS_NAME;
 ```
-mDNS = Multicast DNS (auch bekannt als Bonjour u.a.) ist ein Netzwerkprotokoll, das es Geräten erlaubt, sich ohne DNS-Server gegenseitig über Namen zu finden.  
+mDNS = Multicast DNS (auch bekannt als Bonjour u.a.) ist ein Netzwerkprotokoll, das es Geräten erlaubt, sich ohne DNS-Server gegenseitig über Namen zu finden.
 
 - ein Zertifikat
 ```
@@ -62,13 +73,13 @@ allerdings können wir das mit dem free HiveMQ-Abo nicht verwenden, das geht ers
 
 
 ## config.cpp
-Hier werden die zuvor in der config.h deklarierten Variablen gesetzt. 
-- Bei WIFI_SSID und WIFI_PASSWORD trage die Anmeldedaten Deines Hotspots ein!
+Hier werden die zuvor in der config.h deklarierten Variablen gesetzt.
+- ~~Bei WIFI_SSID und WIFI_PASSWORD trage die Anmeldedaten Deines Hotspots ein!~~
+die WiFi-SSID und Pws werden nun als Array hinterlegt. Das erste Paar hat Prio 1, die anderen sind Fallback. Damit kannst Du einen Hotspot schon für die Demo als Prio1 definieren, deinen Handyhotspot als Prio2 und dein WLAN zu Hause als Prio3 - und hast in jedem Fall irgendein Netz!
 - die IPAddress-Werte braucht man nur, wenn man eine statische IP setzen will
 - Mit MDNS_NAME wird der Name Deines Hauses gesetzt. Dieser wird später in der initMDNS() angewendet.
 - Unser MQTT-Server ist "5e16dbde757548029c0591f1f71f376c.s1.eu.hivemq.cloud", der Port 8883
-- Als MQTT-User, das PW und die Permissions kannst Du unter https://console.hivemq.cloud/clusters/5e16dbde757548029c0591f1f71f376c/access-management mit "Add Credentials" setzen. Nutze als Permission "Publish and Subscribe", schließlich wollen wir senden UND empfangen - bereits vorhandene, dein Haus betreffende Einträge bitte löschen um Verwirrung zu vermeiden!
-
+- Als MQTT-User, das PW und die Permissions kannst Du unter [hiveMQ](https://console.hivemq.cloud/clusters/5e16dbde757548029c0591f1f71f376c/access-management) (Zugang habe ich euch allen am 2.11.25 gemailt) mit "Add Credentials" setzen. Nutze als Permission "Publish and Subscribe", schließlich wollen wir senden UND empfangen.
 
 # MQTT
 ## Topics
@@ -77,6 +88,7 @@ Mein Haus verwendet drei Kategorien von MQTT-Topics:
 - Resort-weite Broadcasts, also Nachrichten, die alle Häuser erhalten
 - Statusmeldungen: Haus 3 sendet Informationen Richtung Node-RED oder andere Häuser
 
+Der Topic-Name ist "TOPIC" + was das ist (BC=Broadcast, CMD=Kommando) + was es betrifft
 Die Topics sind so aufgebaut: "resort/[wenBetriffEs]/[wasBetrifftEs]/[ev. ein Kommando]":
 - TOPIC_CMD_STORM = "resort/house3/storm/cmd"  --> verlangt eine Payload, in diesem Fall werden "ON" und "OFF" verarbeitet.
 ```
@@ -95,19 +107,15 @@ Das "false" verhindert neuerliches Broadcasten, wenn das Haus reagiert. Die Funk
 
 ## Funktionsmapping (Was löst welches Topic aus?)
 ```
- TOPIC_CMD_PARTY (nur Haus 3)
+ TOPIC_CMD_PARTY
      ├── START → startParty(false)
      └── STOP  → stopParty(false)
 
- TOPIC_CMD_STORM (Nur Haus 1)
+ TOPIC_CMD_STORM
      ├── ON  → startStorm(false)
      └── OFF → stopStorm(false)
 
- TOPIC_BC_PARTY (broadcast an alle Häuser)
-     ├── ON  → startStorm(false)
-     └── OFF → stopStorm(false)
-
- TOPIC_BC_STORM (broadcast an alle Häuser)
+ TOPIC_BC_STORM
      ├── ON  → startStorm(false)
      └── OFF → stopStorm(false)
 
@@ -120,76 +128,3 @@ Das "false" verhindert neuerliches Broadcasten, wenn das Haus reagiert. Die Funk
      └── OFF → resortPartyActive = false
 
 ```
-
-Die Topics sollten dann in der Hauslogik verarbeitet werden (siehe Muster mod_partylogic.cpp). Beispiel Sturm-Modus, den jedes Haus haben sollte:
-```
-void startStorm(bool publish) {
-  currentMode = MODE_STORM;
-  ctrWindow(WINDOW_CLOSED);
-  ctrDoor(DOOR_CLOSED);
-  strip.clear();
-  strip.show();
-  buzzer.playTone(0, 0);
-
-  digitalWrite(PIN_LED_YELLOW, HIGH);
-  printLcd(	"STURMWARNUNG", "", true);	// schreibt "STURMWARNUNG" in die 1. Zeile und "" in die 2. Zeile. true=Text blinkt
-
-  if (publish && mqttClient.connected()) {
-    mqttClient.publish(TOPIC_BC_STORM, "ON");
-    mqttClient.publish(TOPIC_STATUS_HOUSE3, "STORM");
-  }
-}
-```
-startStorm(false) wird wiederum aus der mod_mqtt.cpp aufgerufen, wo eine Callbackfunktion auf die Payload-Änderung des Topics wartet. Der Parameter false bezieht sich auf, ob die Nachricht wieder gepublished werden soll - in diesem Fall keineswegs, da sonst eine Schleife zustandekommt.
-```
-void mqttCallback(char* topic, byte* payload, unsigned int length) {
-  String t = String(topic);
-  String msg;
-  for (unsigned int i = 0; i < length; i++) {
-    msg += (char)payload[i];
-  }
-  if ...
-  else if (t == TOPIC_CMD_STORM || t == TOPIC_BC_STORM) {
-    if (msg == "ON") {
-      startStorm(false);
-    } else if (msg == "OFF") {
-      stopStorm(false);
-    }
-```
-Files und Funktionen daraus, die vermutlich jedes Haus betreffen wären also
-- config.h/cpp
-- hardware.h/cpp
-- mod_lcd.h/cpp
-- mod_mqtt.h/cpp
-- mod_wifi.h/cpp
-
-Will man sein Haus auch lokal über eine HTML-Seite steuern, dann braucht man auch noch eine angepasste mod_html.h (hier steht dann HTML für die Steuerung drinnen)
-
-Zusätzlich muss man ein eigenes INO-File anlegen. Meins heißt beispielsweise haus3_party.ino und stellt die Hauptdatei dar. Drinnen stehen drei Bereich - includes, setup und loop:
-```
-#include <Arduino.h>
-#include "config.h"
-#include "mod_wifi.h"
-#include "mod_mqtt.h"
-#include "mod_lcd.h"
-#include "mod_rfid.h"
-#include "mod_partylogic.h"
-
-void setup() {
-    Serial.begin(115200);
-    initLcd();
-    initWiFi();
-    initMQTT();
-    initPartyLogic();
-    initRFID();
-}
-
-void loop() {
-    wiFiLoop();
-    mqttLoop();       
-    partyLoop();
-    rfidLoop();
-    lcdUpdate();
-}
-```
-

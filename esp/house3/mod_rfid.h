@@ -4,6 +4,6 @@
 #include <Arduino.h>
 
 void initRFID();
-void rfidLoop();
+void loopRfid();
 
 #endif

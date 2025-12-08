@@ -8,23 +8,23 @@
 #include "mod_lcd.h"
 #include "mod_rfid.h"
 #include "mod_partylogic.h"
-// ggf. Webserver / HTML
+#include "mod_http.h"
 
 void setup() {
     Serial.begin(115200);
     initLcd();
     initWiFi();
-    initMQTT();
-    initPartyLogic();
+    initMqtt();
+    initParty();
     initRFID();
-    // init Webserver, Zeit, etc.
+    initHttp();
 }
 
 void loop() {
-    wiFiLoop();
-    mqttLoop();          // oder maintainMQTT(), siehe oben
-    partyLoop();
-    rfidLoop();
-    lcdUpdate();
-    // HTTP-Server bearbeiten, etc.
+    loopWiFi();
+    loopMqtt();     
+    loopParty();
+    loopRfid();
+    loopLcd();
+    loopHttp();
 }

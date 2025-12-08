@@ -3,10 +3,17 @@
 
 #include <Arduino.h>
 #include <IPAddress.h>
-
+ 
 // ==== WIFI ====
-extern const char* WIFI_SSID;
-extern const char* WIFI_PASSWORD;
+// WLAN-Liste
+struct WiFiEntry {
+  const char* ssid;
+  const char* pass;
+};
+
+// Reihenfolge = Priorität (Index 0 = MASTER)
+extern const WiFiEntry WIFI_LIST[];
+extern const uint8_t   WIFI_LIST_COUNT;
 
 // ==== MQTT ====
 extern const char* MQTT_SERVER;

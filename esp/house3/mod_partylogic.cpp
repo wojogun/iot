@@ -24,15 +24,11 @@ static void stormBlinkStep(unsigned long now);
 // Von MQTT gesetzter Text; wird z.B. bei stopStorm() angezeigt
 String nextPartyText;
 
-void initPartyLogic() {
+void initParty() {
   initHardware();
 }
 
-void partyLoop() {
-  updateEffects();
-}
-
-void updateEffects() {
+void loopParty() {
   unsigned long now = millis();
 
   if (currentMode == MODE_PARTY) {
@@ -71,15 +67,15 @@ void startParty(bool publish) {
 
   ctrWindow(WINDOW_CLOSED);
   ctrDoor(DOOR_CLOSED);
+  ctrFan(FAN_ON);
   digitalWrite(PIN_LED_YELLOW, LOW);
 
   printLcd(	"Party laeuft", "Haus 3", false);
   strip.show();
-  playSong(SongId::SONG1);
-  //smokeOnTheWater();
+  playSong(SongId::SONG3);   //smokeOnTheWater();
 
   if (publish && mqttClient.connected()) {
-    mqttClient.publish(TOPIC_BC_PARTY, "STARTED");
+    mqttClient.publish(TOPIC_BC_PARTY, "START");
     mqttClient.publish(TOPIC_STATUS_HOUSE3, "PARTY");
   }
 }
@@ -87,17 +83,18 @@ void startParty(bool publish) {
 void stopParty(bool publish) {
   if (currentMode != MODE_PARTY) return;
   
-  playSong(SongId::SONG5);
-  //werHatAnDerUhrGedreht();
+  ctrFan(FAN_OFF);
   currentMode = MODE_NORMAL;
 
   strip.clear();
   strip.show();
 
+  playSong(SongId::SONG5);
   buzzer.playTone(0, 0);
+
   ctrWindow(WINDOW_OPEN);
   ctrDoor(DOOR_OPEN);
-  printLcd(	"Nächste Party:", nextPartyText, false);
+  printLcd(	"Next:", nextPartyText, false);
   
   if (publish && mqttClient.connected()) {
     mqttClient.publish(TOPIC_BC_PARTY, "STOPPED");
@@ -128,7 +125,7 @@ void stopStorm(bool publish) {
   ctrWindow(WINDOW_OPEN);
   ctrDoor(DOOR_OPEN);
   digitalWrite(PIN_LED_YELLOW, LOW);
-  printLcd(	"Nächste Party:", nextPartyText, false);
+  printLcd(	"Next Party:", nextPartyText, false);
 
   if (publish && mqttClient.connected()) {
     mqttClient.publish(TOPIC_BC_STORM, "OFF");

@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "hardware.h"
 
 // -------------------- Pinbelegung (KS5009-Standard) --------------------
@@ -7,6 +8,14 @@ const uint8_t PIN_SERVO_DOOR   = 13;  // Tür-Servo
 const uint8_t PIN_LED_STRIP    = 26;  // SK6812 / NeoPixel
 const uint8_t PIN_BUZZER       = 25;  // Buzzer
 const uint8_t NEOPIXEL_COUNT = 4;
+const uint8_t PIN_FAN_INA      = 19;
+const uint8_t PIN_FAN_INB      = 18;
+
+static const int FAN_CH_INA  = 19;
+static const int FAN_CH_INB  = 18;
+static const int FAN_FREQ    = 25000;  // 10 kHz
+static const int FAN_RES_BITS= 8;      // 0..255
+static const int FAN_SPEED   = 10;    // "Vollgas" (0..255)
 
 // Anzahl der Pixel im Strip (RGB)
 static const uint8_t LED_COUNT = 4;
@@ -48,6 +57,12 @@ void initHardware() {
     // Buzzer
     buzzer.setTimbre(30);      // Klangfarbe (Keyestudio-Beispiel)
     buzzer.playTone(0, 0);     // sicherstellen, dass er aus ist
+
+    // Fan
+    pinMode(PIN_FAN_INA, OUTPUT);
+    pinMode(PIN_FAN_INB, OUTPUT);
+    digitalWrite(PIN_FAN_INA, LOW);   // feste Drehrichtung
+    analogWrite(PIN_FAN_INB, 0);      // aus
 }
 
 // -------------------- Helper für Fenster / Tür --------------------
@@ -66,6 +81,18 @@ void ctrWindow(WindowState state) {
     }
     windowServo.write(angle);
 }
+
+void ctrFan(FanState state) {
+  switch (state) {
+    case FAN_ON:
+      digitalWrite(PIN_FAN_INA,0);
+    case FAN_OFF:
+    default:
+      analogWrite(PIN_FAN_INB, 0);           // aus
+      break;
+  }
+}
+
 
 // Für die Tür kannst du die Winkel nach Bedarf justieren.
 // Hier: 0° = zu, 90° = auf (oder 180°, wenn es mechanisch besser passt).

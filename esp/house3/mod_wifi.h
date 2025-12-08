@@ -5,7 +5,7 @@
 //void initSerial();
 
 void initWiFi();
-void wiFiLoop();
+void loopWiFi();
 bool wiFiIsConnected();
 
 #endif
