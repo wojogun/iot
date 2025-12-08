@@ -74,25 +74,34 @@ void callbackMqtt(char* topic, byte* payload, unsigned int length) {
   Serial.print("MQTT in [");
   Serial.print(t);
   Serial.print("]: ");
-  Serial.println(msg);
+  Serial.print(msg);
 
   if (t == TOPIC_CMD_PARTY) {
     if (msg == "START") {
       startParty(false);
+	  Serial.println("ok");	
     } else if (msg == "STOP") {
       stopParty(false);
-    }
+	  Serial.println("ok");	
+    } else {
+	  Serial.println("nicht gefunden!");	
+	}
   } else if (t == TOPIC_CMD_STORM || t == TOPIC_BC_STORM) {
     if (msg == "ON") {
       startStorm(false);
+	  Serial.println("ok");	
     } else if (msg == "OFF") {
       stopStorm(false);
-    }
+	  Serial.println("ok");	
+    } else {
+	  Serial.println("nicht gefunden!");	
+	}
   } else if (t == TOPIC_NEXT_PARTY) {
     nextPartyText = msg;   // String aus der MQTT-Nachricht
     // Nur in NORMAL-Modus sofort anzeigen, bei Party/Storm bleibt Text
     if (currentMode == MODE_NORMAL) {
 	  printLcd("Next: ", nextPartyText, false); 
+	  Serial.println("ok");	
     }
   } else if (strcmp(topic, TOPIC_CMD_SONG) == 0) {
     msg.trim();
@@ -122,6 +131,7 @@ void callbackMqtt(char* topic, byte* payload, unsigned int length) {
     }
   }
 }
+
 
 
 
