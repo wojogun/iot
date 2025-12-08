@@ -95,15 +95,19 @@ Das "false" verhindert neuerliches Broadcasten, wenn das Haus reagiert. Die Funk
 
 ## Funktionsmapping (Was löst welches Topic aus?)
 ```
- TOPIC_CMD_PARTY
+ TOPIC_CMD_PARTY (nur Haus 3)
      ├── START → startParty(false)
      └── STOP  → stopParty(false)
 
- TOPIC_CMD_STORM
+ TOPIC_CMD_STORM (Nur Haus 1)
      ├── ON  → startStorm(false)
      └── OFF → stopStorm(false)
 
- TOPIC_BC_STORM
+ TOPIC_BC_PARTY (broadcast an alle Häuser)
+     ├── ON  → startStorm(false)
+     └── OFF → stopStorm(false)
+
+ TOPIC_BC_STORM (broadcast an alle Häuser)
      ├── ON  → startStorm(false)
      └── OFF → stopStorm(false)
 
@@ -114,4 +118,41 @@ Das "false" verhindert neuerliches Broadcasten, wenn das Haus reagiert. Die Funk
  TOPIC_STATE_PARTY   (optional)
      ├── ON  → resortPartyActive = true
      └── OFF → resortPartyActive = false
+
+```
+
+Die Topics sollten dann in der Hauslogik verarbeitet werden (siehe Muster mod_partylogic.cpp). Beispiel Sturm-Modus, den jedes Haus haben sollte:
+```
+void startStorm(bool publish) {
+  currentMode = MODE_STORM;
+  ctrWindow(WINDOW_CLOSED);
+  ctrDoor(DOOR_CLOSED);
+  strip.clear();
+  strip.show();
+  buzzer.playTone(0, 0);
+
+  digitalWrite(PIN_LED_YELLOW, HIGH);
+  printLcd(	"STURMWARNUNG", "", true);	// schreibt "STURMWARNUNG" in die 1. Zeile und "" in die 2. Zeile. true=Text blinkt
+
+  if (publish && mqttClient.connected()) {
+    mqttClient.publish(TOPIC_BC_STORM, "ON");
+    mqttClient.publish(TOPIC_STATUS_HOUSE3, "STORM");
+  }
+}
+```
+startStorm(false) wird widerum aus der mod_mqtt.cpp aufgerufen, wo eine Callbackfunktion auf die Payload-Änderung des Topics wartet. Der Parameter false bezieht sich auf, ob die Nachricht wieder gepublished werden soll - in diesem Fall keineswegs, da sonst eine Schleife zustandekommt.
+```
+void mqttCallback(char* topic, byte* payload, unsigned int length) {
+  String t = String(topic);
+  String msg;
+  for (unsigned int i = 0; i < length; i++) {
+    msg += (char)payload[i];
+  }
+  if ...
+  else if (t == TOPIC_CMD_STORM || t == TOPIC_BC_STORM) {
+    if (msg == "ON") {
+      startStorm(false);
+    } else if (msg == "OFF") {
+      stopStorm(false);
+    }
 ```
