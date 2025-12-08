@@ -1,7 +1,7 @@
 #include <WiFi.h>
 
-const char* ssid = "Lexlan";
-const char* password = "gekajo67";
+const char* ssid = "xxxxx";
+const char* password = "xxxxxx";
 
 void setup() {
   Serial.begin(115200);
