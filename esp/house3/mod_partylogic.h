@@ -10,8 +10,8 @@ enum Mode {
 extern String nextPartyText;
 extern Mode currentMode;
 
-void initPartyLogic();
-void partyLoop();      // updateEffects()
+void initParty();
+void loopParty();      // updateEffects()
 void startParty(bool publish);
 void stopParty(bool publish);
 void startStorm(bool publish);

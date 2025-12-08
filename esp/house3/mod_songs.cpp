@@ -10,10 +10,11 @@ struct TagSongMap {
 
 // Beispielhafte Tabelle – bitte an deine echten Tags anpassen!
 static const TagSongMap SONG_MAP[] = {
-    { "747B9FDB", SongId::SONG1 }, // karte
-    { "9B1C5D8A", SongId::SONG2 }, // blau
-    { "8899AA77", SongId::SONG3 },
-    { "DEADBEEF", SongId::SONG4 }
+    { "747B9FDB", SongId::SONG1 }, // karte: hey jude
+    { "9B1C5D8A", SongId::SONG2 }, // blau: final
+    { "0462852A503880", SongId::SONG3 }, // TU: smoke
+    { "64000E7B", SongId::SONG4 }, // ORF: drunken
+    { "023C16F0040020", SongId::SONG5 } // visa: paulchen
 };
 
 static const size_t SONG_MAP_SIZE = sizeof(SONG_MAP) / sizeof(SONG_MAP[0]);
@@ -198,8 +199,8 @@ void whatShallWeDo() {
   playNote(440, E);   // A4
   playNote(440, S);   // A4
   playNote(440, S);   // A4
-  playNote(440, S);   // A4
   playNote(440, E);   // A4
+  playNote(440, S);   // A4
   playNote(440, S);   // A4
   
   playNote(440, E);   // A4
@@ -216,9 +217,28 @@ void whatShallWeDo() {
 
   playNote(392, E);   // G4
   playNote(262, E);   // C4
-  playNote(262, E);   // E4
+  playNote(330, E);   // E4
   playNote(392, E);   // G4
-  delay(E);
+
+  playNote(440, E);   // A4
+  playNote(440, S);   // A4
+  playNote(440, S);   // A4
+  playNote(440, E);   // A4
+  playNote(440, S);   // A4
+  playNote(440, S);   // A4
+  
+  playNote(440, E);   // A4
+  playNote(494, E);   // H4
+  playNote(523, E);   // C5
+  playNote(587, E);   // D5
+
+  playNote(523, E);   // C5
+  playNote(440, E);   // A4
+  playNote(392, E);   // G4
+  playNote(330, E);   // E4
+
+  playNote(294, Q);   // D4
+  playNote(294, Q);   // D4
   sendMqttSongName(SongId::NONE);
 }
 

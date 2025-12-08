@@ -12,6 +12,9 @@ extern const uint8_t PIN_SERVO_WINDOW;
 extern const uint8_t PIN_SERVO_DOOR;  
 extern const uint8_t PIN_LED_STRIP;   
 extern const uint8_t PIN_BUZZER; 
+extern const uint8_t PIN_FAN_INA; 
+extern const uint8_t PIN_FAN_INB;
+
 
 // Anzahl LEDs im NeoPixel-Strip (RGB-Modul)     
 extern const uint8_t NEOPIXEL_COUNT;
@@ -30,6 +33,11 @@ enum DoorState {
     DOOR_OPEN   = 1
 };
 
+enum FanState {
+    FAN_OFF = 0,
+    FAN_ON  = 1
+};
+
 // -------------------- Globale Hardware-Objekte --------------------
 extern Adafruit_NeoPixel strip;  // SK6812 / NeoPixel
 extern Servo windowServo;
@@ -43,5 +51,6 @@ extern String nextPartyText;
 void initHardware();   
 void ctrWindow(WindowState state);
 void ctrDoor(DoorState state);
+void ctrFan(FanState state);
 
 #endif
