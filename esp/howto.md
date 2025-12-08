@@ -140,7 +140,7 @@ void startStorm(bool publish) {
   }
 }
 ```
-startStorm(false) wird widerum aus der mod_mqtt.cpp aufgerufen, wo eine Callbackfunktion auf die Payload-Änderung des Topics wartet. Der Parameter false bezieht sich auf, ob die Nachricht wieder gepublished werden soll - in diesem Fall keineswegs, da sonst eine Schleife zustandekommt.
+startStorm(false) wird wiederum aus der mod_mqtt.cpp aufgerufen, wo eine Callbackfunktion auf die Payload-Änderung des Topics wartet. Der Parameter false bezieht sich auf, ob die Nachricht wieder gepublished werden soll - in diesem Fall keineswegs, da sonst eine Schleife zustandekommt.
 ```
 void mqttCallback(char* topic, byte* payload, unsigned int length) {
   String t = String(topic);
@@ -156,3 +156,4 @@ void mqttCallback(char* topic, byte* payload, unsigned int length) {
       stopStorm(false);
     }
 ```
+
