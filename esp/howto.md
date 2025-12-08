@@ -45,8 +45,11 @@ extern IPAddress dns;
 ### Variable
 - für das WLAN
 ```
-extern const char* WIFI_SSID;
-extern const char* WIFI_PASSWORD;
+const WiFiEntry WIFI_LIST[] = {
+    { "SSID1", "pw1"},
+    { "SSID2", "pw2"},
+    ...
+ }
 ```
 - für MQTT
 ```
@@ -71,7 +74,8 @@ allerdings können wir das mit dem free HiveMQ-Abo nicht verwenden, das geht ers
 
 ## config.cpp
 Hier werden die zuvor in der config.h deklarierten Variablen gesetzt.
-- Bei WIFI_SSID und WIFI_PASSWORD trage die Anmeldedaten Deines Hotspots ein!
+- ~~Bei WIFI_SSID und WIFI_PASSWORD trage die Anmeldedaten Deines Hotspots ein!~~
+die WiFi-SSID und Pws werden nun als Array hinterlegt. Das erste Paar hat Prio 1, die anderen sind Fallback. Damit kannst Du einen Hotspot schon für die Demo als Prio1 definieren, deinen Handyhotspot als Prio2 und dein WLAN zu Hause als Prio3 - und hast in jedem Fall irgendein Netz!
 - die IPAddress-Werte braucht man nur, wenn man eine statische IP setzen will
 - Mit MDNS_NAME wird der Name Deines Hauses gesetzt. Dieser wird später in der initMDNS() angewendet.
 - Unser MQTT-Server ist "5e16dbde757548029c0591f1f71f376c.s1.eu.hivemq.cloud", der Port 8883

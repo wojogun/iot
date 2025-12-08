@@ -1,8 +1,11 @@
 #include config.h
 
  ===== WLAN =====
-const char WIFI_SSID     = ssid;
-const char WIFI_PASSWORD = verysecret;
+const WiFiEntry WIFI_LIST[] = {
+  { "gn-accm",  "aTmVkM9-BAtXtepecohTQ3DpiJGx!X3_" },   // MASTER
+  { "prio2",    "blablabla" }, // FALLBACK
+  { "prio3",    "blablabla" },
+};
 
  ===== STATIC IP (wenn gewünscht) =====
 const bool USE_STATIC_IP = true;
