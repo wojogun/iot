@@ -67,7 +67,7 @@ Hier werden die zuvor in der config.h deklarierten Variablen gesetzt.
 - die IPAddress-Werte braucht man nur, wenn man eine statische IP setzen will
 - Mit MDNS_NAME wird der Name Deines Hauses gesetzt. Dieser wird später in der initMDNS() angewendet.
 - Unser MQTT-Server ist "5e16dbde757548029c0591f1f71f376c.s1.eu.hivemq.cloud", der Port 8883
-- Als MQTT-User, das PW und die Permissions kannst Du unter https://console.hivemq.cloud/clusters/5e16dbde757548029c0591f1f71f376c/access-management mit "Add Credentials" setzen. Nutze als Permission "Publish and Subscribe", schließlich wollen wir senden UND empfangen.
+- Als MQTT-User, das PW und die Permissions kannst Du unter https://console.hivemq.cloud/clusters/5e16dbde757548029c0591f1f71f376c/access-management mit "Add Credentials" setzen. Nutze als Permission "Publish and Subscribe", schließlich wollen wir senden UND empfangen - bereits vorhandene, dein Haus betreffende Einträge bitte löschen um Verwirrung zu vermeiden!
 
 
 # MQTT
@@ -156,4 +156,5 @@ void mqttCallback(char* topic, byte* payload, unsigned int length) {
       stopStorm(false);
     }
 ```
+
 
