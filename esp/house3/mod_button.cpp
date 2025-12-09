@@ -1,4 +1,9 @@
 #include "mod_button.h"
+#include "hardware.h"
+
+//                                    Pin,    activeLow, longPressMs, doubleClickMs, debounceMs
+ButtonState btn1 = { PIN_BTN1, true,     2000,        400,           30 };
+ButtonState btn2 = { PIN_BTN2, true,     2000,        400,           30 };
 
 void initButton(ButtonState& btn) {
   pinMode(btn.pin, btn.activeLow ? INPUT_PULLUP : INPUT);

@@ -13,7 +13,8 @@ ich hab meinen haus3_party genannt. Die Erweiterung dieses Files wäre ".ino". N
 # Config auslagern
 In der C/C++ Welt ist es üblich die Deklaration und Definition zu trennen. Das soll Wiederverwendbarkeit, klare Schnittstellen und weniger Chaos im Hauptsketch bringen.
 - **config.h** enthält nur Deklarationen und Konstanten, aber keine Werte. ("h"=header")
-- **config.cpp** enthält nun die eigentlichen Werte. Da hier auch das WiFi-Passwort und andere Secrets abgespeichert sind, ist diese Datei im Repo nur als **config.cpp.muster** hinterlegt. Die eigentliche config.cpp liegt nur Lokal und sollte auch in der Datei **.gitignore** enthalten sein. ("cpp"=C++ 'plusplus')
+- **config.cpp** enthält nun die eigentlichen Werte. Da hier auch das WiFi-Passwort und andere Secrets abgespeichert sind, ist diese Datei im Repo nur als **config.cpp.muster** hinterlegt. Die eigentliche config.cpp liegt nur Lokal und sollte auch in der Datei **.gitignore** enthalten sein. ("cpp"=C++ 'plusplus').
+Neuerdings werden hier auch alle hausspezifischen MQTT-TOPIC registriezt.
 
 ## config.h
 Was passiert hier drinnen?
@@ -45,11 +46,8 @@ extern IPAddress dns;
 ### Variable
 - für das WLAN
 ```
-const WiFiEntry WIFI_LIST[] = {
-    { "SSID1", "pw1"},
-    { "SSID2", "pw2"},
-    ...
- }
+extern const WiFiEntry WIFI_LIST[];
+extern const uint8_t   WIFI_LIST_COUNT;
 ```
 - für MQTT
 ```
@@ -57,6 +55,8 @@ extern const char* MQTT_SERVER;
 extern const int   MQTT_PORT;
 extern const char* MQTT_USER;
 extern const char* MQTT_PASSWORD;
+
+extern const char* TOPIC_BC_STORM;
 ```
 
 - für mDNS Name
@@ -76,10 +76,18 @@ allerdings können wir das mit dem free HiveMQ-Abo nicht verwenden, das geht ers
 Hier werden die zuvor in der config.h deklarierten Variablen gesetzt.
 - ~~Bei WIFI_SSID und WIFI_PASSWORD trage die Anmeldedaten Deines Hotspots ein!~~
 die WiFi-SSID und Pws werden nun als Array hinterlegt. Das erste Paar hat Prio 1, die anderen sind Fallback. Damit kannst Du einen Hotspot schon für die Demo als Prio1 definieren, deinen Handyhotspot als Prio2 und dein WLAN zu Hause als Prio3 - und hast in jedem Fall irgendein Netz!
+```
+const WiFiEntry WIFI_LIST[] = {
+    { "SSID1", "pw1"},
+    { "SSID2", "pw2"},
+    ...
+ }
+```
 - die IPAddress-Werte braucht man nur, wenn man eine statische IP setzen will
 - Mit MDNS_NAME wird der Name Deines Hauses gesetzt. Dieser wird später in der initMDNS() angewendet.
 - Unser MQTT-Server ist "5e16dbde757548029c0591f1f71f376c.s1.eu.hivemq.cloud", der Port 8883
 - Als MQTT-User, das PW und die Permissions kannst Du unter [hiveMQ](https://console.hivemq.cloud/clusters/5e16dbde757548029c0591f1f71f376c/access-management) (Zugang habe ich euch allen am 2.11.25 gemailt) mit "Add Credentials" setzen. Nutze als Permission "Publish and Subscribe", schließlich wollen wir senden UND empfangen.
+- MQTT-Topic zB ```const char* TOPIC_BC_STORM      = "resort/broadcast/storm";```
 
 # MQTT
 ## Topics
@@ -122,7 +130,8 @@ void initParty() {
   // TOPIC_CURRENT_SONG   = "resort/house3/party/song";  --> publish only
 
   Serial.println("Partylogic subscribed all topics");
-}```
+}
+```
 
 Das Modul mqtt ist seit dem letzten refactoring-Durchlauf komplett generisch. Alle Definitionen sind nun in der Hauslogik
 ## Zusammenspiel der Funktionen
@@ -145,12 +154,33 @@ Das Modul mqtt ist seit dem letzten refactoring-Durchlauf komplett generisch. Al
      ├── ON  → startStorm(false)
      └── OFF → stopStorm(false)
 
- TOPIC_STATE_STORM   (optional)
-     ├── ON  → resortStormActive = true;  startStorm(false)
-     └── OFF → resortStormActive = false; stopStorm(false)
-
- TOPIC_STATE_PARTY   (optional)
-     ├── ON  → resortPartyActive = true
-     └── OFF → resortPartyActive = false
-
 ```
+# Hardwaremodule
+
+## Buttons
+mod_button.h/cpp
+
+in der Logik-Datei:
+```
+#include "mod_button.h"
+
+void initLogic() {
+  initHardware();
+  initButton(btnPartyStart);
+  initButton(btnPartyStop);
+}
+
+void loopLogic() {
+  unsigned long now = millis();
+  ButtonEvent ev1 = updateButton(btn1, now);
+    if (ev1 == BUTTON_LONG) startParty(true);
+  ButtonEvent ev2 = updateButton(btn2, now);
+    if (ev2 == BUTTON_LONG) stopParty(true);
+}
+
+Als Button-Event können
+- BUTTON_NONE
+- BUTTON_SHORT
+- BUTTON_LONG
+- BUTTON_DOUBLE
+verwendet werden
