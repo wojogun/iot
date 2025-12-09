@@ -10,10 +10,6 @@
 #include "mod_songs.h"
 #include "mod_button.h"
 
-//                                    Pin,    activeLow, longPressMs, doubleClickMs, debounceMs
-static ButtonState btnPartyStart = { PIN_BTN1, true,     2000,        400,           30 };
-static ButtonState btnPartyStop  = { PIN_BTN2, true,     2000,        400,           30 };
-
 Mode currentMode = MODE_NORMAL;
 auto& mqttClient = getMqttClient();
 
@@ -21,8 +17,8 @@ static unsigned long lastPartyUpdate = 0;
 static unsigned long lastStormBlink  = 0;
 static bool          stormLedState   = false;
 static uint16_t      partyHue        = 0;
-static bool lastBtn1 = HIGH;
-static bool lastBtn2 = HIGH;
+//static bool lastBtn1 = HIGH;
+//static bool lastBtn2 = HIGH;
 
 void handleMqtt(const String& topic, const String& payload) {
   Serial.print("MQTT in [");
@@ -82,8 +78,8 @@ String nextPartyText;
 
 void initParty() {
   initHardware();
-  initButton(btnPartyStart);
-  initButton(btnPartyStop);
+  initButton(btn1);
+  initButton(btn2);
 
   registerCallbackMqtt(handleMqtt);
   subscribeMqtt(TOPIC_BC_STORM);
@@ -101,9 +97,9 @@ void initParty() {
 void loopParty() {
   unsigned long now = millis();
   // Buttons abfragen (Flanken-Erkennung)
-  ButtonEvent ev1 = updateButton(btnPartyStart, now);
+  ButtonEvent ev1 = updateButton(btn1, now);
   if (ev1 == BUTTON_LONG) startParty(true);
-  ButtonEvent ev2 = updateButton(btnPartyStop, now);
+  ButtonEvent ev2 = updateButton(btn2, now);
   if (ev2 == BUTTON_LONG) stopParty(true);
 
   if (currentMode == MODE_PARTY) {

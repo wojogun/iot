@@ -26,6 +26,9 @@ struct ButtonState {
   bool     longReported;
 };
 
+extern ButtonState btn1;
+extern ButtonState btn2;
+
 void initButton(ButtonState& btn);
 ButtonEvent updateButton(ButtonState& btn, uint32_t nowMs);
 
