@@ -155,6 +155,57 @@ Das Modul mqtt ist seit dem letzten refactoring-Durchlauf komplett generisch. Al
      └── OFF → stopStorm(false)
 
 ```
+# Empfehlung für dem "Hausbau"
+1. neuen Sketch anlegen
+**Name:** HausX.ino
+**Inhalt:** erst mal das Minimum
+```
+#include <Arduino.h>
+#include "config.h"
+#include "mod_wifi.h"     // WLAN
+#include "mod_mqtt.h"
+#include "mod_lcd.h"      // Display am Haus
+#include "mod_logic.h"    // alles was dein Haus an Logik braucht
+
+void setup() {
+    Serial.begin(115200);
+    initLcd();
+    initWiFi();
+    initMqtt();
+    initLogic();
+}
+
+void loop() {
+    loopLcd();
+    loopWiFi();
+    loopMqtt();
+    loopLogic();
+}
+```
+2. Basis Module hineinkopieren (jeweils .h und .cpp):
+    - config
+    - hardware
+    - mod_lcd
+    - mod_mqtt
+    - mod_wifi
+3. Zusätzliche Hardwaremodule (nach Bedarf - nicht vergessen die init und loop-Routinen im Hauptfile zu ergänzen!)
+    - mod_button
+    - mod_rfid
+    - mod_http (für eine lokale Steuerungsseite)
+    - oder so ein Modul selbst schreiben. Aber nicht alle Aktoren des Hauses brauchen ein eigenes Modul
+      - **Fenster** ```ctrWindow(WINDOW_OPEN / WINDOW_CLOSED);```
+      ACHTUNG: der Servo tendiert zu heiß werden. Bei wird wird auch das Display deutlich schwerer lesbar, wenn das Fenster initialisiert wird. Deshalb habe ich bei mir das Fenster ausgeschaltet. Allerdings habe ich den Verdacht, dass der Servo kaputt ist. Suche in hardware.cpp nach ```const bool USE_WINDOW   = false;``` und ändere auf true!
+      - **Tür** ```ctrDoor(DOOR_OPEN / DOOR_CLOSED);```
+      Die Temperatur des Door-Servos lässt sich nicht so leicht überprüfen, da er tief drinnen verbaut ist. Dieser Motor hat bei mir allerdings keine Probleme gemacht, daher ist er aktiviert: ```const bool USE_DOOR     = true;```
+      - das **RGB-Modul** ist als "strip" schon in der Hardware definiert. Anwendung siehe ```void partyLightsStep(unsigned long now)``` in mod_partylogic.cpp
+      - die **gelbe LED** lässt sich mit ```digitalWrite(PIN_LED_YELLOW, bedingung ? HIGH : LOW);``` ein und ausschalten
+      - **Ventilator** ```ctrFan(FAN_ON bzw. FAN_OFF);```
+      - **Hum & Temp** tba
+      - **Bewegungsmelder** PIN 14 ist bereits in hardware definiert
+4. Erstellen eines Logik-Moduls für das Haus
+In diesem werden dann alle Events abgehandelt
+5. Anpassen der config.cpp
+
 # Hardwaremodule
 
 ## Buttons

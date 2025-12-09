@@ -51,22 +51,22 @@ static String buildRootPage(const String& ipStr, const String& modeText, const S
 
   // Buttons
   s += "<p>";
-  s += "<a href='/party/start'><button class='btn-party'>Party START</button></a>";
-  s += "<a href='/party/stop'><button class='btn-party'>Party STOP</button></a>";
+  s += "<a href='/?party=START'><button class='btn-party'>Party START</button></a>";
+  s += "<a href='/?party=STOP'><button class='btn-party'>Party STOP</button></a>";
   s += "</p>";
 
   s += "<p>";
-  s += "<a href='/storm/on'><button class='btn-storm'>STURM EIN</button></a>";
-  s += "<a href='/storm/off'><button class='btn-storm'>STURM AUS</button></a>";
+  s += "<a href='/storm=ON'><button class='btn-storm'>STURM EIN</button></a>";
+  s += "<a href='/storm=OFF'><button class='btn-storm'>STURM AUS</button></a>";
   s += "</p>";
   s += "<hr />";
   s += "<p>";
   s += "<h1>Wurlitzer-Test</h1>";
-  s += "<a href='/?song=1'><button class='btn-song'>" + String(songName(SongId::SONG1)) + "</button></a><br />";
-  s += "<a href='/?song=2'><button class='btn-song'>" + String(songName(SongId::SONG2)) + "</button></a><br />";
-  s += "<a href='/?song=3'><button class='btn-song'>" + String(songName(SongId::SONG3)) + "</button></a><br />";
-  s += "<a href='/?song=4'><button class='btn-song'>" + String(songName(SongId::SONG4)) + "</button></a><br />";
-  s += "<a href='/?song=5'><button class='btn-song'>" + String(songName(SongId::SONG5)) + "</button></a><br />";
+
+  for (uint8_t i = 1; i < SONG_COUNT; i++) {
+    const SongInfo& song = songList[i];
+    s += "<a href='/?song=" + String(song.id) + "'><button>" + song.name + "</button></a><br />";
+  }
   s += "</p>";
   
   // Fußzeile / Feedback
@@ -109,37 +109,28 @@ void loopHttp() {
     lastStatusMessage = "";
 
     // Hier je nach Pfad Aktionen auslösen – an deine HTML-Links anpassen!
-    if (path.indexOf("party=on") >= 0) {
+    if (path.indexOf("party=START") >= 0) {
         startParty(true);
         lastStatusMessage = "Party gestartet";
-    } else if (path.indexOf("party=off") >= 0) {
+    } else if (path.indexOf("party=STOP") >= 0) {
         stopParty(true);
-        lastStatusMessage = "Party gestoppt";
-    } else if (path.indexOf("storm=on") >= 0) {
+        lastStatusMessage = "Party beendet";
+    } else if (path.indexOf("storm=ON") >= 0) {
         startStorm(true);
-        lastStatusMessage = "Sturm gestartet";
-    } else if (path.indexOf("storm=off") >= 0) {
+        lastStatusMessage = "Sturmwarnung";
+    } else if (path.indexOf("storm=OFF") >= 0) {
         stopStorm(true);
-        lastStatusMessage = "Sturm gestoppt";
+        lastStatusMessage = "Sturmwarnung beendet";
 
-    } else if (path.indexOf("song=1") >= 0) {
-        playSong(SongId::SONG1);
-        lastStatusMessage = String("Song: ") + songName(SongId::SONG1);
-    } else if (path.indexOf("song=2") >= 0) {
-        playSong(SongId::SONG2);
-        lastStatusMessage = String("Song: ") + songName(SongId::SONG2);
-    } else if (path.indexOf("song=3") >= 0) {
-        playSong(SongId::SONG3);
-        lastStatusMessage = String("Song: ") + songName(SongId::SONG3);
-    } else if (path.indexOf("song=4") >= 0) {
-        playSong(SongId::SONG4);
-        lastStatusMessage = String("Song: ") + songName(SongId::SONG4);
-    } else if (path.indexOf("song=0") >= 0) {
-        // Song stoppen / NONE setzen
-        sendMqttSongName(SongId::NONE);
-        lastStatusMessage = "Song gestoppt";
+    } else if (path.indexOf("song=") >= 0) {
+
+        int pos = path.indexOf("song=");
+        if (pos >= 0) {
+            uint8_t id = path.substring(pos + 5).toInt();
+            const SongInfo* s = getSongById(id);
+            playSong(s->id);
+        }
     } else {
-        // nur Seite neu zeichnen
         lastStatusMessage = "";
     }
 

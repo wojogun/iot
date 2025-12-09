@@ -22,10 +22,11 @@ extern const char* TOPIC_CMD_NEXT;
 extern const char* TOPIC_STATUS_HOUSE3;
 extern const char* TOPIC_CURRENT_SONG;
 void handleMqtt(const String& topic, const String& payload);
+void onMotion(bool active);
 
-// sonstige FUnktionen
 void initParty();
 void loopParty();
+
 void startParty(bool publish);
 void stopParty(bool publish);
 void startStorm(bool publish);
