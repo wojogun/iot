@@ -3,7 +3,7 @@
 #include "config.h"
 #include "mod_wifi.h"
 #include "mod_mqtt.h"
-#include "mod_partylogic.h"   // für startParty/startStorm, falls nötig
+#include "mod_partylogic.h"
 #include "mod_lcd.h"
 #include "mod_songs.h"
 
@@ -11,128 +11,83 @@
 static WiFiClientSecure secureClient;
 static PubSubClient mqttClient(secureClient);
 
-// MQTT-Topics
-const char* TOPIC_BC_PARTY      = "resort/broadcast/party";
-const char* TOPIC_BC_STORM      = "resort/broadcast/storm";
-const char* TOPIC_CMD_PARTY     = "resort/house3/party/cmd";
-const char* TOPIC_CMD_STORM     = "resort/house3/storm/cmd";
-const char* TOPIC_CMD_SONG      = "resort/house3/party/song/cmd";
-const char* TOPIC_STATUS_HOUSE3 = "resort/house3/status";
-const char* TOPIC_NEXT_PARTY    = "resort/house3/party/next";
-const char* TOPIC_CURRENT_SONG  = "resort/house3/party/song"; 
+static MqttCallback registeredCallback = nullptr; // handler für das jeweilige hausc:\Users\wojog\OneDrive\uni\FH_Master\3_IoT\smarthome\esp\house3\mod_mqtttopics.h
 
-static void callbackMqtt(char* topic, byte* payload, unsigned int length);
-static void reconnectMqtt();
+void registerCallbackMqtt(MqttCallback cb) { registeredCallback = cb; }
+
+static void internalCallback(char* topic, byte* payload, unsigned int length) {
+  if (!registeredCallback) return;
+
+  String t(topic);
+  String msg;
+  msg.reserve(length);
+  for (unsigned int i = 0; i < length; i++) {
+    msg += (char)payload[i];
+  }
+  registeredCallback(t, msg);
+}
+
+PubSubClient& getMqttClient() { return mqttClient; }
+
+static void reconnectMqtt() {
+  while (!mqttClient.connected()) {
+    String clientId = "house_";
+    clientId += String(random(0xffff), HEX);
+
+    Serial.print("Connecting MQTT as ");
+    Serial.println(clientId);
+
+    // WICHTIG: hier Username/Password mitgeben
+    if (mqttClient.connect(clientId.c_str(), MQTT_USER, MQTT_PASSWORD)) {
+      Serial.println("MQTT connected");
+      // Subscriptions macht dein Hausmodul
+    } else {
+      Serial.print("failed rc=");
+      Serial.print(mqttClient.state());
+      Serial.println(" retry in 5 seconds");
+      delay(5000);
+    }
+  }
+}
 
 void initMqtt() {
   //secureClient.setCACert(ROOT_CA);
   secureClient.setInsecure();
   mqttClient.setServer(MQTT_SERVER, MQTT_PORT);
-  mqttClient.setCallback(callbackMqtt);
-}
-
-PubSubClient& GetMqttClient() {
-    return mqttClient;
+  mqttClient.setCallback(internalCallback);
+  reconnectMqtt(); 
 }
 
 void loopMqtt() {
   if (!wiFiIsConnected()) return;    // ohne WLAN kein MQTT
-  if (!mqttClient.connected()) reconnectMqtt();
+  if (!mqttClient.connected()) {
+    reconnectMqtt();
+  }
   mqttClient.loop();
 }
 
-void reconnectMqtt() {
-  Serial.print("Attempting MQTT connection... ");
-
-  String clientId = "Haus3Party";
-  clientId += String(random(0xffff), HEX);
-
-  if (mqttClient.connect(clientId.c_str(), MQTT_USER, MQTT_PASSWORD)) {
-    Serial.println("connected");
-
-    mqttClient.subscribe(TOPIC_BC_STORM);
-    mqttClient.subscribe(TOPIC_CMD_PARTY);
-    mqttClient.subscribe(TOPIC_CMD_STORM);
-    mqttClient.subscribe(TOPIC_NEXT_PARTY); 
-    mqttClient.subscribe(TOPIC_CMD_SONG);
-    
-    mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL");
-  } else {
-    Serial.print("failed, rc=");
-    Serial.print(mqttClient.state());
-    Serial.println(" will retry later");
-  }
+bool publishMqtt(const String& topic, const String& payload, bool retained) {
+  if (!mqttClient.connected()) return false;
+  return mqttClient.publish(topic.c_str(), payload.c_str(), retained);
 }
 
-void callbackMqtt(char* topic, byte* payload, unsigned int length) {
-  String t = String(topic);
-  String msg;
-  for (unsigned int i = 0; i < length; i++) {
-    msg += (char)payload[i];
+bool subscribeMqtt(const String& topic) {
+  if (!mqttClient.connected()) {
+    Serial.print("subscribeMqtt ignored (not connected): ");
+    Serial.println(topic);
+    return false;
   }
 
-  Serial.print("MQTT in [");
-  Serial.print(t);
-  Serial.print("]: ");
-  Serial.print(msg);
+  bool ok = mqttClient.subscribe(topic.c_str());
 
-  if (t == TOPIC_CMD_PARTY) {
-    if (msg == "START") {
-      startParty(false);
-	  Serial.println("ok");	
-    } else if (msg == "STOP") {
-      stopParty(false);
-	  Serial.println("ok");	
-    } else {
-	  Serial.println("nicht gefunden!");	
-	}
-  } else if (t == TOPIC_CMD_STORM || t == TOPIC_BC_STORM) {
-    if (msg == "ON") {
-      startStorm(false);
-	  Serial.println("ok");	
-    } else if (msg == "OFF") {
-      stopStorm(false);
-	  Serial.println("ok");	
-    } else {
-	  Serial.println("nicht gefunden!");	
-	}
-  } else if (t == TOPIC_NEXT_PARTY) {
-    nextPartyText = msg;   // String aus der MQTT-Nachricht
-    // Nur in NORMAL-Modus sofort anzeigen, bei Party/Storm bleibt Text
-    if (currentMode == MODE_NORMAL) {
-	  printLcd("Next: ", nextPartyText, false); 
-	  Serial.println("ok");	
-    }
-  } else if (strcmp(topic, TOPIC_CMD_SONG) == 0) {
-    msg.trim();
-    SongId song = SongId::NONE;
+  Serial.print("subscribeMqtt ");
+  Serial.print(topic);
+  Serial.print(" → ");
+  Serial.println(ok ? "OK" : "FAILED");
 
-    if (msg == "1") {
-        song = SongId::SONG1;
-    } else if (msg == "2") {
-        song = SongId::SONG2;
-    } else if (msg == "3") {
-        song = SongId::SONG3;
-    } else if (msg == "4") {
-        song = SongId::SONG4;
-    } else if (msg == "5") {
-        song = SongId::SONG5;
-    } else {
-        song = SongId::NONE;
-    }
-    if (song == SongId::NONE) {
-      // Song stoppen / NONE setzen
-      sendMqttSongName(SongId::NONE);
-      Serial.println("[MQTT] Song STOP");
-    } else {
-      playSong(song);
-      Serial.print("[MQTT] Song START: ");
-      Serial.println(songName(song));
-    }
-  }
+  return ok;
 }
 
-
-
-
-
+bool isConnectedMqtt() {
+  return mqttClient.connected();
+}
