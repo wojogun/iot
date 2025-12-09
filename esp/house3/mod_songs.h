@@ -4,29 +4,22 @@
 #include <Arduino.h>
 #include "hardware.h"
 
-// Song-IDs, die in der Partylogik oder beim RFID-Lesen genutzt werden
-enum class SongId {
-    NONE = 0,
-    SONG1,
-    SONG2,
-    SONG3,
-    SONG4,
-    SONG5
+typedef void (*SongPlayCallback)();
+struct SongInfo {
+    uint8_t id;              // 1..N
+    const char* name;        // Anzeigename
+    const char* rfid;        // RFID-Tag
+    SongPlayCallback play;   // Funktion, die den Song abspielt
 };
 
-// Zuordnung UID → Song
-SongId getSongForTag(const String& uid);
-const char* songName(SongId id); 
+extern const SongInfo songList[];
+extern const uint8_t SONG_COUNT;
 
-// Abspielen eines Songs (wird später mit deiner Audio/Buzzer-Logik gefüllt)
-void playSong(SongId id);
-void sendMqttSongName(SongId id);
+const SongInfo* getSongById(uint8_t id);
+const SongInfo* getSongByRfid(const String& rfid);
 
-void smokeOnTheWater();
-void werHatAnDerUhrGedreht();
-void getThePartyStarted();
-void whatShallWeDo();
-void finalCountdown();
-void heyJude();
+void handleRfidSong(const String& uid);
+void playSong(uint8_t id);
+void publishSongList();
 
 #endif

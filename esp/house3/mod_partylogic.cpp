@@ -7,6 +7,7 @@
 #include "mod_mqtt.h"
 #include "mod_partylogic.h"
 #include "mod_lcd.h"
+#include "mod_rfid.h"
 #include "mod_songs.h"
 #include "mod_button.h"
 
@@ -27,44 +28,25 @@ void handleMqtt(const String& topic, const String& payload) {
   Serial.println(payload);
 
   if (topic == TOPIC_CMD_PARTY) {
-      if (payload == "START") startParty(false);
-      else if (payload == "STOP") stopParty(false);
-      else Serial.print("payload unbekannt:" + payload);
-  } else if (topic == TOPIC_CMD_STORM || topic == TOPIC_BC_STORM) {
-      if (payload == "ON") startStorm(false);
-      else if (payload == "OFF") stopStorm(false);
-      else Serial.print("payload unbekannt:" + payload);
-  } else if (topic == TOPIC_CMD_SONG) {
-      SongId song = SongId::NONE;
-      if (payload == "1") {
-          song = SongId::SONG1;
-      } else if (payload == "2") {
-          song = SongId::SONG2;
-      } else if (payload == "3") {
-          song = SongId::SONG3;
-      } else if (payload == "4") {
-          song = SongId::SONG4;
-      } else if (payload == "5") {
-          song = SongId::SONG5;
-      } else {
-          song = SongId::NONE;
-      }
-      if (song == SongId::NONE) {
-        // Song stoppen / NONE setzen
-        sendMqttSongName(SongId::NONE);
-        Serial.println("[MQTT] Song STOP");
-      } else {
-        playSong(song);
-        Serial.print("[MQTT] Song START: ");
-        Serial.println(songName(song));
-      }
-  } else if (topic == TOPIC_CMD_NEXT) {
-      nextPartyText = payload;
-      if (currentMode == MODE_NORMAL) {
-        if (nextPartyText=="") nextPartyText = "keine Buchung";
-        printLcd("Next: ", nextPartyText, false); 
-        Serial.println("ok");	
-      }
+    if (payload == "START") startParty(false);
+    else if (payload == "STOP") stopParty(false);
+    else Serial.print("payload unbekannt:" + payload);
+  } 
+  else if (topic == TOPIC_CMD_STORM || topic == TOPIC_BC_STORM) {
+    if (payload == "ON") startStorm(false);
+    else if (payload == "OFF") stopStorm(false);
+    else Serial.print("payload unbekannt:" + payload);
+  } 
+  else if (topic == TOPIC_CMD_SONG) {
+    playSong(payload.toInt());
+  }
+  else if (topic == TOPIC_CMD_NEXT) {
+    nextPartyText = payload;
+    if (currentMode == MODE_NORMAL) {
+      if (nextPartyText=="") nextPartyText = "keine Buchung";
+      printLcd("Next: ", nextPartyText, false); 
+      Serial.println("ok");	
+    }
   }
 }
 
@@ -82,6 +64,8 @@ void initParty() {
   initButton(btn2);
 
   registerCallbackMqtt(handleMqtt);
+  registerRfidCallback(handleRfidSong);
+
   subscribeMqtt(TOPIC_BC_STORM);
   //subscribeMqtt(TOPIC_BC_PARTY); wird lokal behandelt
   subscribeMqtt(TOPIC_CMD_PARTY);
@@ -90,7 +74,7 @@ void initParty() {
   subscribeMqtt(TOPIC_CMD_NEXT);
   // TOPIC_STATUS_HOUSE3  = "resort/house3/status";      --> publish only
   // TOPIC_CURRENT_SONG   = "resort/house3/party/song";  --> publish only
-
+  publishSongList();
   Serial.println("Partylogic subscribed all topics");
 }
 
@@ -143,7 +127,7 @@ void startParty(bool publish) {
 
   printLcd(	"Party laeuft", "Haus 3", false);
   strip.show();
-  playSong(SongId::SONG3);   //smokeOnTheWater();
+  playSong(3);   //smokeOnTheWater();
 
   if (publish && mqttClient.connected()) {
     mqttClient.publish(TOPIC_BC_PARTY, "START");
@@ -160,7 +144,7 @@ void stopParty(bool publish) {
   strip.clear();
   strip.show();
 
-  playSong(SongId::SONG5);
+  playSong(5);
   buzzer.playTone(0, 0);
 
   ctrWindow(WINDOW_OPEN);

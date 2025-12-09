@@ -1,51 +1,46 @@
 #include <Wire.h>
+#include "hardware.h"
 #include "MFRC522_I2C.h"
 #include "mod_rfid.h"
-#include "mod_partylogic.h"
-#include "mod_lcd.h"
-#include "mod_songs.h"
 
-// RFID-Adresse, Objekt
 MFRC522 mfrc522(0x28);
+static RfidCallback rfidCallback = nullptr;
+static String lastUid = "";
+
+void registerRfidCallback(RfidCallback cb) {
+  rfidCallback = cb;
+}
 
 void initRFID() {
   Wire.begin();
   mfrc522.PCD_Init();
 }
 
-void loopRfid() {
-  if (!mfrc522.PICC_IsNewCardPresent()) return;
-  if (!mfrc522.PICC_ReadCardSerial())   return;
-
-  String uidHex = "";
-  for (byte i = 0; i < mfrc522.uid.size; i++) {
-    if (mfrc522.uid.uidByte[i] < 0x10) uidHex += "0";
-    uidHex += String(mfrc522.uid.uidByte[i], HEX);
-  }
-  uidHex.toUpperCase();
-  Serial.print("RFID erkannt: ");
-  Serial.println(uidHex);
-  Serial.println("-> ");
-
-  SongId s = getSongForTag(uidHex);
-  if (s == SongId::NONE) {
-      Serial.println("no match");
-  } else {
-      Serial.println(songName(s));   // liefert richtigen Songnamen
-  }
-
-  if (currentMode != MODE_PARTY) {
-    printTempLcd("NO PARTY", "NO SONG", 3000);
-  } else {
-    SongId s = getSongForTag(uidHex);
-    if (s == SongId::NONE) {
-      printTempLcd("UNBEKANNT", "KEIN SONG", 3000);
-    } else {
-      printTempLcd("RFID OK", "Song startet", 2000);
-      playSong(s);
+static String readUidString(const MFRC522::Uid& uid) {
+    String s;
+    for (byte i = 0; i < uid.size; i++) {
+        if (uid.uidByte[i] < 0x10) s += "0";
+        s += String(uid.uidByte[i], HEX);
     }
-  }
-
-  mfrc522.PICC_HaltA();
-  mfrc522.PCD_StopCrypto1();
+    s.toUpperCase();
+    return s;
 }
+
+void loopRfid() {
+    if (!mfrc522.PICC_IsNewCardPresent()) return;
+    if (!mfrc522.PICC_ReadCardSerial())   return;
+
+    String uid = readUidString(mfrc522.uid);
+    // entprellen: gleiche Karte ignorieren
+    if (uid == lastUid) return;
+    lastUid = uid;
+
+    Serial.print("RFID UID: ");
+    Serial.println(uid);
+
+    if (rfidCallback) rfidCallback(uid);
+
+    mfrc522.PICC_HaltA();
+    mfrc522.PCD_StopCrypto1();
+}
+
