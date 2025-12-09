@@ -83,10 +83,11 @@ die WiFi-SSID und Pws werden nun als Array hinterlegt. Das erste Paar hat Prio 1
 
 # MQTT
 ## Topics
-Mein Haus verwendet drei Kategorien von MQTT-Topics:
+Mein Haus verwendet drei Kategorien von MQTT-Topics, die alle in config.cpp/.h definiert werden:
 - Haus-spezifische Kommandos, also Kommandos, die nur Haus 3 betreffen
 - Resort-weite Broadcasts, also Nachrichten, die alle Häuser erhalten
 - Statusmeldungen: Haus 3 sendet Informationen Richtung Node-RED oder andere Häuser
+Die Abarbeitung findet im haus-Logik-Modul statt. Bei mir also in mod_partylogic.cpp
 
 Der Topic-Name ist "TOPIC" + was das ist (BC=Broadcast, CMD=Kommando) + was es betrifft
 Die Topics sind so aufgebaut: "resort/[wenBetriffEs]/[wasBetrifftEs]/[ev. ein Kommando]":
@@ -97,8 +98,33 @@ else if (t == TOPIC_CMD_STORM) {
     else if (msg == "OFF") stopStorm(false);
 }
 ```
-Das "false" verhindert neuerliches Broadcasten, wenn das Haus reagiert. Die Funktion startStorm erwartet den Parameter "publish". Nur wenn man wirklich etwas veröffentlichen will, setzt man den Wert auf "true" Damit werden Schleifen vermieden. Storm sollte von Haus 1 initiiert und bei allen Häusern den Sturm-Modus auslösen.
+Das "false" verhindert neuerliches Broadcasten, wenn das Haus reagiert. Die Funktion startStorm erwartet den Parameter "publish". Nur wenn man wirklich etwas veröffentlichen will, setzt man den Wert auf "true" Damit werden Schleifen vermieden. Storm sollte von Haus 1 initiiert und bei allen Häusern den Sturm-Modus auslösen. Diese verlangt nun
+- handelMqtt(topic, payload) Hier wird mqtt-in behandelt:
+```
+  if (topic == TOPIC_CMD_PARTY) {
+    if (payload == "START") startParty(false);
+    else if (payload == "STOP") stopParty(false);
+  }
+  ```
+- in der init-Routine werden die Topics subscribed. Bei mir sieht das so aus:
+```
+void initParty() {
+  initHardware();
+  registerCallbackMqtt(handleMqtt);
 
+  subscribeMqtt(TOPIC_BC_STORM);
+  //subscribeMqtt(TOPIC_BC_PARTY); wird lokal behandelt
+  subscribeMqtt(TOPIC_CMD_PARTY);
+  subscribeMqtt(TOPIC_CMD_STORM);
+  subscribeMqtt(TOPIC_CMD_SONG);
+  subscribeMqtt(TOPIC_CMD_NEXT);
+  // TOPIC_STATUS_HOUSE3  = "resort/house3/status";      --> publish only
+  // TOPIC_CURRENT_SONG   = "resort/house3/party/song";  --> publish only
+
+  Serial.println("Partylogic subscribed all topics");
+}```
+
+Das Modul mqtt ist seit dem letzten refactoring-Durchlauf komplett generisch. Alle Definitionen sind nun in der Hauslogik
 ## Zusammenspiel der Funktionen
 - maintainMQTT() muss ständig laufen, damit Nachrichten empfangen werden.
 - reconnectMQTT() verbindet den ESP32 wieder zum MQTT-Broker. Hier werden Abonnements gesetzt.
