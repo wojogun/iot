@@ -3,18 +3,74 @@
 #include <BuzzerESP32.h>
 
 #include "hardware.h"
+#include "config.h"
+#include "mod_mqtt.h"
 #include "mod_partylogic.h"
 #include "mod_lcd.h"
-#include "mod_mqtt.h"
 #include "mod_songs.h"
+#include "mod_button.h"
+
+//                                    Pin,    activeLow, longPressMs, doubleClickMs, debounceMs
+static ButtonState btnPartyStart = { PIN_BTN1, true,     2000,        400,           30 };
+static ButtonState btnPartyStop  = { PIN_BTN2, true,     2000,        400,           30 };
 
 Mode currentMode = MODE_NORMAL;
-auto& mqttClient = GetMqttClient();
+auto& mqttClient = getMqttClient();
 
 static unsigned long lastPartyUpdate = 0;
 static unsigned long lastStormBlink  = 0;
 static bool          stormLedState   = false;
 static uint16_t      partyHue        = 0;
+static bool lastBtn1 = HIGH;
+static bool lastBtn2 = HIGH;
+
+void handleMqtt(const String& topic, const String& payload) {
+  Serial.print("MQTT in [");
+  Serial.print(topic);
+  Serial.print("]: ");
+  Serial.println(payload);
+
+  if (topic == TOPIC_CMD_PARTY) {
+      if (payload == "START") startParty(false);
+      else if (payload == "STOP") stopParty(false);
+      else Serial.print("payload unbekannt:" + payload);
+  } else if (topic == TOPIC_CMD_STORM || topic == TOPIC_BC_STORM) {
+      if (payload == "ON") startStorm(false);
+      else if (payload == "OFF") stopStorm(false);
+      else Serial.print("payload unbekannt:" + payload);
+  } else if (topic == TOPIC_CMD_SONG) {
+      SongId song = SongId::NONE;
+      if (payload == "1") {
+          song = SongId::SONG1;
+      } else if (payload == "2") {
+          song = SongId::SONG2;
+      } else if (payload == "3") {
+          song = SongId::SONG3;
+      } else if (payload == "4") {
+          song = SongId::SONG4;
+      } else if (payload == "5") {
+          song = SongId::SONG5;
+      } else {
+          song = SongId::NONE;
+      }
+      if (song == SongId::NONE) {
+        // Song stoppen / NONE setzen
+        sendMqttSongName(SongId::NONE);
+        Serial.println("[MQTT] Song STOP");
+      } else {
+        playSong(song);
+        Serial.print("[MQTT] Song START: ");
+        Serial.println(songName(song));
+      }
+  } else if (topic == TOPIC_CMD_NEXT) {
+      nextPartyText = payload;
+      if (currentMode == MODE_NORMAL) {
+        if (nextPartyText=="") nextPartyText = "keine Buchung";
+        printLcd("Next: ", nextPartyText, false); 
+        Serial.println("ok");	
+      }
+  }
+}
 
 // interne Helfer-Funktionen
 static void updateEffects();
@@ -26,10 +82,29 @@ String nextPartyText;
 
 void initParty() {
   initHardware();
+  initButton(btnPartyStart);
+  initButton(btnPartyStop);
+
+  registerCallbackMqtt(handleMqtt);
+  subscribeMqtt(TOPIC_BC_STORM);
+  //subscribeMqtt(TOPIC_BC_PARTY); wird lokal behandelt
+  subscribeMqtt(TOPIC_CMD_PARTY);
+  subscribeMqtt(TOPIC_CMD_STORM);
+  subscribeMqtt(TOPIC_CMD_SONG);
+  subscribeMqtt(TOPIC_CMD_NEXT);
+  // TOPIC_STATUS_HOUSE3  = "resort/house3/status";      --> publish only
+  // TOPIC_CURRENT_SONG   = "resort/house3/party/song";  --> publish only
+
+  Serial.println("Partylogic subscribed all topics");
 }
 
 void loopParty() {
   unsigned long now = millis();
+  // Buttons abfragen (Flanken-Erkennung)
+  ButtonEvent ev1 = updateButton(btnPartyStart, now);
+  if (ev1 == BUTTON_LONG) startParty(true);
+  ButtonEvent ev2 = updateButton(btnPartyStop, now);
+  if (ev2 == BUTTON_LONG) stopParty(true);
 
   if (currentMode == MODE_PARTY) {
     partyLightsStep(now);

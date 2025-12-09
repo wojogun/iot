@@ -7,7 +7,10 @@ const uint8_t PIN_SERVO_WINDOW = 5;   // Fenster-Servo
 const uint8_t PIN_SERVO_DOOR   = 13;  // Tür-Servo
 const uint8_t PIN_LED_STRIP    = 26;  // SK6812 / NeoPixel
 const uint8_t PIN_BUZZER       = 25;  // Buzzer
-const uint8_t NEOPIXEL_COUNT = 4;
+const uint8_t NEOPIXEL_COUNT   =  4;
+const uint8_t PIN_BTN1         = 27;
+const uint8_t PIN_BTN2         = 16;
+
 const uint8_t PIN_FAN_INA      = 19;
 const uint8_t PIN_FAN_INB      = 18;
 
@@ -63,6 +66,10 @@ void initHardware() {
     pinMode(PIN_FAN_INB, OUTPUT);
     digitalWrite(PIN_FAN_INA, LOW);   // feste Drehrichtung
     analogWrite(PIN_FAN_INB, 0);      // aus
+
+    // Buttons
+    pinMode(PIN_BTN1, INPUT_PULLUP);
+    pinMode(PIN_BTN2, INPUT_PULLUP);
 }
 
 // -------------------- Helper für Fenster / Tür --------------------

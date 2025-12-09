@@ -15,8 +15,8 @@ void setup() {
     initLcd();
     initWiFi();
     initMqtt();
-    initParty();
     initRFID();
+    initParty();
     initHttp();
 }
 

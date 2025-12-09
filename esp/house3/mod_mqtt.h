@@ -4,17 +4,15 @@
 #include <Arduino.h>
 #include <PubSubClient.h>
 
-extern const char* TOPIC_CMD_PARTY;
-extern const char* TOPIC_CMD_STORM;
-extern const char* TOPIC_BC_PARTY;
-extern const char* TOPIC_BC_STORM;
-extern const char* TOPIC_STATUS_HOUSE3;
-extern const char* TOPIC_NEXT_PARTY;
-extern const char* TOPIC_CURRENT_SONG;
-extern const char* TOPIC_CMD_SONG; 
+typedef void (*MqttCallback)(const String& topic, const String& payload);
 
 void initMqtt();
 void loopMqtt();
-PubSubClient& GetMqttClient();
+PubSubClient& getMqttClient();
 
+bool publishMqtt(const String& topic, const String& payload, bool retained = false);
+bool subscribeMqtt(const String& topic);
+bool isConnectedMqtt();
+
+void registerCallbackMqtt(MqttCallback cb);
 #endif

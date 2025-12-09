@@ -14,7 +14,8 @@ extern const uint8_t PIN_LED_STRIP;
 extern const uint8_t PIN_BUZZER; 
 extern const uint8_t PIN_FAN_INA; 
 extern const uint8_t PIN_FAN_INB;
-
+extern const uint8_t PIN_BTN1;
+extern const uint8_t PIN_BTN2;
 
 // Anzahl LEDs im NeoPixel-Strip (RGB-Modul)     
 extern const uint8_t NEOPIXEL_COUNT;

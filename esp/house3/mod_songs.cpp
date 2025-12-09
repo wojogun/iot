@@ -1,5 +1,7 @@
+#include "config.h"
 #include "mod_songs.h"
 #include "mod_mqtt.h"
+
 
 // Beispiel: feste Zuordnung von RFID-UIDs zu Songs
 // Die UID-Strings müssen genau zu den Hex-Strings aus mod_rfid.cpp passen.
@@ -42,7 +44,7 @@ const char* songName(SongId id) {
 }
 
 void sendMqttSongName(SongId id) {
-    auto& mqttClient = GetMqttClient();
+    auto& mqttClient = getMqttClient();
 
     if (mqttClient.connected()) {
         mqttClient.publish(
