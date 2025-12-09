@@ -16,8 +16,8 @@ const SongInfo songList[] = {
     { 2, "Final Countdown",       "9B1C5D8A",       finalCountdown },       // blau
     { 3, "Smoke on the Water",    "0462852A503880", smokeOnTheWater },      // TU-Card
     { 4, "Drunken Sailor",        "64000E7B",       whatShallWeDo },        // ORF
-    { 5, "Paulchen Panther",      "023C16F0040020", werHatAnDerUhrGedreht } // Visa
- // { 6, "Get the Party started", "",               getThePartyStarted }
+    { 5, "Paulchen Panther",      "023C16F0040020", werHatAnDerUhrGedreht }, // Visa
+    { 6, "Get the Party started", "",               getThePartyStarted }
 };
 
 const uint8_t SONG_COUNT = sizeof(songList) / sizeof(songList[0]);
@@ -45,7 +45,7 @@ void playSong(uint8_t id) {
     }
 
     // LCD-Update, MQTT und dann los
-    printLcd("Song:", s->name, false);
+    printTempLcd("Song:", s->name, 5000);
     publishMqtt(TOPIC_CURRENT_SONG, s->name);
     if (id > 0 && id < SONG_COUNT) s->play();
 }
@@ -98,7 +98,6 @@ void smokeOnTheWater() {
   buzzer.playTone(392, E+3*Q);   // Abschlussnote (lang)
 
   buzzer.playTone(0, 0);     // aus
-  playSong(0);
 }
 
 void werHatAnDerUhrGedreht() {
@@ -127,7 +126,6 @@ void werHatAnDerUhrGedreht() {
   playNote(494, Q);   // H4  
   playNote(440, Q);   // A4 
   delay(Q);
-  playSong(0);
 }
 
 void getThePartyStarted() {
@@ -169,7 +167,6 @@ void getThePartyStarted() {
   playNote(294, E);   // D4
   playNote(247, E);   // H3
   playNote(247, E);   // H3
-  playSong(0);
 }
 
 void whatShallWeDo() {
@@ -221,7 +218,6 @@ void whatShallWeDo() {
 
   playNote(294, Q);   // D4
   playNote(294, Q);   // D4
-  playSong(0);
 }
 
 void finalCountdown() {
@@ -282,7 +278,6 @@ void finalCountdown() {
   playNote(494, S);   // H4
  
   playNote(554, Q);   // C#5
-  playSong(0);
 }
 
 void heyJude() {
@@ -343,5 +338,4 @@ void heyJude() {
   playNote(349, E);   // F4
 
   playNote(349, H+Q);   // F4
-  playSong(0);
 }

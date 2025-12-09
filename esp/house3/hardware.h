@@ -7,18 +7,20 @@
 #include <BuzzerESP32.h>
 
 // -------------------- Pinbelegung (KS5009) --------------------
-extern const uint8_t PIN_LED_YELLOW;  
+extern const uint8_t PIN_LED_YELLOW;
 extern const uint8_t PIN_SERVO_WINDOW;
-extern const uint8_t PIN_SERVO_DOOR;  
-extern const uint8_t PIN_LED_STRIP;   
-extern const uint8_t PIN_BUZZER; 
-extern const uint8_t PIN_FAN_INA; 
-extern const uint8_t PIN_FAN_INB;
+extern const uint8_t PIN_SERVO_DOOR;
+extern const uint8_t PIN_LED_STRIP;
+extern const uint8_t PIN_BUZZER;
+extern const uint8_t PIN_FAN_PWM;
+extern const uint8_t PIN_FAN_DIR;
 extern const uint8_t PIN_BTN1;
 extern const uint8_t PIN_BTN2;
+extern const uint8_t PIN_MOTION;
 
-// Anzahl LEDs im NeoPixel-Strip (RGB-Modul)     
+// Anzahl LEDs im NeoPixel-Strip (RGB-Modul)
 extern const uint8_t NEOPIXEL_COUNT;
+extern const uint8_t FAN_PWMCH;
 
 extern const bool USE_DOOR;
 extern const bool USE_WINDOW;
@@ -49,7 +51,7 @@ extern BuzzerESP32 buzzer;
 extern String nextPartyText;
 
 // Fenster und Tür in definierte Zustände fahren
-void initHardware();   
+void initHardware();
 void ctrWindow(WindowState state);
 void ctrDoor(DoorState state);
 void ctrFan(FanState state);

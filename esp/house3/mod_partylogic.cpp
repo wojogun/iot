@@ -10,6 +10,7 @@
 #include "mod_rfid.h"
 #include "mod_songs.h"
 #include "mod_button.h"
+#include "mod_motion.h"
 
 Mode currentMode = MODE_NORMAL;
 auto& mqttClient = getMqttClient();
@@ -59,12 +60,9 @@ static void stormBlinkStep(unsigned long now);
 String nextPartyText;
 
 void initParty() {
-  initHardware();
-  initButton(btn1);
-  initButton(btn2);
-
   registerCallbackMqtt(handleMqtt);
   registerRfidCallback(handleRfidSong);
+  registerMotionCallback(onMotion);
 
   subscribeMqtt(TOPIC_BC_STORM);
   //subscribeMqtt(TOPIC_BC_PARTY); wird lokal behandelt
@@ -91,6 +89,13 @@ void loopParty() {
   } else if (currentMode == MODE_STORM) {
     stormBlinkStep(now);
   }
+
+  // kein echter einsatz nur zum testen
+  if (motionRising()) Serial.println("Rising-Event");
+}
+
+void onMotion(bool active) {
+  Serial.println( active ? "Bewegung erkannt" : "Keine Bewegung mehr");
 }
 
 void partyLightsStep(unsigned long now) {

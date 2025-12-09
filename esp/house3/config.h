@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <IPAddress.h>
- 
+
 // ==== WIFI ====
 // WLAN-Liste
 struct WiFiEntry {
@@ -18,6 +18,8 @@ extern const uint8_t   WIFI_LIST_COUNT;
 // ==== MQTT ====
 extern const char* MQTT_SERVER;
 extern const int   MQTT_PORT;
+extern const char* MQTT_LOCALSERVER;
+extern const int   MQTT_LOCALPORT;
 extern const char* MQTT_USER;
 extern const char* MQTT_PASSWORD;
 

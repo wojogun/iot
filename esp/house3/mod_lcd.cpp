@@ -65,5 +65,4 @@ void loopLcd() {
     lcd.display();
     print(lcdOben, lcdUnten);
   }
-
 }
