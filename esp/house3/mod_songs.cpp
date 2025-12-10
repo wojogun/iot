@@ -40,9 +40,7 @@ const SongInfo* getSongByRfid(const String& rfid) {
 
 void playSong(uint8_t id) {
     const SongInfo* s = getSongById(id);
-    if (!s) {
-        return;
-    }
+    if (!s) return;
 
     // LCD-Update, MQTT und dann los
     printTempLcd("Song:", s->name, 5000);

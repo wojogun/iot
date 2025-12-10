@@ -23,6 +23,7 @@ extern const int   MQTT_LOCALPORT;
 extern const char* MQTT_USER;
 extern const char* MQTT_PASSWORD;
 
+extern const char* TOPIC_STATUS_HOUSE3;
 extern const char* TOPIC_CMD_PARTY;
 extern const char* TOPIC_CMD_STORM;
 extern const char* TOPIC_CMD_SONG;
@@ -31,8 +32,6 @@ extern const char* TOPIC_BC_STORM;
 extern const char* TOPIC_BC_PARTY;
 extern const char* TOPIC_BC_GAS;
 extern const char* TOPIC_CURRENT_SONG;
-extern const char* TOPIC_STATUS_STORM;
-extern const char* TOPIC_STATUS_HOUSE3;
 extern const char* TOPIC_SONGLIST;
 
 // ==== STATIC IP / DHCP ====

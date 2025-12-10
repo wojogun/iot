@@ -39,7 +39,9 @@ void handleMqtt(const String& topic, const String& payload) {
     else Serial.print("payload unbekannt:" + payload);
   } 
   else if (topic == TOPIC_BC_GAS ) {
-
+    if (payload == "ON")  startGas(false);
+    else if (payload == "OFF") stopGas(false);
+    else Serial.print("payload unbekannt:" + payload);
   }
   else if (topic == TOPIC_CMD_SONG) {
     playSong(payload.toInt());
@@ -78,6 +80,7 @@ void initParty() {
   // TOPIC_CURRENT_SONG   = "resort/house3/party/song";  --> publish only
   publishSongList();
   Serial.println("Partylogic subscribed all topics");
+  if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL");
 }
 
 void loopParty() {
@@ -124,6 +127,24 @@ void stormBlinkStep(unsigned long now) {
   stormLedState = !stormLedState;
   digitalWrite(PIN_LED_YELLOW, stormLedState ? HIGH : LOW);
 }
+
+
+// ============= EVENTSTEUERUNG ======================
+void startGas(bool publish) {
+  currentMode = MODE_GAS;
+  strip.show();
+  digitalWrite(PIN_LED_YELLOW, HIGH);
+  printLcd(	"GASWARNUNG", "", true);	
+  if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUS_HOUSE3, "GAS");
+}
+void stopGas(bool publish) {
+  currentMode = MODE_NORMAL;
+  strip.show();
+  digitalWrite(PIN_LED_YELLOW, LOW);
+  printLcd(	"Next Party:", nextPartyText, false);
+  if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL");
+}
+
 
 void startParty(bool publish) {
   if (currentMode == MODE_STORM) return;

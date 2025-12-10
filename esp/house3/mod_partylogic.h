@@ -5,7 +5,8 @@
 enum Mode {
   MODE_NORMAL,
   MODE_PARTY,
-  MODE_STORM
+  MODE_STORM,
+  MODE_GAS
 };
 
 extern String nextPartyText;
@@ -31,5 +32,7 @@ void startParty(bool publish);
 void stopParty(bool publish);
 void startStorm(bool publish);
 void stopStorm(bool publish);
+void startGas(bool publish);
+void stopGas(bool publish);
 
 #endif
