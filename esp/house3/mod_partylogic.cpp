@@ -28,7 +28,7 @@ void handleMqtt(const String& topic, const String& payload) {
   Serial.print("]: ");
   Serial.println(payload);
 
-  if (topic == TOPIC_CMD_PARTY) {
+  if (topic == TOPIC_CMD_PARTY || topic == TOPIC_BC_PARTY) {
     if (payload == "START") startParty(false);
     else if (payload == "STOP") stopParty(false);
     else Serial.print("payload unbekannt:" + payload);
@@ -38,6 +38,9 @@ void handleMqtt(const String& topic, const String& payload) {
     else if (payload == "OFF") stopStorm(false);
     else Serial.print("payload unbekannt:" + payload);
   } 
+  else if (topic == TOPIC_BC_GAS ) {
+
+  }
   else if (topic == TOPIC_CMD_SONG) {
     playSong(payload.toInt());
   }
@@ -65,6 +68,7 @@ void initParty() {
   registerMotionCallback(onMotion);
 
   subscribeMqtt(TOPIC_BC_STORM);
+  subscribeMqtt(TOPIC_BC_GAS);
   //subscribeMqtt(TOPIC_BC_PARTY); wird lokal behandelt
   subscribeMqtt(TOPIC_CMD_PARTY);
   subscribeMqtt(TOPIC_CMD_STORM);
