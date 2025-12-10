@@ -28,7 +28,7 @@ void handleMqtt(const String& topic, const String& payload) {
   Serial.print("]: ");
   Serial.println(payload);
 
-  if (topic == TOPIC_CMD_PARTY) {
+  if (topic == TOPIC_CMD_PARTY || topic == TOPIC_BC_PARTY) {
     if (payload == "START") startParty(false);
     else if (payload == "STOP") stopParty(false);
     else Serial.print("payload unbekannt:" + payload);
@@ -38,6 +38,11 @@ void handleMqtt(const String& topic, const String& payload) {
     else if (payload == "OFF") stopStorm(false);
     else Serial.print("payload unbekannt:" + payload);
   } 
+  else if (topic == TOPIC_BC_GAS ) {
+    if (payload == "ON")  startGas(false);
+    else if (payload == "OFF") stopGas(false);
+    else Serial.print("payload unbekannt:" + payload);
+  }
   else if (topic == TOPIC_CMD_SONG) {
     playSong(payload.toInt());
   }
@@ -65,6 +70,7 @@ void initParty() {
   registerMotionCallback(onMotion);
 
   subscribeMqtt(TOPIC_BC_STORM);
+  subscribeMqtt(TOPIC_BC_GAS);
   //subscribeMqtt(TOPIC_BC_PARTY); wird lokal behandelt
   subscribeMqtt(TOPIC_CMD_PARTY);
   subscribeMqtt(TOPIC_CMD_STORM);
@@ -74,6 +80,7 @@ void initParty() {
   // TOPIC_CURRENT_SONG   = "resort/house3/party/song";  --> publish only
   publishSongList();
   Serial.println("Partylogic subscribed all topics");
+  if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL");
 }
 
 void loopParty() {
@@ -120,6 +127,24 @@ void stormBlinkStep(unsigned long now) {
   stormLedState = !stormLedState;
   digitalWrite(PIN_LED_YELLOW, stormLedState ? HIGH : LOW);
 }
+
+
+// ============= EVENTSTEUERUNG ======================
+void startGas(bool publish) {
+  currentMode = MODE_GAS;
+  strip.show();
+  digitalWrite(PIN_LED_YELLOW, HIGH);
+  printLcd(	"GASWARNUNG", "", true);	
+  if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUS_HOUSE3, "GAS");
+}
+void stopGas(bool publish) {
+  currentMode = MODE_NORMAL;
+  strip.show();
+  digitalWrite(PIN_LED_YELLOW, LOW);
+  printLcd(	"Next Party:", nextPartyText, false);
+  if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL");
+}
+
 
 void startParty(bool publish) {
   if (currentMode == MODE_STORM) return;
