@@ -1,9 +1,14 @@
 // Haus 2 - Gäste-Komfort & Sicherheit (Christoph)
+//
 // Zweck: Zutritt, Statusanzeige, Bedienung.
 // Module: RFID, Buttons, LCD, RGB-LED, Servo.
 // RFID ok → „belegt“, Servo öffnet Fenster/Rollo, Tür dreht
 // Button für Checkout → „Leerstand“. LCD Display: Anzeige des Belegungstatus
-// Gemeinsam: Sturmmodus → Servo schließt, gelbe LED auf Warnzustand, Buzzer
+//
+// Gemeinsame Szenarien:
+// 1) Sturmmodus → Servo schließt, gelbe LED auf Warnzustand, Buzzer
+// 2) Gasalarm -> LED blinkt rot
+// 3) Party-Modus -> Wird Party gestarted, wird Fenster geschlossen
 
 // Setup:
 // Change baud speed to 115200
