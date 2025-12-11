@@ -14,6 +14,20 @@ extern const int   MQTT_PORT;
 extern const char* MQTT_USER;
 extern const char* MQTT_PASSWORD;
 
+// ==== MQTT TOPICS ====
+extern const char* TOPIC_STATUS_HOUSE4; // Topic für die Belegung des Hauses 4
+extern const char* TOPIC_STATUS_WINDOW; // Topic für den Fensterstatus
+extern const char* TOPIC_STATUS_DOOR;   // Topic für den Türstatus
+//extern const char* TOPIC_CMD_PARTY;
+//extern const char* TOPIC_CMD_STORM;
+// extern const char* TOPIC_CMD_SONG;
+// extern const char* TOPIC_CMD_NEXT;
+extern const char* TOPIC_BC_STORM;
+extern const char* TOPIC_BC_PARTY;
+extern const char* TOPIC_BC_GAS;
+// extern const char* TOPIC_CURRENT_SONG;
+// extern const char* TOPIC_SONGLIST;
+
 // ==== STATIC IP / DHCP ====
 extern const bool USE_STATIC_IP;
 // extern IPAddress local_IP;
