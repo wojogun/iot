@@ -1,4 +1,5 @@
 #include <ESP32Servo.h>
+#include "mod_mqtt.h"
 
 #define servoPin 5
 Servo myservowindow;
@@ -23,10 +24,12 @@ void initWindow() {
 
 void openWindow() {
     myservowindow.write(180);
+	publishMqtt(TOPIC_WINDOW_STATUS, "OFFEN");
     delay(200);
 }
 
 void closeWindow(){  
     myservowindow.write(0);
+	publishMqtt(TOPIC_WINDOW_STATUS, "GESCHLOSSEN");
     delay(200);
 }

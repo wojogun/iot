@@ -4,6 +4,7 @@
 #include "mod_window.h"
 #include "mod_door.h"
 #include "mod_lcd.h"
+#include "mod_mqtt.h"
 
 // IIC pins default to GPIO21 and GPIO22 of ESP32
 // 0x28 is the i2c address of SDA, if doesn't match，please check your address with i2c.
@@ -32,6 +33,7 @@ void loopRFID() {
       {
         Serial.println("close");
         printLcd("Status:", "Leerstand", false);
+        publishMqtt(TOPIC_STATUS_HOUSE4, "LEER");
         closeWindow();
         closeDoor();
         btnFlag = 0;
@@ -54,6 +56,7 @@ void loopRFID() {
   {
     Serial.println("open");
     printLcd("Status:", "Belegt", false);
+    publishMqtt(TOPIC_STATUS_HOUSE4, "BELEGT");
     openWindow();
     openDoor();
     password = "";
@@ -62,7 +65,8 @@ void loopRFID() {
   else   //if Card number error, dispaly error
   {
     password = "";
-    printLcd("Fehler:", "Falscher Key", false);
+    printLcd("Fehler:", "Falscher Schlüssel", false);
+    publishMqtt(TOPIC_STATUS_HOUSE4, "Falscher Schlüssel");
   }
   //Serial.println(password);
 }

@@ -1,4 +1,5 @@
 #include <ESP32Servo.h>
+#include "mod_mqtt.h"
 
 #define servoPin 13
 Servo myservodoor;
@@ -23,10 +24,12 @@ void initDoor() {
 
 void openDoor() {
     myservodoor.write(180);
+	publishMqtt(TOPIC_DOOR_STATUS, "OFFEN");
     delay(200);
 }
 
 void closeDoor(){  
     myservodoor.write(0);
+	publishMqtt(TOPIC_DOOR_STATUS, "GESCHLOSSEN");
     delay(200);
 }
