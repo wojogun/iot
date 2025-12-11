@@ -4,6 +4,8 @@
 #define servoPin 13
 Servo myservodoor;
 
+constexpr auto TOPIC_DOOR_STATUS = "house2/door/status";
+
 
 void initDoor() {
   Serial.begin(9600);

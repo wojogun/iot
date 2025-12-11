@@ -6,6 +6,8 @@
 #include "mod_lcd.h"
 #include "mod_mqtt.h"
 
+const char* TOPIC_STATUS_HOUSE4 = "house4/status";
+
 // IIC pins default to GPIO21 and GPIO22 of ESP32
 // 0x28 is the i2c address of SDA, if doesn't match，please check your address with i2c.
 MFRC522 mfrc522(0x28);   // create MFRC522.

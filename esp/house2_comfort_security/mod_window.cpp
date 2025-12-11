@@ -4,6 +4,7 @@
 #define servoPin 5
 Servo myservowindow;
 
+constexpr auto TOPIC_WINDOW_STATUS = "house2/window/status";
 
 void initWindow() {
   Serial.begin(9600);
