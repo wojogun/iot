@@ -79,7 +79,7 @@ void ctrWindow(WindowState state) {
             break;
     }
     windowServo.write(angle);
-}
+}c:\Users\wojog\OneDrive\uni\FH_Master\3_IoT\smarthome\esp\house3\mod_led.cpp c:\Users\wojog\OneDrive\uni\FH_Master\3_IoT\smarthome\esp\house3\mod_lcd.h
 
 void ctrFan(FanState state) {
   switch (state) {
@@ -116,3 +116,5 @@ void ctrDoor(DoorState state) {
     }
     doorServo.write(angle);
 }
+
+
