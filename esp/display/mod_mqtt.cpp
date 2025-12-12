@@ -3,9 +3,6 @@
 #include "config.h"
 #include "mod_wifi.h"
 #include "mod_mqtt.h"
-#include "mod_partylogic.h"
-#include "mod_lcd.h"
-#include "mod_songs.h"
 
 // TLS-Client + MQTT-Client
 static WiFiClientSecure secureClient;
@@ -37,6 +34,7 @@ static void reconnectMqtt() {
     Serial.print("Connecting MQTT as ");
     Serial.println(clientId);
 
+    // WICHTIG: hier Username/Password mitgeben
     if (mqttClient.connect(clientId.c_str(), MQTT_USER, MQTT_PASSWORD)) {
       Serial.println("MQTT connected");
       // Subscriptions macht dein Hausmodul

@@ -1,87 +1,67 @@
+#include "config.h"
 #include "mod_songs.h"
 #include "mod_mqtt.h"
+#include "mod_lcd.h"
 
-// Beispiel: feste Zuordnung von RFID-UIDs zu Songs
-// Die UID-Strings müssen genau zu den Hex-Strings aus mod_rfid.cpp passen.
-struct TagSongMap {
-    const char* uid;
-    SongId      song;
+void smokeOnTheWater();
+void werHatAnDerUhrGedreht();
+void getThePartyStarted();
+void whatShallWeDo();
+void finalCountdown();
+void heyJude();
+
+const SongInfo songList[] = {
+    { 0, "kein Song" , "", nullptr },
+    { 1, "Hey Jude",              "747B9FDB",       heyJude },              // karte
+    { 2, "Final Countdown",       "9B1C5D8A",       finalCountdown },       // blau
+    { 3, "Smoke on the Water",    "0462852A503880", smokeOnTheWater },      // TU-Card
+    { 4, "Drunken Sailor",        "64000E7B",       whatShallWeDo },        // ORF
+    { 5, "Paulchen Panther",      "023C16F0040020", werHatAnDerUhrGedreht }, // Visa
+    { 6, "Get the Party started", "",               getThePartyStarted }
 };
 
-// Beispielhafte Tabelle – bitte an deine echten Tags anpassen!
-static const TagSongMap SONG_MAP[] = {
-    { "747B9FDB", SongId::SONG1 }, // karte
-    { "9B1C5D8A", SongId::SONG2 }, // blau
-    { "8899AA77", SongId::SONG3 },
-    { "DEADBEEF", SongId::SONG4 }
-};
+const uint8_t SONG_COUNT = sizeof(songList) / sizeof(songList[0]);
 
-static const size_t SONG_MAP_SIZE = sizeof(SONG_MAP) / sizeof(SONG_MAP[0]);
-
-SongId getSongForTag(const String& uid) {
-    for (size_t i = 0; i < SONG_MAP_SIZE; i++) {
-        if (uid.equalsIgnoreCase(SONG_MAP[i].uid)) {
-            return SONG_MAP[i].song;
-        }
+// generische Song-Suche
+const SongInfo* getSongById(uint8_t id) {
+    for (uint8_t i = 0; i < SONG_COUNT; i++) {
+        if (songList[i].id == id) return &songList[i];
     }
-    return SongId::NONE;
+    return 0;
 }
 
-const char* songName(SongId id) {
-    switch (id) {
-        case SongId::SONG1: return "Hey Jude";
-        case SongId::SONG2: return "Final Countdown";
-        case SongId::SONG3: return "Smoke on the Water";
-        case SongId::SONG4: return "What shall we do";
-        case SongId::SONG5: return "wer hat an der Uhr gedreht";
-        case SongId::NONE:
-        default:
-            return "NONE";
+const SongInfo* getSongByRfid(const String& rfid) {
+    for (uint8_t i = 0; i < SONG_COUNT; i++) {
+        if (rfid == songList[i].rfid)
+            return &songList[i];
     }
+    return nullptr;
 }
 
-void sendMqttSongName(SongId id) {
-    auto& mqttClient = GetMqttClient();
+void playSong(uint8_t id) {
+    const SongInfo* s = getSongById(id);
+    if (!s) return;
 
-    if (mqttClient.connected()) {
-        mqttClient.publish(
-            TOPIC_CURRENT_SONG,
-            songName(id),
-            true   // retained
-        );
-    }
+    // LCD-Update, MQTT und dann los
+    printTempLcd("Song:", s->name, 5000);
+    publishMqtt(TOPIC_CURRENT_SONG, s->name);
+    if (id > 0 && id < SONG_COUNT) s->play();
 }
 
-void playSong(SongId id) {
-    sendMqttSongName(id);
-    switch(id) {
-        case SongId::SONG1:
-            Serial.println("Play Song 1");
-            heyJude();
-            break;
+void handleRfidSong(const String& uid) {
+    const SongInfo* s = getSongByRfid(uid);
+    playSong(s->id);
+}
 
-        case SongId::SONG2:
-            Serial.println("Play Song 2");
-            finalCountdown();
-			break;
-
-        case SongId::SONG3:
-            Serial.println("Play Song 3");
-            smokeOnTheWater();
-            break;
-
-        case SongId::SONG4:
-            Serial.println("Play Song 4");
-            whatShallWeDo();
-			break;
-        case SongId::SONG5:
-            Serial.println("Play Song 5");
-            werHatAnDerUhrGedreht();
-			break;
-        default:
-            Serial.println("No song for this tag.");
-            break;
+void publishSongList() {
+    String json = "[";
+    for (uint8_t i = 1; i < SONG_COUNT; i++) {
+        const SongInfo& s = songList[i];
+        if (i > 1) json += ",";
+        json += "{\"id\":" + String(s.id) + ",\"name\":\"" + s.name + "\"}";
     }
+    json += "]";
+    publishMqtt(TOPIC_SONGLIST, json, true);  // retained, damit Node-RED sofort was hat
 }
 
 const float STACCATO = 0.85f;
@@ -92,6 +72,7 @@ void playNote(int freq, int baseLenMs) {
   if (p > 0) delay(p);
 }
 
+// ======================== SONGS ==============================
 void smokeOnTheWater() {
   int BPM    = 112;
   int Q      = 60000 / BPM;   // Viertel
@@ -115,7 +96,6 @@ void smokeOnTheWater() {
   buzzer.playTone(392, E+3*Q);   // Abschlussnote (lang)
 
   buzzer.playTone(0, 0);     // aus
-  sendMqttSongName(SongId::NONE);
 }
 
 void werHatAnDerUhrGedreht() {
@@ -144,7 +124,6 @@ void werHatAnDerUhrGedreht() {
   playNote(494, Q);   // H4  
   playNote(440, Q);   // A4 
   delay(Q);
-  sendMqttSongName(SongId::NONE);
 }
 
 void getThePartyStarted() {
@@ -186,7 +165,6 @@ void getThePartyStarted() {
   playNote(294, E);   // D4
   playNote(247, E);   // H3
   playNote(247, E);   // H3
-  sendMqttSongName(SongId::NONE);
 }
 
 void whatShallWeDo() {
@@ -198,8 +176,8 @@ void whatShallWeDo() {
   playNote(440, E);   // A4
   playNote(440, S);   // A4
   playNote(440, S);   // A4
-  playNote(440, S);   // A4
   playNote(440, E);   // A4
+  playNote(440, S);   // A4
   playNote(440, S);   // A4
   
   playNote(440, E);   // A4
@@ -216,10 +194,28 @@ void whatShallWeDo() {
 
   playNote(392, E);   // G4
   playNote(262, E);   // C4
-  playNote(262, E);   // E4
+  playNote(330, E);   // E4
   playNote(392, E);   // G4
-  delay(E);
-  sendMqttSongName(SongId::NONE);
+
+  playNote(440, E);   // A4
+  playNote(440, S);   // A4
+  playNote(440, S);   // A4
+  playNote(440, E);   // A4
+  playNote(440, S);   // A4
+  playNote(440, S);   // A4
+  
+  playNote(440, E);   // A4
+  playNote(494, E);   // H4
+  playNote(523, E);   // C5
+  playNote(587, E);   // D5
+
+  playNote(523, E);   // C5
+  playNote(440, E);   // A4
+  playNote(392, E);   // G4
+  playNote(330, E);   // E4
+
+  playNote(294, Q);   // D4
+  playNote(294, Q);   // D4
 }
 
 void finalCountdown() {
@@ -280,7 +276,6 @@ void finalCountdown() {
   playNote(494, S);   // H4
  
   playNote(554, Q);   // C#5
-  sendMqttSongName(SongId::NONE);
 }
 
 void heyJude() {
@@ -341,5 +336,4 @@ void heyJude() {
   playNote(349, E);   // F4
 
   playNote(349, H+Q);   // F4
-  sendMqttSongName(SongId::NONE);
 }

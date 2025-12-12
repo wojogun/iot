@@ -1,0 +1,11 @@
+
+\vspace{0.5em}
+\textbf{Haus 3 – Partyhaus}\\
+Im Gesamtszenario des Smart Beach Resort ergänzt Haus 3 die Funktionen von Haus 2, das den Gästezugang und den Check-in-Prozess automatisiert, um einen Use Case, der den Aufenthalt der Gäste durch gezielte Licht- und Audioinszenierungen erweitert. Haus 3 dient als Demonstrationsumgebung für eine ereignisgesteuerte Entertainment-Steuerung innerhalb des Resorts und zeigt, wie IoT-Knoten neben sicherheits- und verwaltungsorientierten Aufgaben auch erlebnisorientierte Dienste bereitstellen können.
+
+Der Einzel-Use-Case basiert auf der Verwendung des im KS5009-Kit enthaltenen RGB-LED-Moduls sowie des passiven Buzzers, die gemeinsam eine abgestimmte Sequenz aus Licht- und Toneffekten erzeugen. Die Aktivierung dieser Szene erfolgt über das zentrale Node-RED-Dashboard, das dem Betreiber die Buchung einer „Party“ ermöglicht. Während eine solche Party aktiv ist, können Gäste außerdem mittels der im Projekt vorhandenen RFID-Chips unterschiedliche Musikstücke abrufen, wodurch das System eine Art „Tonibox für junggebliebene Urlaubende“ abbildet und interaktiv einige Musikstücke in die Entertainment-Logik integriert. Das LCD-Display des Hauses zeigt parallel den aktuellen Szenenstatus wie „Party laeuft“ oder den Zeitpunkt der nächsten, geplanten Feier und dient so als lokale Rückmeldung über den Betriebsmodus.
+
+Aus architektonischer Sicht demonstriert Haus 3 damit die Service-Schicht innerhalb des Gesamtsystems. Während andere Häuser sicherheits- oder umweltbezogene Aufgaben übernehmen, repräsentiert dieses Haus den Aspekt der User Experience  im IoT-Kontext. Die Implementierung zeigt, dass verteilte Mikrocontroller nicht nur Messdaten erfassen, sondern auch ereignisgesteuert auf Benutzeranforderungen reagieren können.
+
+Da bei einer Party laute Musik eine gängige Begleiterscheinung darstellt und die Häuser ein gemeinsames Resort bilden, wird beim Start des Partymodus ein Schutzmechanismus aktiviert: Die Fenster und Türen der übrigen Häuser werden automatisch geschlossen, um mögliche Lärmbelästigungen für andere Gäste zu minimieren.
+

@@ -3,28 +3,37 @@
  ************************************************************/
 #include <Arduino.h>
 #include "config.h"
+#include "hardware.h"
 #include "mod_wifi.h"
 #include "mod_mqtt.h"
 #include "mod_lcd.h"
 #include "mod_rfid.h"
 #include "mod_partylogic.h"
-// ggf. Webserver / HTML
+#include "mod_http.h"
+#include "mod_button.h"
+#include "mod_motion.h"
 
 void setup() {
     Serial.begin(115200);
+    initHardware();
+    initButton(btn1);
+    initButton(btn2);
+
     initLcd();
     initWiFi();
-    initMQTT();
-    initPartyLogic();
+    initMqtt();
     initRFID();
-    // init Webserver, Zeit, etc.
+    initMotion();
+    initParty();
+    initHttp();
 }
 
 void loop() {
-    wiFiLoop();
-    mqttLoop();          // oder maintainMQTT(), siehe oben
-    partyLoop();
-    rfidLoop();
-    lcdUpdate();
-    // HTTP-Server bearbeiten, etc.
+    loopWiFi();
+    loopMqtt();     
+    loopParty();
+    loopRfid();
+    loopLcd();
+    loopMotion();
+    loopHttp();
 }

@@ -1,6 +1,5 @@
 #include <WiFi.h>
 #include "config.h"
-#include "mod_lcd.h"
 #include "mod_wifi.h"
 
 struct WiFiCredentials {
@@ -18,8 +17,6 @@ bool wiFiIsConnected() {
 }
 
 void initWiFi() {
-  printLcd("WiFi verbinden", "...", false);
-
   WiFi.mode(WIFI_STA);
   if (USE_STATIC_IP) {
     Serial.println("Using STATIC IP");
@@ -63,21 +60,17 @@ static void connectWiFi(const WiFiCredentials& creds) {
   if (creds.ssid == nullptr) {
     Serial.println("Keine bekannte SSID – Verbindung nicht möglich.");
     wifiConnected = false;
-    printLcd("WiFi FAIL", "kein Netz", true);
     return;
   }
   
   Serial.print("Verbinde mit: ");
   Serial.println(creds.ssid);
-  printLcd("Verbinde mit:", creds.ssid, false);
-
   WiFi.begin(creds.ssid, creds.pass);
 
   uint8_t tries = 0;
   while (WiFi.status() != WL_CONNECTED && tries < 40) {
     delay(500);
     Serial.print(".");
-    printLcd(creds.ssid, String(tries), false);
     tries++;
   }
   Serial.println();
@@ -89,11 +82,9 @@ static void connectWiFi(const WiFiCredentials& creds) {
     Serial.print(WiFi.SSID());
     Serial.print(", IP: ");
     Serial.println(ip);
-    printLcd(WiFi.SSID(), ip.toString(), false);
   } else {
     wifiConnected = false;
     Serial.println("WiFi FAILED");
-    printLcd("WiFi FAIL", "check SSID/PW", true);
   }
 }
 
@@ -124,7 +115,6 @@ void loopWiFi() {
         wifiConnected = true;
         Serial.print("WiFi reconnected, IP: ");
         Serial.println(WiFi.localIP());
-        printLcd(WiFi.SSID(), WiFi.localIP().toString(), false);
       }
     }
   }

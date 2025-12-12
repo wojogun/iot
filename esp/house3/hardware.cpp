@@ -1,15 +1,22 @@
+#include <Arduino.h>
 #include "hardware.h"
+#include "driver/ledc.h"
 
 // -------------------- Pinbelegung (KS5009-Standard) --------------------
+const uint8_t FAN_PWMCH        =  0;
+const uint8_t NEOPIXEL_COUNT   =  4;
+const uint8_t PIN_SERVO_WINDOW =  5;   // Fenster-Servo
 const uint8_t PIN_LED_YELLOW   = 12;  // gelbe LED am Haus
-const uint8_t PIN_SERVO_WINDOW = 5;   // Fenster-Servo
 const uint8_t PIN_SERVO_DOOR   = 13;  // Tür-Servo
-const uint8_t PIN_LED_STRIP    = 26;  // SK6812 / NeoPixel
+const uint8_t PIN_MOTION       = 14;
+const uint8_t PIN_BTN2         = 16;
+const uint8_t PIN_FAN_PWM      = 18;  // PulsWeitenModulation zur Geschwindigkeitssteuerung
+const uint8_t PIN_FAN_DIR      = 19;  // Richtung: HIGH/LOW links/rechtsLauf
 const uint8_t PIN_BUZZER       = 25;  // Buzzer
-const uint8_t NEOPIXEL_COUNT = 4;
+const uint8_t PIN_LED_STRIP    = 26;  // SK6812 / NeoPixel
+const uint8_t PIN_BTN1         = 27;
 
-// Anzahl der Pixel im Strip (RGB)
-static const uint8_t LED_COUNT = 4;
+static const uint8_t LED_COUNT = 4;  // Anzahl der Pixel im Strip (RGB)
 
 // -------------------- Globale Objekte --------------------
 Adafruit_NeoPixel strip(LED_COUNT, PIN_LED_STRIP, NEO_GRB + NEO_KHZ800);
@@ -48,6 +55,13 @@ void initHardware() {
     // Buzzer
     buzzer.setTimbre(30);      // Klangfarbe (Keyestudio-Beispiel)
     buzzer.playTone(0, 0);     // sicherstellen, dass er aus ist
+
+    // Fan
+    pinMode(PIN_FAN_DIR, OUTPUT);              // FAN_DIR_PIN ist ein digitaler Ausgang für Richtung od. ein/aus
+
+    // Buttons
+    pinMode(PIN_BTN1, INPUT_PULLUP);
+    pinMode(PIN_BTN2, INPUT_PULLUP);
 }
 
 // -------------------- Helper für Fenster / Tür --------------------
@@ -66,6 +80,25 @@ void ctrWindow(WindowState state) {
     }
     windowServo.write(angle);
 }
+
+void ctrFan(FanState state) {
+  switch (state) {
+    case FAN_ON:
+      digitalWrite(PIN_FAN_DIR, HIGH);
+      analogWrite(PIN_FAN_PWM, 255);
+      delay(200);               // kurz anlaufen lassen
+      analogWrite(PIN_FAN_PWM, 180);
+      break;
+
+    case FAN_OFF:
+      digitalWrite(PIN_FAN_DIR, LOW);  
+      analogWrite(PIN_FAN_PWM, 0);
+      break;
+    default:
+      break;
+  }
+}
+
 
 // Für die Tür kannst du die Winkel nach Bedarf justieren.
 // Hier: 0° = zu, 90° = auf (oder 180°, wenn es mechanisch besser passt).
