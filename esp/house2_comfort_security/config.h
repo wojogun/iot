@@ -15,7 +15,7 @@ extern const char* MQTT_USER;
 extern const char* MQTT_PASSWORD;
 
 // ==== MQTT TOPICS ====
-extern const char* TOPIC_STATUS_HOUSE4; // Topic für die Belegung des Hauses 4
+extern const char* TOPIC_STATUS_HOUSE2; // Topic für die Belegung des Hauses 4
 extern const char* TOPIC_STATUS_WINDOW; // Topic für den Fensterstatus
 extern const char* TOPIC_STATUS_DOOR;   // Topic für den Türstatus
 //extern const char* TOPIC_CMD_PARTY;
