@@ -175,9 +175,11 @@ void printWarnings() {
     case 0b10:
       printLcd("STURMWARNUNG", "", false);
       blinkLed();
+      rgbOff();
       break;
     case 0b01:
       printLcd("GASWARNUNG", "", false);
+      switchLed(false);
       rgbBlink(255,0,0);
       break;
     case 0b11:

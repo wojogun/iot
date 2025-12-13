@@ -61,6 +61,7 @@ void loopRgb();
 void rgbApplyColor(uint8_t r, uint8_t g, uint8_t b);
 void rgbOff();
 void rgbSet(uint8_t r, uint8_t g, uint8_t b, uint8_t brightness);
+void rgbSetHSV(uint16_t hue, uint8_t sat, uint8_t val);
 void rgbBlink(uint8_t r, uint8_t g, uint8_t b, uint32_t intervalMs=500, uint8_t brightness=240);
 
 void switchLed(bool onoff);

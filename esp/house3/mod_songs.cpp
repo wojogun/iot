@@ -66,24 +66,28 @@ void publishSongList() {
 }
 
 static void lightForNote(int freq, int baseLenMs) {
-  if (freq <= 0) { rgbOff(); return; } // Pause
+  if (freq <= 0) { rgbOff(); return; }
 
-  uint8_t r=0,g=0,b=0;
+  freq = constrain(freq, 200, 600);
 
-  if (freq < 250)      { r=255; g=0;   b=0;   }   // Bass
-  else if (freq < 800) { r=0;   g=255; b=0;   }   // Mitten
-  else                 { r=0;   g=0;   b=255; }   // Höhen
+  // Log-Mapping ist musikalischer als linear (Töne fühlen sich proportionaler an)
+  float x = logf((float)freq) - logf(200.0f);
+  float d = logf(600.0f) - logf(200.0f);
+  uint16_t hueFromFreq = (uint16_t)( (x / d) * 65535.0f );
 
-  // Helligkeit aus Dauer: 40..180
-  uint8_t bright = (uint8_t)constrain(map(baseLenMs, 80, 800, 40, 180), 40, 180);
+  // Hue-„Wanderung“ pro Note (macht es bunt, selbst wenn viele Noten nahe beieinander liegen)
+  static uint16_t hueWalk = 0;
+  hueWalk += 7000;                 // Schrittweite: 4000..12000 ausprobieren
 
-  rgbSet(r, g, b, bright);
+  uint16_t hue = hueFromFreq + hueWalk;  // uint16 overflow = automatisch modulo 65536
+  uint8_t val = (uint8_t)constrain(map(baseLenMs, 80, 800, 60, 180), 60, 180);
+  rgbSetHSV(hue, 255, val);
 }
 
-const float STACCATO = 0.85f;
-void playNote(int freq, int baseLenMs) {
+//const float STACCATO = 0.85f;
+void playNote(int freq, int baseLenMs, float staccato) {
   lightForNote(freq, baseLenMs);
-  int d = (int)(baseLenMs * STACCATO);
+  int d = (int)(baseLenMs * staccato);
   int p = baseLenMs - d;
   buzzer.playTone(freq, d);
   if (p > 0) delay(p);
@@ -141,6 +145,7 @@ void werHatAnDerUhrGedreht() {
   playNote(494, Q);   // H4  
   playNote(440, Q);   // A4 
   delay(Q);
+  playNote(0, 0);     // aus
 }
 
 void getThePartyStarted() {
@@ -182,6 +187,7 @@ void getThePartyStarted() {
   playNote(294, E);   // D4
   playNote(247, E);   // H3
   playNote(247, E);   // H3
+  playNote(0, 0);     // aus
 }
 
 void whatShallWeDo() {
@@ -233,6 +239,7 @@ void whatShallWeDo() {
 
   playNote(294, Q);   // D4
   playNote(294, Q);   // D4
+  playNote(0, 0);     // aus
 }
 
 void finalCountdown() {
@@ -293,6 +300,7 @@ void finalCountdown() {
   playNote(494, S);   // H4
  
   playNote(554, Q);   // C#5
+  playNote(0, 0);     // aus
 }
 
 void heyJude() {
@@ -353,4 +361,5 @@ void heyJude() {
   playNote(349, E);   // F4
 
   playNote(349, H+Q);   // F4
+  playNote(0, 0);     // aus
 }

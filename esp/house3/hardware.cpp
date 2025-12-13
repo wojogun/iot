@@ -138,6 +138,18 @@ void rgbSet(uint8_t r, uint8_t g, uint8_t b, uint8_t brightness) {
   rgbApplyColor(rgbR, rgbG, rgbB);
 }
 
+void rgbSetHSV(uint16_t hue, uint8_t sat, uint8_t val) {
+  strip.setBrightness(val);
+  uint32_t c = strip.gamma32(strip.ColorHSV(hue, sat, val));
+
+  for (uint16_t i = 0; i < strip.numPixels(); i++) {
+    strip.setPixelColor(i, c);
+  }
+
+    //strip.setPixelColor(idx, c);
+    strip.show();
+}
+
 void rgbBlink(uint8_t r, uint8_t g, uint8_t b, uint32_t intervalMs, uint8_t brightness) {
   //partyEnabled = false;
   rgbBlinkEnabled = true;

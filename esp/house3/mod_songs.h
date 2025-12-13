@@ -21,5 +21,5 @@ const SongInfo* getSongByRfid(const String& rfid);
 void handleRfidSong(const String& uid);
 void playSong(uint8_t id);
 void publishSongList();
-
+void playNote(int freq, int baseLenMs, float staccato = 0.85f);
 #endif
