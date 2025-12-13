@@ -16,13 +16,22 @@ const uint8_t PIN_BUZZER       = 25;  // Buzzer
 const uint8_t PIN_LED_STRIP    = 26;  // SK6812 / NeoPixel
 const uint8_t PIN_BTN1         = 27;
 
-static const uint8_t LED_COUNT = 4;  // Anzahl der Pixel im Strip (RGB)
 
 // -------------------- Globale Objekte --------------------
-Adafruit_NeoPixel strip(LED_COUNT, PIN_LED_STRIP, NEO_GRB + NEO_KHZ800);
+BuzzerESP32 buzzer(PIN_BUZZER);
 Servo windowServo;
 Servo doorServo;
-BuzzerESP32 buzzer(PIN_BUZZER);
+
+// RGBLED
+static const uint8_t LED_COUNT = 4;  // Anzahl der Pixel im Strip (RGB)
+Adafruit_NeoPixel strip(LED_COUNT, PIN_LED_STRIP, NEO_GRB + NEO_KHZ800);
+static bool rgbBlinkEnabled = false;
+static bool rgbStateOn      = false;
+static uint32_t rgbLastToggle = 0;
+static uint32_t rgbInterval   = 500;
+static uint8_t rgbR=0, rgbG=0, rgbB=0;
+static uint8_t rgbBrightness = 255;
+
 // gelbe LED
 static bool     ledBlinkEnabled  = false;
 static bool     ledState         = false;
@@ -38,6 +47,7 @@ void initHardware() {
     // LED
     pinMode(PIN_LED_YELLOW, OUTPUT);
     digitalWrite(PIN_LED_YELLOW, LOW);
+    initRgb();
 
     // Servos vorbereiten (Standard 50 Hz)
     ESP32PWM::allocateTimer(0);
@@ -52,22 +62,97 @@ void initHardware() {
     windowServo.attach(PIN_SERVO_WINDOW, 1000, 2000);
     doorServo.attach(PIN_SERVO_DOOR,   1000, 2000);
 
-    // NeoPixel
-    strip.begin();
-    strip.clear();
-    strip.show();
-
     // Buzzer
     buzzer.setTimbre(30);      // Klangfarbe (Keyestudio-Beispiel)
     buzzer.playTone(0, 0);     // sicherstellen, dass er aus ist
 
     // Fan
-    pinMode(PIN_FAN_DIR, OUTPUT);              // FAN_DIR_PIN ist ein digitaler Ausgang für Richtung od. ein/aus
+    pinMode(PIN_FAN_DIR, OUTPUT); // FAN_DIR_PIN ist ein digitaler Ausgang für Richtung od. ein/aus
 
     // Buttons
     pinMode(PIN_BTN1, INPUT_PULLUP);
     pinMode(PIN_BTN2, INPUT_PULLUP);
 }
+
+void initRgb() {
+  strip.begin();
+  strip.clear();
+  strip.setBrightness(255);
+  strip.show();
+  rgbBlinkEnabled = false;
+  //lichtorgelEnabled = false;
+  rgbStateOn = false;
+}
+void loopRgb() {
+  uint32_t now = millis();
+
+  // Party hat Priorität (falls aktiv)
+  /*
+  if (lichtorgelEnabled) {
+    if (now - partyLast >= partyStepMs) {
+      partyLast = now;
+      partyHue += 256; // Geschwindigkeit/Farbwechsel
+      // Wenn ColorHSV/gamma32 nicht verfügbar: sag Bescheid, dann gebe ich Fallback ohne HSV
+      uint32_t c = strip.gamma32(strip.ColorHSV(partyHue));
+      for (uint16_t i=0; i<strip.numPixels(); i++) strip.setPixelColor(i, c);
+      strip.show();
+    }
+    return;
+  }
+  */
+
+  // Blinken
+  if (!rgbBlinkEnabled) return;
+
+  if (now - rgbLastToggle >= rgbInterval) {
+    rgbLastToggle = now;
+    rgbStateOn = !rgbStateOn;
+    if (rgbStateOn) rgbApplyColor(rgbR, rgbG, rgbB);
+    else            rgbApplyColor(0,0,0);
+  }
+}
+
+void rgbApplyColor(uint8_t r, uint8_t g, uint8_t b) {
+  for (uint16_t i = 0; i < strip.numPixels(); i++) {
+    strip.setPixelColor(i, strip.Color(r, g, b));
+  }
+  strip.show();
+}
+
+void rgbOff() {
+  //partyEnabled = false;
+  rgbBlinkEnabled = false;
+  rgbStateOn = false;
+  rgbR = rgbG = rgbB = 0;
+  rgbApplyColor(rgbR, rgbG, rgbB);
+}
+
+void rgbSet(uint8_t r, uint8_t g, uint8_t b, uint8_t brightness) {
+  //partyEnabled = false;
+  rgbBlinkEnabled = false;
+  rgbR = r; rgbG = g; rgbB = b;
+  rgbBrightness = brightness;
+
+  strip.setBrightness(rgbBrightness);
+  rgbStateOn = true;
+  rgbApplyColor(rgbR, rgbG, rgbB);
+}
+
+void rgbBlink(uint8_t r, uint8_t g, uint8_t b, uint32_t intervalMs, uint8_t brightness) {
+  //partyEnabled = false;
+  rgbBlinkEnabled = true;
+
+  rgbR = r; rgbG = g; rgbB = b;
+  rgbBrightness = brightness;
+  rgbInterval = intervalMs;
+  rgbLastToggle = millis();
+  strip.setBrightness(rgbBrightness);
+}
+
+
+
+
+
 
 void switchLed(bool onoff) {
   ledState = onoff;

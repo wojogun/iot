@@ -170,6 +170,7 @@ void printWarnings() {
     case 0b00:
       printLcd("Next:", (nextPartyText == "" ? "keine Buchung" : nextPartyText ), false);
       switchLed(false);
+      rgbOff();
       break;
     case 0b10:
       printLcd("STURMWARNUNG", "", false);
@@ -177,9 +178,12 @@ void printWarnings() {
       break;
     case 0b01:
       printLcd("GASWARNUNG", "", false);
+      rgbBlink(255,0,0);
       break;
     case 0b11:
       printLcd("STURM + GAS", "WARNUNG", false);
+      rgbBlink(255,0,0);
+      blinkLed();
       break;
   }
 }

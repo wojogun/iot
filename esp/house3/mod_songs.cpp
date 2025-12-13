@@ -1,4 +1,5 @@
 #include "config.h"
+#include "hardware.h"
 #include "mod_songs.h"
 #include "mod_mqtt.h"
 #include "mod_lcd.h"
@@ -64,8 +65,24 @@ void publishSongList() {
     publishMqtt(TOPIC_SONGLIST, json, true);  // retained, damit Node-RED sofort was hat
 }
 
+static void lightForNote(int freq, int baseLenMs) {
+  if (freq <= 0) { rgbOff(); return; } // Pause
+
+  uint8_t r=0,g=0,b=0;
+
+  if (freq < 250)      { r=255; g=0;   b=0;   }   // Bass
+  else if (freq < 800) { r=0;   g=255; b=0;   }   // Mitten
+  else                 { r=0;   g=0;   b=255; }   // Höhen
+
+  // Helligkeit aus Dauer: 40..180
+  uint8_t bright = (uint8_t)constrain(map(baseLenMs, 80, 800, 40, 180), 40, 180);
+
+  rgbSet(r, g, b, bright);
+}
+
 const float STACCATO = 0.85f;
 void playNote(int freq, int baseLenMs) {
+  lightForNote(freq, baseLenMs);
   int d = (int)(baseLenMs * STACCATO);
   int p = baseLenMs - d;
   buzzer.playTone(freq, d);
@@ -79,23 +96,23 @@ void smokeOnTheWater() {
   int E      = Q / 2;         // Achtel
   int S      = Q / 4;         // Sechzehntel
 
-  buzzer.playTone(392, Q);   // G4
-  buzzer.playTone(466, Q);   // Bb4
-  buzzer.playTone(523, Q+E);   // C5 (lang)
-  buzzer.playTone(392, E);   // G4
+  playNote(392, Q);   // G4
+  playNote(466, Q);   // Bb4
+  playNote(523, Q+E);   // C5 (lang)
+  playNote(392, E);   // G4
   delay(E);
-  buzzer.playTone(466, E);
+  playNote(466, E);
   delay(E);
-  buzzer.playTone(554, E);
-  buzzer.playTone(523, Q+Q);
-  buzzer.playTone(392, Q);
-  buzzer.playTone(466, Q);
-  buzzer.playTone(523, Q+E);
-  buzzer.playTone(466, E);
+  playNote(554, E);
+  playNote(523, Q+Q);
+  playNote(392, Q);
+  playNote(466, Q);
+  playNote(523, Q+E);
+  playNote(466, E);
   delay(E);
-  buzzer.playTone(392, E+3*Q);   // Abschlussnote (lang)
+  playNote(392, E+3*Q);   // Abschlussnote (lang)
 
-  buzzer.playTone(0, 0);     // aus
+  playNote(0, 0);     // aus
 }
 
 void werHatAnDerUhrGedreht() {

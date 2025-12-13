@@ -37,6 +37,7 @@ void loop() {
     loopRfid();
     loopLcd();
     loopYellowLed();
+    loopRgb();
     loopMotion();
     loopHttp();
 }
