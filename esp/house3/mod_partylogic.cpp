@@ -77,18 +77,16 @@ void initParty() {
   subscribeMqtt(TOPIC_BC_GAS);
   //subscribeMqtt(TOPIC_BC_PARTY);  //wird lokal behandelt, daher nur Haus 1,2,4
   //subscribeMqtt(TOPIC_CMD_STORM); // nur Haus 1
-  subscribeMqtt(TOPIC_CMD_PARTY);   // nur Haus3:
-  subscribeMqtt(TOPIC_CMD_SONG);    // nur Haus3:
-  subscribeMqtt(TOPIC_CMD_NEXT);    // nur Haus3:
+  subscribeMqtt(TOPIC_CMD_PARTY);   // nur Haus3
+  subscribeMqtt(TOPIC_CMD_SONG);    // nur Haus3
+  subscribeMqtt(TOPIC_CMD_NEXT);    // nur Haus3
   // TOPIC_STATUS_HOUSE3  = "resort/house3/status";      --> publish only
   // TOPIC_CURRENT_SONG   = "resort/house3/party/song";  --> publish only
   Serial.println("Partylogic subscribed all topics");
-  if (mqttClient.connected()) {
-    publishSongList();
-    mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL");
-    mqttClient.publish(TOPIC_STATUSGAS_HOUSE3, "OFF");
-    mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "OFF");
-  }
+  publishSongList();
+  mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL");
+  mqttClient.publish(TOPIC_STATUSGAS_HOUSE3, "OFF");
+  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "OFF");
 }
 
 void loopParty() {
