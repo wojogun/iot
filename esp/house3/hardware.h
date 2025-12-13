@@ -56,4 +56,8 @@ void ctrWindow(WindowState state);
 void ctrDoor(DoorState state);
 void ctrFan(FanState state);
 
+void switchLed(bool onoff);
+void blinkLed();
+void loopYellowLed();
+
 #endif

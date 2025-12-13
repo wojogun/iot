@@ -5,7 +5,7 @@
 // -------------------- Pinbelegung (KS5009-Standard) --------------------
 const uint8_t FAN_PWMCH        =  0;
 const uint8_t NEOPIXEL_COUNT   =  4;
-const uint8_t PIN_SERVO_WINDOW =  5;   // Fenster-Servo
+const uint8_t PIN_SERVO_WINDOW =  5;  // Fenster-Servo
 const uint8_t PIN_LED_YELLOW   = 12;  // gelbe LED am Haus
 const uint8_t PIN_SERVO_DOOR   = 13;  // Tür-Servo
 const uint8_t PIN_MOTION       = 14;
@@ -23,6 +23,11 @@ Adafruit_NeoPixel strip(LED_COUNT, PIN_LED_STRIP, NEO_GRB + NEO_KHZ800);
 Servo windowServo;
 Servo doorServo;
 BuzzerESP32 buzzer(PIN_BUZZER);
+// gelbe LED
+static bool     ledBlinkEnabled  = false;
+static bool     ledState         = false;
+static uint32_t ledBlinkInterval = 500;
+static uint32_t ledLastToggle    = 0;
 
 // weil die Servos zu Überhitzung neigen, insbesondere das Fenster
 const bool USE_DOOR     = true;
@@ -64,6 +69,25 @@ void initHardware() {
     pinMode(PIN_BTN2, INPUT_PULLUP);
 }
 
+void switchLed(bool onoff) {
+  ledState = onoff;
+  ledBlinkEnabled = false;
+  digitalWrite(PIN_LED_YELLOW, (onoff ? HIGH : LOW));
+}
+void blinkLed() {
+    ledBlinkEnabled  = true;
+    ledLastToggle    = millis();
+}
+void loopYellowLed() {
+  if (!ledBlinkEnabled) return;
+  uint32_t now = millis();
+  if (now - ledLastToggle >= ledBlinkInterval) {
+    ledLastToggle = now;
+    ledState = !ledState;
+    digitalWrite(PIN_LED_YELLOW, ledState ? HIGH : LOW);
+  }
+}
+
 // -------------------- Helper für Fenster / Tür --------------------
 // Hinweis: Aus dem Keyestudio-Beispiel: 0° ~ „zu“, 176° ~ „auf“ für Fenster. :contentReference[oaicite:1]{index=1}
 void ctrWindow(WindowState state) {
@@ -79,7 +103,7 @@ void ctrWindow(WindowState state) {
             break;
     }
     windowServo.write(angle);
-}c:\Users\wojog\OneDrive\uni\FH_Master\3_IoT\smarthome\esp\house3\mod_led.cpp c:\Users\wojog\OneDrive\uni\FH_Master\3_IoT\smarthome\esp\house3\mod_lcd.h
+}
 
 void ctrFan(FanState state) {
   switch (state) {
@@ -98,7 +122,6 @@ void ctrFan(FanState state) {
       break;
   }
 }
-
 
 // Für die Tür kannst du die Winkel nach Bedarf justieren.
 // Hier: 0° = zu, 90° = auf (oder 180°, wenn es mechanisch besser passt).
