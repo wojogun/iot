@@ -25,7 +25,7 @@ extern const char* MQTT_PASSWORD;
 
 extern const char* TOPIC_STATUS_HOUSE3;
 extern const char* TOPIC_STATUSGAS_HOUSE3;
-extern const char* TOPIC_STATUSSTORM_HOUSE3:
+extern const char* TOPIC_STATUSSTORM_HOUSE3;
 
 extern const char* TOPIC_CMD_PARTY;
 extern const char* TOPIC_CMD_STORM;

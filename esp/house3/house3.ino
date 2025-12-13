@@ -26,6 +26,8 @@ void setup() {
     initMotion();
     initParty();
     initHttp();
+    printTempLcd("Haus 3 bereit","",5000);
+    Serial.println("Haus 3 bereit");
 }
 
 void loop() {
@@ -34,6 +36,8 @@ void loop() {
     loopParty();
     loopRfid();
     loopLcd();
+    loopYellowLed();
+    loopRgb();
     loopMotion();
     loopHttp();
 }

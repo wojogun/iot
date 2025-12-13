@@ -4,13 +4,19 @@
 
 enum Mode {
   MODE_NORMAL,
-  MODE_PARTY,
-  MODE_STORM,
-  MODE_GAS
+  MODE_PARTY
+//  MODE_STORM,
+//  MODE_GAS
+};
+enum Onoff {
+  ON,
+  OFF
 };
 
 extern String nextPartyText;
 extern Mode currentMode;
+extern Onoff currentGasStatus;
+extern Onoff currentStormStatus;
 
 // Haus-spezifische MQTT-Parameter für Haus 3
 extern const char* MQTT_CLIENT_ID_BASE;
@@ -28,11 +34,11 @@ void onMotion(bool active);
 void initParty();
 void loopParty();
 
-void startParty(bool publish);
-void stopParty(bool publish);
+void controlParty(Mode mode, bool publish);
 void startStorm(bool publish);
 void stopStorm(bool publish);
 void startGas(bool publish);
 void stopGas(bool publish);
+void printWarnings();
 
 #endif

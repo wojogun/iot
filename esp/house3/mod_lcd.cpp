@@ -30,9 +30,9 @@ void print(const String& oben, const String& unten) {
 	lcd.display();
 	lcd.clear();
 	lcd.setCursor(0, 0);
-	lcd.print(oben);
+	if (oben != nullptr) lcd.print(oben);
 	lcd.setCursor(0, 1);
-	lcd.print(unten);
+	if (unten != nullptr) lcd.print(unten);
 }
 
 void printLcd(const String& oben, const String& unten, bool flash) {

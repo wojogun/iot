@@ -1,4 +1,5 @@
 #include "config.h"
+#include "hardware.h"
 #include "mod_songs.h"
 #include "mod_mqtt.h"
 #include "mod_lcd.h"
@@ -64,9 +65,29 @@ void publishSongList() {
     publishMqtt(TOPIC_SONGLIST, json, true);  // retained, damit Node-RED sofort was hat
 }
 
-const float STACCATO = 0.85f;
-void playNote(int freq, int baseLenMs) {
-  int d = (int)(baseLenMs * STACCATO);
+static void lightForNote(int freq, int baseLenMs) {
+  if (freq <= 0) { rgbOff(); return; }
+
+  freq = constrain(freq, 200, 600);
+
+  // Log-Mapping ist musikalischer als linear (Töne fühlen sich proportionaler an)
+  float x = logf((float)freq) - logf(200.0f);
+  float d = logf(600.0f) - logf(200.0f);
+  uint16_t hueFromFreq = (uint16_t)( (x / d) * 65535.0f );
+
+  // Hue-„Wanderung“ pro Note (macht es bunt, selbst wenn viele Noten nahe beieinander liegen)
+  static uint16_t hueWalk = 0;
+  hueWalk += 7000;                 // Schrittweite: 4000..12000 ausprobieren
+
+  uint16_t hue = hueFromFreq + hueWalk;  // uint16 overflow = automatisch modulo 65536
+  uint8_t val = (uint8_t)constrain(map(baseLenMs, 80, 800, 60, 180), 60, 180);
+  rgbSetHSV(hue, 255, val);
+}
+
+//const float STACCATO = 0.85f;
+void playNote(int freq, int baseLenMs, float staccato) {
+  lightForNote(freq, baseLenMs);
+  int d = (int)(baseLenMs * staccato);
   int p = baseLenMs - d;
   buzzer.playTone(freq, d);
   if (p > 0) delay(p);
@@ -79,23 +100,23 @@ void smokeOnTheWater() {
   int E      = Q / 2;         // Achtel
   int S      = Q / 4;         // Sechzehntel
 
-  buzzer.playTone(392, Q);   // G4
-  buzzer.playTone(466, Q);   // Bb4
-  buzzer.playTone(523, Q+E);   // C5 (lang)
-  buzzer.playTone(392, E);   // G4
+  playNote(392, Q);   // G4
+  playNote(466, Q);   // Bb4
+  playNote(523, Q+E);   // C5 (lang)
+  playNote(392, E);   // G4
   delay(E);
-  buzzer.playTone(466, E);
+  playNote(466, E);
   delay(E);
-  buzzer.playTone(554, E);
-  buzzer.playTone(523, Q+Q);
-  buzzer.playTone(392, Q);
-  buzzer.playTone(466, Q);
-  buzzer.playTone(523, Q+E);
-  buzzer.playTone(466, E);
+  playNote(554, E);
+  playNote(523, Q+Q);
+  playNote(392, Q);
+  playNote(466, Q);
+  playNote(523, Q+E);
+  playNote(466, E);
   delay(E);
-  buzzer.playTone(392, E+3*Q);   // Abschlussnote (lang)
+  playNote(392, E+3*Q);   // Abschlussnote (lang)
 
-  buzzer.playTone(0, 0);     // aus
+  playNote(0, 0);     // aus
 }
 
 void werHatAnDerUhrGedreht() {
@@ -124,6 +145,7 @@ void werHatAnDerUhrGedreht() {
   playNote(494, Q);   // H4  
   playNote(440, Q);   // A4 
   delay(Q);
+  playNote(0, 0);     // aus
 }
 
 void getThePartyStarted() {
@@ -165,6 +187,7 @@ void getThePartyStarted() {
   playNote(294, E);   // D4
   playNote(247, E);   // H3
   playNote(247, E);   // H3
+  playNote(0, 0);     // aus
 }
 
 void whatShallWeDo() {
@@ -216,6 +239,7 @@ void whatShallWeDo() {
 
   playNote(294, Q);   // D4
   playNote(294, Q);   // D4
+  playNote(0, 0);     // aus
 }
 
 void finalCountdown() {
@@ -276,6 +300,7 @@ void finalCountdown() {
   playNote(494, S);   // H4
  
   playNote(554, Q);   // C#5
+  playNote(0, 0);     // aus
 }
 
 void heyJude() {
@@ -336,4 +361,5 @@ void heyJude() {
   playNote(349, E);   // F4
 
   playNote(349, H+Q);   // F4
+  playNote(0, 0);     // aus
 }
