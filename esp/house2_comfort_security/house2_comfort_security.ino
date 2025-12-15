@@ -40,7 +40,7 @@ void setup() {
 
 // Main loop
 void loop() {
-  wiFiLoop();
+  loopWiFi();
   loopMqtt();
   lcdUpdate();
   loopRFID();
