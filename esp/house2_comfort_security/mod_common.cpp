@@ -11,13 +11,10 @@
 #include "mod_window.h"
 
 // -------------------- Pinbelegung (KS5009-Standard) --------------------
-const uint8_t FAN_PWMCH        =  0;
 const uint8_t NEOPIXEL_COUNT   =  4;
 const uint8_t PIN_LED_YELLOW   = 12;  // gelbe LED am Haus
 const uint8_t PIN_MOTION       = 14;
 const uint8_t PIN_BTN2         = 16;
-const uint8_t PIN_FAN_PWM      = 18;  // PulsWeitenModulation zur Geschwindigkeitssteuerung
-const uint8_t PIN_FAN_DIR      = 19;  // Richtung: HIGH/LOW links/rechtsLauf
 const uint8_t PIN_BUZZER       = 25;  // Buzzer
 const uint8_t PIN_LED_STRIP    = 26;  // SK6812 / NeoPixel
 const uint8_t PIN_BTN1         = 27;
@@ -248,9 +245,6 @@ void InitCommon() {
   // Buzzer
   buzzer.setTimbre(30);      // Klangfarbe (Keyestudio-Beispiel)
   buzzer.playTone(0, 0);     // sicherstellen, dass er aus ist
-
-  // Fan
-  pinMode(PIN_FAN_DIR, OUTPUT); // FAN_DIR_PIN ist ein digitaler Ausgang für Richtung od. ein/aus
 
   // Buttons
   pinMode(PIN_BTN1, INPUT_PULLUP);

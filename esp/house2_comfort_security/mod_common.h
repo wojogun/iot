@@ -14,15 +14,12 @@ enum Onoff {
 extern const uint8_t PIN_LED_YELLOW;
 extern const uint8_t PIN_LED_STRIP;
 extern const uint8_t PIN_BUZZER;
-extern const uint8_t PIN_FAN_PWM;
-extern const uint8_t PIN_FAN_DIR;
 extern const uint8_t PIN_BTN1;
 extern const uint8_t PIN_BTN2;
 extern const uint8_t PIN_MOTION;
 
 // Anzahl LEDs im NeoPixel-Strip (RGB-Modul)
 extern const uint8_t NEOPIXEL_COUNT;
-extern const uint8_t FAN_PWMCH;
 
 extern const char* TOPIC_STATUS_HOUSE2;
 extern const char* TOPIC_STATUSGAS_HOUSE2;
