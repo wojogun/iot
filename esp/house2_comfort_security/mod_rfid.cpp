@@ -67,8 +67,8 @@ void loopRFID() {
   else   //if Card number error, dispaly error
   {
     password = "";
-    printLcd("Fehler:", "Falscher Schlüssel", false);
-    publishMqtt(TOPIC_STATUS_HOUSE2, "Falscher Schlüssel");
+    printLcd("Fehler:", "Falscher Key", false);
+    publishMqtt(TOPIC_STATUS_HOUSE2, "Falscher Key");
   }
   //Serial.println(password);
 }
