@@ -3,9 +3,7 @@
 #include "config.h"
 #include "mod_wifi.h"
 #include "mod_mqtt.h"
-// #include "mod_partylogic.h"
 #include "mod_lcd.h"
-// #include "mod_songs.h"
 
 // TLS-Client + MQTT-Client
 static WiFiClientSecure secureClient;
