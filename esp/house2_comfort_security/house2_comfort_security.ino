@@ -16,6 +16,7 @@
 // Load Libraries
 #include <Arduino.h>
 #include "config.h"
+#include "hardware.h"
 #include "mod_wifi.h"
 #include "mod_lcd.h"
 #include "mod_rfid.h"
