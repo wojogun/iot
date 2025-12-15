@@ -15,18 +15,15 @@ extern const char* MQTT_USER;
 extern const char* MQTT_PASSWORD;
 
 // ==== MQTT TOPICS ====
-extern const char* TOPIC_STATUS_HOUSE2; // Topic für die Belegung des Hauses 4
+extern const char* TOPIC_STATUS_HOUSE2; // Topic für die Belegung Haus 2
 extern const char* TOPIC_STATUS_WINDOW; // Topic für den Fensterstatus
 extern const char* TOPIC_STATUS_DOOR;   // Topic für den Türstatus
-//extern const char* TOPIC_CMD_PARTY;
-//extern const char* TOPIC_CMD_STORM;
-// extern const char* TOPIC_CMD_SONG;
-// extern const char* TOPIC_CMD_NEXT;
-extern const char* TOPIC_BC_STORM;
-extern const char* TOPIC_BC_PARTY;
-extern const char* TOPIC_BC_GAS;
-// extern const char* TOPIC_CURRENT_SONG;
-// extern const char* TOPIC_SONGLIST;
+extern const char* TOPIC_STATUSGAS_HOUSE2; // Topic für den Gasalarmstatus Haus 2
+extern const char* TOPIC_STATUSSTORM_HOUSE2; // Topic für den Sturmalarmstatus Haus 2
+
+extern const char* TOPIC_BC_STORM; // Topic für Sturmalarm-Broadcast
+extern const char* TOPIC_BC_PARTY; // Topic für Partymodus-Broadcast
+extern const char* TOPIC_BC_GAS; // Topic für Gasalarm-Broadcast
 
 // ==== STATIC IP / DHCP ====
 extern const bool USE_STATIC_IP;
