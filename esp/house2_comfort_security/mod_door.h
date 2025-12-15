@@ -8,4 +8,6 @@ void initDoor();
 void openDoor();
 void closeDoor();
 
+extern const char* TOPIC_STATUS_DOOR;
+
 #endif

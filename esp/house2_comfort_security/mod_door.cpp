@@ -1,11 +1,9 @@
 #include <ESP32Servo.h>
 #include "mod_mqtt.h"
+#include "mod_door.h"
 
 #define servoPin 13
 Servo myservodoor;
-
-constexpr auto TOPIC_DOOR_STATUS = "resort/house2/door/status";
-
 
 void initDoor() {
   Serial.begin(9600);
@@ -26,12 +24,12 @@ void initDoor() {
 
 void openDoor() {
     myservodoor.write(180);
-	publishMqtt(TOPIC_DOOR_STATUS, "OFFEN");
+	publishMqtt(TOPIC_STATUS_DOOR, "OFFEN");
     delay(200);
 }
 
 void closeDoor(){  
     myservodoor.write(0);
-	publishMqtt(TOPIC_DOOR_STATUS, "GESCHLOSSEN");
+	publishMqtt(TOPIC_STATUS_DOOR, "GESCHLOSSEN");
     delay(200);
 }

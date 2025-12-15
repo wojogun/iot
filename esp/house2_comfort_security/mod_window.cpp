@@ -1,10 +1,9 @@
 #include <ESP32Servo.h>
 #include "mod_mqtt.h"
+#include "mod_window.h"
 
 #define servoPin 5
 Servo myservowindow;
-
-constexpr auto TOPIC_WINDOW_STATUS = "resort/house2/window/status";
 
 void initWindow() {
   Serial.begin(9600);
@@ -25,12 +24,12 @@ void initWindow() {
 
 void openWindow() {
     myservowindow.write(180);
-	publishMqtt(TOPIC_WINDOW_STATUS, "OFFEN");
+	publishMqtt(TOPIC_STATUS_WINDOW, "OFFEN");
     delay(200);
 }
 
 void closeWindow(){  
     myservowindow.write(0);
-	publishMqtt(TOPIC_WINDOW_STATUS, "GESCHLOSSEN");
+	publishMqtt(TOPIC_STATUS_WINDOW, "GESCHLOSSEN");
     delay(200);
 }

@@ -8,4 +8,6 @@ void initWindow();
 void openWindow();
 void closeWindow();
 
+extern const char* TOPIC_STATUS_WINDOW;
+
 #endif
