@@ -43,6 +43,7 @@ static uint32_t ledLastToggle    = 0;
 
 Onoff currentGasStatus = OFF;
 Onoff currentStormStatus = OFF;
+Onoff currentPartyStatus = OFF;
 
 auto& mqttClient = getMqttClient();
 
@@ -53,8 +54,9 @@ void handleMqtt(const String& topic, const String& payload) {
   Serial.println(payload);
 
   if (topic == TOPIC_BC_PARTY) {
-    //controlParty( (payload == "PARTY") ? MODE_PARTY : MODE_NORMAL, false);
-    // TO DO: Close Window when PARTY mode is ON
+    if (payload == "ON") startParty(false);
+    else if (payload == "OFF") stopParty(false);
+    else Serial.print("payload unbekannt:" + payload);
   } 
   else if (topic == TOPIC_BC_STORM) {
     if (payload == "ON") startStorm(false);
@@ -104,14 +106,30 @@ void stopStorm(bool publish) {
   if (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE2, "OFF");
 }
 
+void startParty(bool publish) {
+  currentPartyStatus = ON;
+  closeWindow();
+  printWarnings();
+  if (publish && mqttClient.connected())  mqttClient.publish(TOPIC_BC_PARTY, "ON");
+  if            (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSPARTY_HOUSE2, "ON");
+}
+
+void stopParty(bool publish) {
+  currentPartyStatus = OFF;
+  openWindow();
+  printWarnings();
+  if (publish && mqttClient.connected())  mqttClient.publish(TOPIC_BC_PARTY, "OFF");
+  if            (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSPARTY_HOUSE2, "OFF");
+}
+
 void printWarnings() {
   uint8_t warnMask = (currentStormStatus == ON ? 0b10 : 0) | (currentGasStatus == ON ? 0b01 : 0);
   switch (warnMask) {
-    // case 0b00:
-    //   printLcd("Next:", (nextPartyText == "" ? "keine Buchung" : nextPartyText ), false);
-    //   switchLed(false);
-    //   rgbOff();
-    //   break;
+    case 0b00:
+      printLcd("WOLFI IST", "ZU LAUT !!!", false);
+      switchLed(false);
+      rgbBlink(255,0,0);
+      break;
     case 0b10:
       printLcd("STURMWARNUNG", "", false);
       blinkLed();
