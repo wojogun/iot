@@ -23,7 +23,7 @@ void initWindow() {
 }
 
 void openWindow() {
-    myservowindow.write(180);
+    myservowindow.write(176);
 	publishMqtt(TOPIC_STATUS_WINDOW, "OFFEN");
     delay(200);
 }
