@@ -36,9 +36,6 @@ extern const bool USE_STATIC_IP;
 // ==== mDNS Name ====
 extern const char* MDNS_NAME;
 
-// ==== ROOT CA ====
-//extern const char ROOT_CA[] PROGMEM;
-
 // ==== RFID ====
 extern const char* RFID_KEY;
 
