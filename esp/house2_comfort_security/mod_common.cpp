@@ -96,11 +96,8 @@ void stopStorm(bool publish) {
   openDoor();
   switchLed(false);
   printWarnings();
-  if (publish && mqttClient.connected()) {
-    mqttClient.publish(TOPIC_BC_STORM, "OFF");
-    mqttClient.publish(TOPIC_STATUS_HOUSE2, "NORMAL");
-  }
-  if (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE2, "OFF");
+  if (publish && mqttClient.connected()) mqttClient.publish(TOPIC_BC_STORM, "OFF");
+  if            (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE2, "OFF");
 }
 
 void startParty(bool publish) {
@@ -120,12 +117,13 @@ void stopParty(bool publish) {
 }
 
 void printWarnings() {
-  uint8_t warnMask = (currentStormStatus == ON ? 0b10 : 0) | (currentGasStatus == ON ? 0b01 : 0);
+  uint8_t warnMask = (currentStormStatus == ON ? 0b10 : 0) | (currentGasStatus == ON ? 0b01 : 0) | (currentPartyStatus == ON ? 0b100 : 0);
+  Serial.println("Warnmask: " + String(warnMask, BIN));
   switch (warnMask) {
     case 0b00:
-      printLcd("WOLFI IST", "ZU LAUT !!!", false);
-      switchLed(false);
-      rgbBlink(255,0,0);
+      printLcd("keine aktuellen", "Warnungen", false);
+      //switchLed(false);
+      //rgbBlink(255,0,0);
       break;
     case 0b10:
       printLcd("STURMWARNUNG", "", false);
@@ -141,6 +139,11 @@ void printWarnings() {
       printLcd("STURM + GAS", "WARNUNG", false);
       rgbBlink(255,0,0);
       blinkLed();
+      break;
+    case 0b100:
+      printLcd("WOLFI IST", "ZU LAUT !!!", false);
+      switchLed(false);
+      rgbBlink(255,0,0);
       break;
   }
 }
@@ -258,4 +261,5 @@ void InitCommon() {
   mqttClient.publish(TOPIC_STATUS_HOUSE2, "NORMAL");
   mqttClient.publish(TOPIC_STATUSGAS_HOUSE2, "OFF");
   mqttClient.publish(TOPIC_STATUSSTORM_HOUSE2, "OFF");
+  mqttClient.publish(TOPIC_STATUSPARTY_HOUSE2, "OFF");
 }
