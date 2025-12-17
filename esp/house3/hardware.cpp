@@ -85,22 +85,6 @@ void initRgb() {
 }
 void loopRgb() {
   uint32_t now = millis();
-
-  // Party hat Priorität (falls aktiv)
-  /*
-  if (lichtorgelEnabled) {
-    if (now - partyLast >= partyStepMs) {
-      partyLast = now;
-      partyHue += 256; // Geschwindigkeit/Farbwechsel
-      // Wenn ColorHSV/gamma32 nicht verfügbar: sag Bescheid, dann gebe ich Fallback ohne HSV
-      uint32_t c = strip.gamma32(strip.ColorHSV(partyHue));
-      for (uint16_t i=0; i<strip.numPixels(); i++) strip.setPixelColor(i, c);
-      strip.show();
-    }
-    return;
-  }
-  */
-
   // Blinken
   if (!rgbBlinkEnabled) return;
 
@@ -110,6 +94,14 @@ void loopRgb() {
     if (rgbStateOn) rgbApplyColor(rgbR, rgbG, rgbB);
     else            rgbApplyColor(0,0,0);
   }
+}
+
+void warnton() {
+  for (uint16_t i = 0; i < 4; i++) {
+    buzzer.playTone(500,1000);
+    delay(500);
+  }
+  buzzer.playTone(0, 0);
 }
 
 void rgbApplyColor(uint8_t r, uint8_t g, uint8_t b) {

@@ -56,6 +56,7 @@ void ctrWindow(WindowState state);
 void ctrDoor(DoorState state);
 void ctrFan(FanState state);
 
+void warnton();
 void initRgb();
 void loopRgb();
 void rgbApplyColor(uint8_t r, uint8_t g, uint8_t b);
