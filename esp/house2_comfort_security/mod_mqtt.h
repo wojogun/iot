@@ -6,6 +6,9 @@
 
 typedef void (*MqttCallback)(const String& topic, const String& payload);
 
+// on-connect callback (for re-subscribing)
+typedef void (*MqttOnConnect)();
+
 void initMqtt();
 void loopMqtt();
 PubSubClient& getMqttClient();
@@ -15,4 +18,8 @@ bool subscribeMqtt(const String& topic);
 bool isConnectedMqtt();
 
 void registerCallbackMqtt(MqttCallback cb);
+
+// register on-connect hook to re-subscribe topics
+void registerOnConnectMqtt(MqttOnConnect cb);
+
 #endif

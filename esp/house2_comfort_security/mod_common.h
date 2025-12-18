@@ -25,6 +25,9 @@ extern const char* TOPIC_STATUSPARTY_HOUSE2;
 extern const char* TOPIC_BC_STORM;
 extern const char* TOPIC_BC_PARTY;
 extern const char* TOPIC_BC_GAS;
+extern const char* TOPIC_CONFIG_RFID_KEY;
+extern const char* TOPIC_STATUS_RFID_KEY;
+extern const char* TOPIC_CURRENT_RFID_KEY;
 
 // -------------------- Globale Hardware-Objekte --------------------
 extern Adafruit_NeoPixel strip;  // SK6812 / NeoPixel

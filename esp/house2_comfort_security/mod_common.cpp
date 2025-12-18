@@ -9,6 +9,7 @@
 #include "mod_lcd.h"
 #include "mod_door.h"
 #include "mod_window.h"
+#include "mod_keymgmt.h"
 
 // -------------------- Pinbelegung (KS5009-Standard) --------------------
 const uint8_t PIN_LED_YELLOW   = 12;  // gelbe LED am Haus
@@ -34,6 +35,7 @@ static uint32_t ledLastToggle    = 0;
 Onoff currentGasStatus = OFF;
 Onoff currentStormStatus = OFF;
 Onoff currentPartyStatus = OFF;
+static bool rfidKeyInitialized = false;  // Track if RFID key was loaded on startup
 
 // Get MQTT client reference
 auto& mqttClient = getMqttClient();
@@ -59,6 +61,21 @@ void handleMqtt(const String& topic, const String& payload) {
     if (payload == "ON")  startGas(false);
     else if (payload == "OFF") stopGas(false);
     else Serial.print("payload unbekannt:" + payload);
+  }
+  // Handle retained config topic for RFID key
+  else if (topic == TOPIC_CONFIG_RFID_KEY) {
+    bool ok = payload.length() ? setRfidKey(payload) : false;
+    // Only display message if not the initial startup (skip retained message on connect)
+    if (rfidKeyInitialized) {
+      printLcd("RFID-Key", ok ? "aktualisiert" : "Fehler", false);
+    }
+    rfidKeyInitialized = true;
+    auto& mqttClient = getMqttClient();
+    if (mqttClient.connected()) {
+      extern String getRfidKeyName(const String& uid); // ensure function is visible
+      String keyName = ok ? getRfidKeyName(payload) : "UPDATE_FAILED";
+      mqttClient.publish(TOPIC_CURRENT_RFID_KEY, keyName.c_str());
+    }
   }
 }
 
@@ -132,7 +149,7 @@ void printWarnings() {
   Serial.println("Warnmask: " + String(warnMask, BIN));
   switch (warnMask) {
     case 0b00:
-      printLcd("keine aktuellen", "Warnungen", false);
+      printLcd("keine aktuellen", "Resort-Warnungen", false);
       break;
     case 0b10:
       printLcd("STURMWARNUNG", "", false);
@@ -186,9 +203,22 @@ void InitCommon() {
   
   // MQTT
   registerCallbackMqtt(handleMqtt);
+
+  // Re-subscribe on connect/reconnect
+  registerOnConnectMqtt([](){
+    subscribeMqtt(TOPIC_BC_STORM);
+    subscribeMqtt(TOPIC_BC_GAS);
+    subscribeMqtt(TOPIC_BC_PARTY);
+    subscribeMqtt(TOPIC_CONFIG_RFID_KEY); // retained key fetched here too
+  });
+
+  // Also subscribe now (covers initial boot where we connected before registering the hook)
   subscribeMqtt(TOPIC_BC_STORM);
   subscribeMqtt(TOPIC_BC_GAS);
   subscribeMqtt(TOPIC_BC_PARTY);
+  subscribeMqtt(TOPIC_CONFIG_RFID_KEY);
+
+  auto& mqttClient = getMqttClient();
   mqttClient.publish(TOPIC_STATUS_HOUSE2, "NORMAL");
   mqttClient.publish(TOPIC_STATUSGAS_HOUSE2, "OFF");
   mqttClient.publish(TOPIC_STATUSSTORM_HOUSE2, "OFF");
