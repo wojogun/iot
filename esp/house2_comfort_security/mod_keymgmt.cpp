@@ -90,9 +90,9 @@ bool setRfidKey(const String& key) {
   g_rfidKey = key;
   size_t written = prefs.putString("rfid_key", key);
   Serial.println(String("RFID key updated (") + (written > 0 ? "saved" : "not saved") + "): " + g_rfidKey);
-  // Publish the key name (not the value) to the status topic
+  // Publish the key name to the new topic for current key
   String keyName = getRfidKeyName(key);
-  publishMqtt(TOPIC_STATUS_RFID_KEY, keyName.c_str());
+  publishMqtt(TOPIC_CURRENT_RFID_KEY, keyName.c_str());
   return written > 0;
 }
 
@@ -121,7 +121,7 @@ void loopRFID() {
     printLcd("Status:", "Belegt", false);
     String keyName = getRfidKeyName(password);
     publishMqtt(TOPIC_STATUS_HOUSE2, "BELEGT");
-    publishMqtt(TOPIC_STATUS_RFID_KEY, keyName.c_str());
+    publishMqtt(TOPIC_STATUS_RFID_KEY, "ok");
     openWindow();
     openDoor();
     password = "";

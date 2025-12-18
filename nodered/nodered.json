@@ -465,16 +465,6 @@
         "className": ""
     },
     {
-        "id": "93372b76c27f8262",
-        "type": "ui_group",
-        "name": "RFID Config",
-        "tab": "d5f806826e2c5312",
-        "order": 1,
-        "disp": true,
-        "width": "6",
-        "collapse": false
-    },
-    {
         "id": "d5f806826e2c5312",
         "type": "ui_tab",
         "name": "Resort Config",
@@ -502,6 +492,16 @@
         "width": 6,
         "collapse": false,
         "className": ""
+    },
+    {
+        "id": "93372b76c27f8262",
+        "type": "ui_group",
+        "name": "RFID Config",
+        "tab": "d5f806826e2c5312",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
     },
     {
         "id": "6b8a05d262ab0379",
@@ -2536,7 +2536,7 @@
         "name": "zurück",
         "events": "change",
         "x": 290,
-        "y": 880,
+        "y": 900,
         "wires": [
             []
         ]
@@ -2562,7 +2562,7 @@
         "topic": "topic",
         "topicType": "msg",
         "x": 90,
-        "y": 880,
+        "y": 900,
         "wires": [
             [
                 "43da920e253f2be1"
@@ -2583,7 +2583,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 160,
-        "y": 460,
+        "y": 180,
         "wires": [
             [
                 "e016e64fe8e5834a"
@@ -2607,8 +2607,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 480,
-        "y": 460,
+        "x": 620,
+        "y": 180,
         "wires": []
     },
     {
@@ -2625,7 +2625,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 150,
-        "y": 540,
+        "y": 240,
         "wires": [
             [
                 "9bdfecc8663ed8c5"
@@ -2649,8 +2649,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 470,
-        "y": 540,
+        "x": 630,
+        "y": 240,
         "wires": []
     },
     {
@@ -2691,7 +2691,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 480,
+        "x": 640,
         "y": 120,
         "wires": []
     },
@@ -2709,7 +2709,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 150,
-        "y": 260,
+        "y": 700,
         "wires": [
             [
                 "c99511bec7ace64b"
@@ -2730,7 +2730,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 150,
-        "y": 320,
+        "y": 760,
         "wires": [
             [
                 "fbea53217aa1cfe3"
@@ -2754,8 +2754,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 490,
-        "y": 260,
+        "x": 630,
+        "y": 700,
         "wires": []
     },
     {
@@ -2775,8 +2775,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 520,
-        "y": 320,
+        "x": 620,
+        "y": 760,
         "wires": []
     },
     {
@@ -2793,7 +2793,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 150,
-        "y": 380,
+        "y": 820,
         "wires": [
             [
                 "7ebc1d68cc26f71c"
@@ -2817,69 +2817,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 510,
-        "y": 380,
-        "wires": []
-    },
-    {
-        "id": "2394ee1f36cfc1a4",
-        "type": "ui_dropdown",
-        "z": "bf482b05d167439a",
-        "name": "Select RFID Card",
-        "label": "RFID Card",
-        "tooltip": "",
-        "place": "Select a card",
-        "group": "26982340a016e554",
-        "order": 1,
-        "width": 6,
-        "height": 1,
-        "passthru": true,
-        "multiple": false,
-        "options": [
-            {
-                "label": "Blue Chip",
-                "value": "27184202138",
-                "type": "str"
-            },
-            {
-                "label": "White Card",
-                "value": "11679151219",
-                "type": "str"
-            },
-            {
-                "label": "Other",
-                "value": "ABCDEF12",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "",
-        "topicType": "str",
-        "className": "",
-        "x": 130,
-        "y": 660,
-        "wires": [
-            [
-                "193c49dc5c84d13d"
-            ]
-        ]
-    },
-    {
-        "id": "193c49dc5c84d13d",
-        "type": "mqtt out",
-        "z": "bf482b05d167439a",
-        "name": "Send Selected Card",
-        "topic": "resort/house2/config/rfid_key",
-        "qos": "",
-        "retain": "true",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "7330420b6e6914f6",
-        "x": 430,
-        "y": 660,
+        "x": 630,
+        "y": 820,
         "wires": []
     },
     {
@@ -2887,7 +2826,7 @@
         "type": "mqtt in",
         "z": "bf482b05d167439a",
         "name": "",
-        "topic": "resort/house2/status/rfid_key",
+        "topic": "resort/house2/status/current_rfid_key",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "7330420b6e6914f6",
@@ -2895,8 +2834,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 160,
-        "y": 720,
+        "x": 190,
+        "y": 540,
         "wires": [
             [
                 "53814e8eaf87e75d"
@@ -2920,8 +2859,234 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 530,
-        "y": 720,
+        "x": 590,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "90e10f138395242d",
+        "type": "ui_dropdown",
+        "z": "bf482b05d167439a",
+        "name": "Select RFID Card",
+        "label": "RFID Card",
+        "group": "26982340a016e554",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "options": [
+            {
+                "label": "Blue Chip",
+                "value": "27184202138",
+                "type": "str"
+            },
+            {
+                "label": "White Card",
+                "value": "11679151219",
+                "type": "str"
+            },
+            {
+                "label": "Other",
+                "value": "ABCDEF12",
+                "type": "str"
+            }
+        ],
+        "x": 130,
+        "y": 320,
+        "wires": [
+            [
+                "33338184f579865d"
+            ]
+        ]
+    },
+    {
+        "id": "33338184f579865d",
+        "type": "function",
+        "z": "bf482b05d167439a",
+        "name": "Save Key & Name",
+        "func": "// Map of key IDs to names\nconst keyMap = {\n    \"27184202138\": \"Blue Chip\",\n    \"11679151219\": \"White Card\",\n    \"ABCDEF12\": \"Other\"\n};\n\nflow.set(\"booking_key\", msg.payload);\nflow.set(\"booking_key_name\", keyMap[msg.payload] || msg.payload);\n\nreturn null;",
+        "outputs": 0,
+        "x": 610,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "04099b190bce8045",
+        "type": "ui_text_input",
+        "z": "bf482b05d167439a",
+        "name": "Booking DateTime",
+        "label": "Select Date & Time",
+        "tooltip": "",
+        "group": "26982340a016e554",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "passthru": true,
+        "mode": "datetime-local",
+        "delay": "",
+        "topic": "",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 130,
+        "y": 380,
+        "wires": [
+            [
+                "7c54e87c796e5cf1"
+            ]
+        ]
+    },
+    {
+        "id": "7c54e87c796e5cf1",
+        "type": "change",
+        "z": "bf482b05d167439a",
+        "name": "Save DateTime",
+        "rules": [
+            {
+                "t": "set",
+                "p": "booking_datetime",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "x": 360,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "88293a3c4ab6cfd8",
+        "type": "ui_button",
+        "z": "bf482b05d167439a",
+        "name": "Book House",
+        "group": "26982340a016e554",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "Book House",
+        "tooltip": "Schedule booking",
+        "color": "#ffffff",
+        "bgcolor": "#007acc",
+        "icon": "fa-home",
+        "x": 110,
+        "y": 440,
+        "wires": [
+            [
+                "fb889eed711bae99"
+            ]
+        ]
+    },
+    {
+        "id": "fb889eed711bae99",
+        "type": "function",
+        "z": "bf482b05d167439a",
+        "name": "Schedule Booking",
+        "func": "// Get values\nlet dtString = flow.get(\"booking_datetime\");\nlet keyId = flow.get(\"booking_key\");\nlet keyName = flow.get(\"booking_key_name\");\n\n// Parse datetime string\nlet dt = new Date(dtString);\n\n// Format for Vienna timezone\nlet options = {\n    timeZone: \"Europe/Vienna\",\n    year: \"numeric\",\n    month: \"2-digit\",\n    day: \"2-digit\",\n    hour: \"2-digit\",\n    minute: \"2-digit\"\n};\nlet formatted = new Intl.DateTimeFormat(\"de-AT\", options).format(dt);\n\n// Calculate delay until booking time\nlet now = new Date();\nlet delayMs = dt.getTime() - now.getTime();\n\nif (delayMs < 0) {\n    node.warn(\"Booking time is in the past\");\n    return null;\n}\n\n// Message to send after delay\nmsg.payload = keyId;\nmsg.delay = delayMs;\nmsg.display = `${formatted} – ${keyName}`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 1,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 440,
+        "wires": [
+            [
+                "58ece4203fe6bf0c",
+                "018734a431210594"
+            ]
+        ]
+    },
+    {
+        "id": "58ece4203fe6bf0c",
+        "type": "delay",
+        "z": "bf482b05d167439a",
+        "name": "Wait until booking time",
+        "pauseType": "delayv",
+        "timeout": "0",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "outputs": 1,
+        "x": 600,
+        "y": 400,
+        "wires": [
+            [
+                "c1f90d4a154c3936"
+            ]
+        ]
+    },
+    {
+        "id": "c1f90d4a154c3936",
+        "type": "mqtt out",
+        "z": "bf482b05d167439a",
+        "name": "Send Booking",
+        "topic": "resort/house2/config/rfid_key",
+        "retain": "true",
+        "broker": "7330420b6e6914f6",
+        "x": 860,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "018734a431210594",
+        "type": "ui_text",
+        "z": "bf482b05d167439a",
+        "group": "26982340a016e554",
+        "order": 4,
+        "width": 6,
+        "height": 1,
+        "name": "Next Booking",
+        "label": "Next Booking:",
+        "format": "{{msg.display}}",
+        "layout": "row-spread",
+        "x": 620,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "778952f0ee64a836",
+        "type": "mqtt in",
+        "z": "bf482b05d167439a",
+        "name": "",
+        "topic": "resort/house2/status/rfid_key",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 600,
+        "wires": [
+            [
+                "c6a4f25431c34687"
+            ]
+        ]
+    },
+    {
+        "id": "c6a4f25431c34687",
+        "type": "ui_text",
+        "z": "bf482b05d167439a",
+        "group": "26982340a016e554",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status Schlüssel:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 610,
+        "y": 600,
         "wires": []
     },
     {
@@ -3721,7 +3886,7 @@
         ]
     },
     {
-        "id": "753b56f630db3352",
+        "id": "58e46b382bc782b4",
         "type": "global-config",
         "env": [],
         "modules": {
