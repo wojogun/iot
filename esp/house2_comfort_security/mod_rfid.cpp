@@ -5,6 +5,7 @@
 #include "mod_door.h"
 #include "mod_lcd.h"
 #include "mod_mqtt.h"
+#include <Preferences.h>
 
 // IIC pins default to GPIO21 and GPIO22 of ESP32
 // 0x28 is the i2c address of SDA, if doesn't match，please check your address with i2c.
@@ -14,11 +15,32 @@ boolean btnFlag = 0;
 
 String password = "";
 
+static Preferences prefs;
+static String g_rfidKey;
+
 void initRFID() {
   Serial.begin(115200);           // initialize and PC's serial communication
   Wire.begin();                   // initialize I2C
   mfrc522.PCD_Init();             // initialize MFRC522
   Serial.println(F("Scan PICC to see UID, type, and data blocks..."));
+}
+
+void initRuntimeConfig() {
+  prefs.begin("house2", false); // RW namespace
+  String saved = prefs.getString("rfid_key", "");
+  g_rfidKey = saved.length() ? saved : String(RFID_KEY_DEFAULT);
+  Serial.println("RFID key loaded: " + g_rfidKey);
+}
+
+String getRfidKey() {
+  return g_rfidKey;
+}
+
+bool setRfidKey(const String& key) {
+  g_rfidKey = key;
+  size_t written = prefs.putString("rfid_key", key);
+  Serial.println(String("RFID key updated (") + (written > 0 ? "saved" : "not saved") + "): " + g_rfidKey);
+  return written > 0;
 }
 
 void loopRFID() {
@@ -48,11 +70,12 @@ void loopRFID() {
   Serial.print(F("Card UID:"));
   for (byte i = 0; i < mfrc522.uid.size; i++) {
     Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
-    //Serial.print(mfrc522.uid.uidByte[i], HEX);
     Serial.print(mfrc522.uid.uidByte[i]);
     password = password + String(mfrc522.uid.uidByte[i]);
   }
-  if(password == RFID_KEY)  // if Card number is correct, open the door and window
+
+  // Compare with runtime key (from NVS or default)
+  if (password == getRfidKey())
   {
     Serial.println("open");
     printLcd("Status:", "Belegt", false);
@@ -62,7 +85,7 @@ void loopRFID() {
     password = "";
     btnFlag = 1;
   }
-  else   //if Card number error, dispaly error
+  else
   {
     password = "";
     printLcd("Fehler:", "Falscher Key", false);

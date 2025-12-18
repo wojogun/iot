@@ -28,12 +28,17 @@
 void setup() {
   Serial.begin(115200);
   initLcd();
+
+  // Load locally stored config (RFID key)
+  initRuntimeConfig();
+
   initWiFi();
   initMqtt();
   initRFID();
   initWindow();
   initDoor();
   InitCommon();
+
   printTempLcd("Haus 2 bereit","",5000);
   Serial.println("Haus 2 bereit");
 }

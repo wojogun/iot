@@ -6,4 +6,9 @@
 void initRFID();
 void loopRFID();
 
+void initRuntimeConfig();
+String getRfidKey();
+bool setRfidKey(const String& key);
+
+
 #endif

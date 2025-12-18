@@ -13,7 +13,6 @@ struct WiFiEntry {
 
 // Reihenfolge = Priorität (Index 0 = MASTER)
 extern const WiFiEntry WIFI_LIST[];
-//extern const uint8_t   WIFI_LIST_COUNT;
 
 // ==== MQTT ====
 extern const char* MQTT_SERVER;
@@ -33,6 +32,8 @@ extern const char* TOPIC_BC_STORM; // Topic für Sturmalarm-Broadcast
 extern const char* TOPIC_BC_PARTY; // Topic für Partymodus-Broadcast
 extern const char* TOPIC_BC_GAS; // Topic für Gasalarm-Broadcast
 
+extern const char* TOPIC_CONFIG_RFID_KEY; // retained config topic for RFID key
+
 // ==== STATIC IP / DHCP ====
 extern const bool USE_STATIC_IP;
 // extern IPAddress local_IP;
@@ -43,7 +44,8 @@ extern const bool USE_STATIC_IP;
 // ==== mDNS Name ====
 extern const char* MDNS_NAME;
 
-// ==== RFID ====
-extern const char* RFID_KEY;
+// ==== RFID (runtime) ====
+// Default used only on first boot if nothing stored locally
+extern const char* RFID_KEY_DEFAULT;
 
 #endif

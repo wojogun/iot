@@ -9,9 +9,11 @@
 static WiFiClientSecure secureClient;
 static PubSubClient mqttClient(secureClient);
 
-static MqttCallback registeredCallback = nullptr; // handler für das jeweilige hausc:\Users\wojog\OneDrive\uni\FH_Master\3_IoT\smarthome\esp\house3\mod_mqtttopics.h
+static MqttCallback   registeredCallback = nullptr;
+static MqttOnConnect  onConnectCb        = nullptr;
 
 void registerCallbackMqtt(MqttCallback cb) { registeredCallback = cb; }
+void registerOnConnectMqtt(MqttOnConnect cb) { onConnectCb = cb; }
 
 static void internalCallback(char* topic, byte* payload, unsigned int length) {
   if (!registeredCallback) return;
@@ -37,7 +39,8 @@ static void reconnectMqtt() {
 
     if (mqttClient.connect(clientId.c_str(), MQTT_USER, MQTT_PASSWORD)) {
       Serial.println("MQTT connected");
-      // Subscriptions macht dein Hausmodul
+      // let modules re-subscribe (will also fetch retained config)
+      if (onConnectCb) onConnectCb();
     } else {
       Serial.print("failed rc=");
       Serial.print(mqttClient.state());

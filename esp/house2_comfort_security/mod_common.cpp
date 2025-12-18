@@ -9,6 +9,7 @@
 #include "mod_lcd.h"
 #include "mod_door.h"
 #include "mod_window.h"
+#include "mod_rfid.h"
 
 // -------------------- Pinbelegung (KS5009-Standard) --------------------
 const uint8_t PIN_LED_YELLOW   = 12;  // gelbe LED am Haus
@@ -59,6 +60,15 @@ void handleMqtt(const String& topic, const String& payload) {
     if (payload == "ON")  startGas(false);
     else if (payload == "OFF") stopGas(false);
     else Serial.print("payload unbekannt:" + payload);
+  }
+  // Handle retained config topic for RFID key
+  else if (topic == TOPIC_CONFIG_RFID_KEY) {
+    bool ok = payload.length() ? setRfidKey(payload) : false;
+    printLcd("RFID-Key", ok ? "aktualisiert" : "Fehler", false);
+    auto& mqttClient = getMqttClient();
+    if (mqttClient.connected()) {
+      mqttClient.publish(TOPIC_STATUS_HOUSE2, ok ? "RFID_KEY_UPDATED" : "RFID_KEY_UPDATE_FAILED");
+    }
   }
 }
 
@@ -186,9 +196,22 @@ void InitCommon() {
   
   // MQTT
   registerCallbackMqtt(handleMqtt);
+
+  // Re-subscribe on connect/reconnect
+  registerOnConnectMqtt([](){
+    subscribeMqtt(TOPIC_BC_STORM);
+    subscribeMqtt(TOPIC_BC_GAS);
+    subscribeMqtt(TOPIC_BC_PARTY);
+    subscribeMqtt(TOPIC_CONFIG_RFID_KEY); // retained key fetched here too
+  });
+
+  // Also subscribe now (covers initial boot where we connected before registering the hook)
   subscribeMqtt(TOPIC_BC_STORM);
   subscribeMqtt(TOPIC_BC_GAS);
   subscribeMqtt(TOPIC_BC_PARTY);
+  subscribeMqtt(TOPIC_CONFIG_RFID_KEY);
+
+  auto& mqttClient = getMqttClient();
   mqttClient.publish(TOPIC_STATUS_HOUSE2, "NORMAL");
   mqttClient.publish(TOPIC_STATUSGAS_HOUSE2, "OFF");
   mqttClient.publish(TOPIC_STATUSSTORM_HOUSE2, "OFF");
