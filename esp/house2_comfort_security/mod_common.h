@@ -16,7 +16,6 @@ enum Onoff {
 extern const uint8_t PIN_LED_YELLOW;
 extern const uint8_t PIN_LED_STRIP;
 extern const uint8_t PIN_BUZZER;
-extern const uint8_t PIN_MOTION;
 
 // -------------------- MQTT Topics --------------------
 extern const char* TOPIC_STATUS_HOUSE2;
@@ -35,7 +34,7 @@ void InitCommon();
 void handleMqtt(const String& topic, const String& payload);
 
 void switchLed(bool onoff);
-void startRgbRainbow(int wait);
+void startRgbRedLight(int wait);
 
 void startGas(bool publish);
 void stopGas(bool publish);
