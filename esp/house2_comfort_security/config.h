@@ -33,6 +33,7 @@ extern const char* TOPIC_BC_PARTY; // Topic für Partymodus-Broadcast
 extern const char* TOPIC_BC_GAS; // Topic für Gasalarm-Broadcast
 
 extern const char* TOPIC_CONFIG_RFID_KEY; // retained config topic for RFID key
+extern const char* TOPIC_STATUS_RFID_KEY; // Topic für den Status des RFID-Schlüssels
 
 // ==== STATIC IP / DHCP ====
 extern const bool USE_STATIC_IP;

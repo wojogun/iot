@@ -9,7 +9,7 @@
 #include "mod_lcd.h"
 #include "mod_door.h"
 #include "mod_window.h"
-#include "mod_rfid.h"
+#include "mod_keymgmt.h"
 
 // -------------------- Pinbelegung (KS5009-Standard) --------------------
 const uint8_t PIN_LED_YELLOW   = 12;  // gelbe LED am Haus
@@ -67,7 +67,7 @@ void handleMqtt(const String& topic, const String& payload) {
     printLcd("RFID-Key", ok ? "aktualisiert" : "Fehler", false);
     auto& mqttClient = getMqttClient();
     if (mqttClient.connected()) {
-      mqttClient.publish(TOPIC_STATUS_HOUSE2, ok ? "RFID_KEY_UPDATED" : "RFID_KEY_UPDATE_FAILED");
+      mqttClient.publish(TOPIC_STATUS_RFID_KEY, ok ? payload.c_str() : "UPDATE_FAILED");
     }
   }
 }

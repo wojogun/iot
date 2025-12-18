@@ -18,7 +18,7 @@
 #include "config.h"
 #include "mod_wifi.h"
 #include "mod_lcd.h"
-#include "mod_rfid.h"
+#include "mod_keymgmt.h"
 #include "mod_window.h"
 #include "mod_door.h"
 #include "mod_mqtt.h"

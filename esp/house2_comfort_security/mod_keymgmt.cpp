@@ -21,6 +21,28 @@ String password = "";
 static Preferences prefs;
 static String g_rfidKey;
 
+// RFID key name mapping
+struct RfidKeyMapping {
+  String uid;
+  String name;
+};
+
+static const RfidKeyMapping RFID_KEY_NAMES[] = {
+  { "27184202138", "blue chip" },
+  { "11679151219", "white card" },
+  { "ABCDEF12", "other" }
+};
+
+// Get RFID key name from UID
+String getRfidKeyName(const String& uid) {
+  for (const auto& mapping : RFID_KEY_NAMES) {
+    if (mapping.uid == uid) {
+      return mapping.name;
+    }
+  }
+  return "other";
+}
+
 // Initialize RFID reader
 void initRFID() {
   Serial.begin(115200);           // initialize and PC's serial communication
@@ -85,7 +107,9 @@ void loopRFID() {
   {
     Serial.println("open");
     printLcd("Status:", "Belegt", false);
+    String keyName = getRfidKeyName(password);
     publishMqtt(TOPIC_STATUS_HOUSE2, "BELEGT");
+    publishMqtt(TOPIC_STATUS_RFID_KEY, keyName.c_str());
     openWindow();
     openDoor();
     password = "";
@@ -95,7 +119,8 @@ void loopRFID() {
   {
     password = "";
     printLcd("Fehler:", "Falscher Key", false);
-    publishMqtt(TOPIC_STATUS_HOUSE2, "Falscher Key");
+    //publishMqtt(TOPIC_STATUS_HOUSE2, "Falscher Key");
+    publishMqtt(TOPIC_STATUS_RFID_KEY, "Falscher Key");
   }
   Serial.println(password);
 }
