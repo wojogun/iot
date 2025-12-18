@@ -35,6 +35,7 @@ static uint32_t ledLastToggle    = 0;
 Onoff currentGasStatus = OFF;
 Onoff currentStormStatus = OFF;
 Onoff currentPartyStatus = OFF;
+static bool rfidKeyInitialized = false;  // Track if RFID key was loaded on startup
 
 // Get MQTT client reference
 auto& mqttClient = getMqttClient();
@@ -64,7 +65,11 @@ void handleMqtt(const String& topic, const String& payload) {
   // Handle retained config topic for RFID key
   else if (topic == TOPIC_CONFIG_RFID_KEY) {
     bool ok = payload.length() ? setRfidKey(payload) : false;
-    printLcd("RFID-Key", ok ? "aktualisiert" : "Fehler", false);
+    // Only display message if not the initial startup (skip retained message on connect)
+    if (rfidKeyInitialized) {
+      printLcd("RFID-Key", ok ? "aktualisiert" : "Fehler", false);
+    }
+    rfidKeyInitialized = true;
     auto& mqttClient = getMqttClient();
     if (mqttClient.connected()) {
       mqttClient.publish(TOPIC_STATUS_RFID_KEY, ok ? payload.c_str() : "UPDATE_FAILED");
