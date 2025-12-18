@@ -43,6 +43,27 @@ String getRfidKeyName(const String& uid) {
   return "other";
 }
 
+// Initialize button
+void initButton() {
+  pinMode(btnPin, INPUT_PULLUP);
+  Serial.println("Button initialized on pin " + String(btnPin));
+}
+
+// Check button state and handle door close
+void checkButton() {
+  if (btnFlag == 1) {
+    boolean btnVal = digitalRead(btnPin);
+    if (btnVal == 0) { // If door close button is pressed (active-low)
+      Serial.println("close");
+      printLcd("Status:", "Leerstand", false);
+      publishMqtt(TOPIC_STATUS_HOUSE2, "LEER");
+      closeWindow();
+      closeDoor();
+      btnFlag = 0;
+    }
+  }
+}
+
 // Initialize RFID reader
 void initRFID() {
   Serial.begin(115200);           // initialize and PC's serial communication
@@ -78,19 +99,7 @@ void loopRFID() {
   if ( ! mfrc522.PICC_IsNewCardPresent() || ! mfrc522.PICC_ReadCardSerial() ) {
     delay(50);
     password = "";
-    if(btnFlag == 1)
-    {
-      boolean btnVal = digitalRead(btnPin);
-      if(btnVal == 0)  //If door close button is pressed (active-low)
-      {
-        Serial.println("close");
-        printLcd("Status:", "Leerstand", false);
-        publishMqtt(TOPIC_STATUS_HOUSE2, "LEER");
-        closeWindow();
-        closeDoor();
-        btnFlag = 0;
-      }
-    }
+    checkButton();
     return;
   }
   
