@@ -14,10 +14,10 @@
 const uint8_t NEOPIXEL_COUNT   =  4;
 const uint8_t PIN_LED_YELLOW   = 12;  // gelbe LED am Haus
 const uint8_t PIN_MOTION       = 14;
-const uint8_t PIN_BTN2         = 16;
+//const uint8_t PIN_BTN2         = 16;
 const uint8_t PIN_BUZZER       = 25;  // Buzzer
 const uint8_t PIN_LED_STRIP    = 26;  // SK6812 / NeoPixel
-const uint8_t PIN_BTN1         = 27;
+//const uint8_t PIN_BTN1         = 27;
 
 // -------------------- Globale Objekte --------------------
 BuzzerESP32 buzzer(PIN_BUZZER);
@@ -69,35 +69,42 @@ void handleMqtt(const String& topic, const String& payload) {
 
 void startGas(bool publish) {
   currentGasStatus = ON;
-  // TO DO: RED LED BLINK
-  printWarnings();
   if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUSGAS_HOUSE2, "ON");
+  // TO DO: RED LED BLINK - 6812 RGB Module?
+  printWarnings();
 }
 void stopGas(bool publish) {
   currentGasStatus = OFF;
+  if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUSGAS_HOUSE2, "OFF");
   //switchLed(false);
   printWarnings();
-  if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUSGAS_HOUSE2, "OFF");
 }
 
 void startStorm(bool publish) {
   currentStormStatus = ON;
-  closeWindow();
-  closeDoor();
-  //buzzer.playTone(0, 0); // temporär ausgeschaltet
-  switchLed(true);
-  printWarnings();
   if (publish && mqttClient.connected())  mqttClient.publish(TOPIC_BC_STORM, "ON");
   if            (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE2, "ON");
+  closeWindow();
+  closeDoor();
+  switchLed(true);
+  printWarnings();
+  // Play buzzer sound
+  buzzer.playTone(494, 250); // (0,0) um auszuschalten
+  delay(100);
+  buzzer.playTone(494, 250);
+  delay(100);
+  buzzer.playTone(494, 250);
 }
+
 void stopStorm(bool publish) {
   currentStormStatus = OFF;
-  openWindow();
-  openDoor();
-  switchLed(false);
-  printWarnings();
   if (publish && mqttClient.connected()) mqttClient.publish(TOPIC_BC_STORM, "OFF");
   if            (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE2, "OFF");
+  openWindow();
+  openDoor();
+  buzzer.playTone(0, 0); // Ensure buzzer is off
+  switchLed(false);
+  printWarnings();
 }
 
 void startParty(bool publish) {
@@ -247,11 +254,11 @@ void InitCommon() {
 
   // Buzzer
   buzzer.setTimbre(30);      // Klangfarbe (Keyestudio-Beispiel)
-  buzzer.playTone(0, 0);     // sicherstellen, dass er aus ist
+  buzzer.playTone(0, 0);     // Ensure buzzer is off
 
   // Buttons
-  pinMode(PIN_BTN1, INPUT_PULLUP);
-  pinMode(PIN_BTN2, INPUT_PULLUP);
+  //pinMode(PIN_BTN1, INPUT_PULLUP);
+  //pinMode(PIN_BTN2, INPUT_PULLUP);
   
   // MQTT
   registerCallbackMqtt(handleMqtt);
