@@ -72,7 +72,9 @@ void handleMqtt(const String& topic, const String& payload) {
     rfidKeyInitialized = true;
     auto& mqttClient = getMqttClient();
     if (mqttClient.connected()) {
-      mqttClient.publish(TOPIC_STATUS_RFID_KEY, ok ? payload.c_str() : "UPDATE_FAILED");
+      extern String getRfidKeyName(const String& uid); // ensure function is visible
+      String keyName = ok ? getRfidKeyName(payload) : "UPDATE_FAILED";
+      mqttClient.publish(TOPIC_STATUS_RFID_KEY, keyName.c_str());
     }
   }
 }

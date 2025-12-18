@@ -28,9 +28,9 @@ struct RfidKeyMapping {
 };
 
 static const RfidKeyMapping RFID_KEY_NAMES[] = {
-  { "27184202138", "blue chip" },
-  { "11679151219", "white card" },
-  { "ABCDEF12", "other" }
+  { "27184202138", "Blue Chip" },
+  { "11679151219", "White Card" },
+  { "ABCDEF12", "Other" }
 };
 
 // Get RFID key name from UID
@@ -90,6 +90,9 @@ bool setRfidKey(const String& key) {
   g_rfidKey = key;
   size_t written = prefs.putString("rfid_key", key);
   Serial.println(String("RFID key updated (") + (written > 0 ? "saved" : "not saved") + "): " + g_rfidKey);
+  // Publish the key name (not the value) to the status topic
+  String keyName = getRfidKeyName(key);
+  publishMqtt(TOPIC_STATUS_RFID_KEY, keyName.c_str());
   return written > 0;
 }
 
