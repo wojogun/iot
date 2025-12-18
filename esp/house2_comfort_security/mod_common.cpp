@@ -149,7 +149,7 @@ void printWarnings() {
   Serial.println("Warnmask: " + String(warnMask, BIN));
   switch (warnMask) {
     case 0b00:
-      printLcd("keine aktuellen", "Warnungen", false);
+      printLcd("keine aktuellen", "Resort-Warnungen", false);
       break;
     case 0b10:
       printLcd("STURMWARNUNG", "", false);
