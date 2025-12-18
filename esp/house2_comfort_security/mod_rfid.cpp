@@ -1,3 +1,6 @@
+// This module handles RFID reader operations for house 2 comfort security system
+
+// Includes necessary libraries and other modules
 #include <Wire.h>
 #include "MFRC522_I2C.h"
 #include "config.h"
@@ -18,6 +21,7 @@ String password = "";
 static Preferences prefs;
 static String g_rfidKey;
 
+// Initialize RFID reader
 void initRFID() {
   Serial.begin(115200);           // initialize and PC's serial communication
   Wire.begin();                   // initialize I2C
@@ -25,6 +29,7 @@ void initRFID() {
   Serial.println(F("Scan PICC to see UID, type, and data blocks..."));
 }
 
+// Initialize runtime config for RFID key
 void initRuntimeConfig() {
   prefs.begin("house2", false); // RW namespace
   String saved = prefs.getString("rfid_key", "");
@@ -32,10 +37,12 @@ void initRuntimeConfig() {
   Serial.println("RFID key loaded: " + g_rfidKey);
 }
 
+// Get current RFID key
 String getRfidKey() {
   return g_rfidKey;
 }
 
+// Set new RFID key
 bool setRfidKey(const String& key) {
   g_rfidKey = key;
   size_t written = prefs.putString("rfid_key", key);
@@ -43,6 +50,7 @@ bool setRfidKey(const String& key) {
   return written > 0;
 }
 
+// Main loop for RFID processing
 void loopRFID() {
   // 
   if ( ! mfrc522.PICC_IsNewCardPresent() || ! mfrc522.PICC_ReadCardSerial() ) {
@@ -64,10 +72,8 @@ void loopRFID() {
     return;
   }
   
-  // select one of door cards. UID and SAK are mfrc522.uid.
-  
-  // save UID
-  Serial.print(F("Card UID:"));
+  // Show UID on serial monitor
+  Serial.println(F("Card UID:"));
   for (byte i = 0; i < mfrc522.uid.size; i++) {
     Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
     Serial.print(mfrc522.uid.uidByte[i]);
@@ -91,5 +97,5 @@ void loopRFID() {
     printLcd("Fehler:", "Falscher Key", false);
     publishMqtt(TOPIC_STATUS_HOUSE2, "Falscher Key");
   }
-  //Serial.println(password);
+  Serial.println(password);
 }
