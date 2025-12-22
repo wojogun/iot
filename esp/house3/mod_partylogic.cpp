@@ -127,8 +127,8 @@ void partyLightsStep(unsigned long now) {
 void startGas(bool publish) {
   currentGasStatus = ON;
   strip.show();
-  
   printWarnings();
+  warnton();
   if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUSGAS_HOUSE3, "ON");
 }
 void stopGas(bool publish) {
@@ -146,6 +146,7 @@ void startStorm(bool publish) {
   strip.show();
   buzzer.playTone(0, 0);
   printWarnings();
+  warnton();
   if (publish && mqttClient.connected())  mqttClient.publish(TOPIC_BC_STORM, "ON");
   if            (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "ON");
 }
@@ -199,7 +200,7 @@ void controlParty( Mode mode, bool publish ) {
     ctrFan(FAN_ON);
     printLcd(	"Party laeuft", "Haus 3", false);
     strip.show();
-    //playSong(3);   //smokeOnTheWater();
+    playSong(3);   //smokeOnTheWater();
     currentMode = MODE_PARTY;
   } else if ( mode == MODE_NORMAL ) {
     if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL");
@@ -207,7 +208,7 @@ void controlParty( Mode mode, bool publish ) {
     ctrDoor(DOOR_OPEN);
     ctrFan(FAN_OFF);
     printLcd(	"Next:", nextPartyText, false);    
-    //playSong(5);
+    playSong(5);
     strip.clear();
     strip.show();
     buzzer.playTone(0, 0);

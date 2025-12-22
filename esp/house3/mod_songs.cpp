@@ -47,6 +47,7 @@ void playSong(uint8_t id) {
     printTempLcd("Song:", s->name, 5000);
     publishMqtt(TOPIC_CURRENT_SONG, s->name);
     if (id > 0 && id < SONG_COUNT) s->play();
+    publishMqtt(TOPIC_CURRENT_SONG, getSongById(0)->name);
 }
 
 void handleRfidSong(const String& uid) {
