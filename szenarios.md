@@ -6,27 +6,23 @@ Unser Projekt umfasst vier intelligente Ferienhäuser, die in unmittelbarer Näh
 
 ### Haus 1: Wetter & Sturm-Überwachung (Lisa)
 Zweck: Umweltlage erfassen und Resort-Alarme auslösen.
-Module: Temp/Feuchte, Steam-Sensor, PIR, Buzzer, LCD.
+Module: Temp/Feuchte, Steam-Sensor, Buzzer, LCD.
 - Hohe Feuchte + Windwarnung (über Dashboard simuliert) → „Sturmmodus“ an alle.
-- PIR bei Leerstand → Sicherheitsalarm über RGB-LED (rot).
 LCD Display: Anzeige der aktuellen Wetterdaten
-Gemeinsam: Sturmmodus → Servo schließt, gelbe LED auf Warnzustand, Buzzer
 
 ### Haus 2 - Gäste-Komfort & Sicherheit (Christoph)
 Zweck: Zutritt, Statusanzeige, Bedienung.
 Module: RFID, Buttons, LCD, RGB-LED, Servo.
 - RFID ok → „belegt“, Servo öffnet Fenster/Rollo, Tür dreht
 - Button für Checkout → „Leerstand“.
+- PIR bei Leerstand → Sicherheitsalarm über RGB-LED (rot).
 LCD Display: Anzeige des Belegungstatus
-Gemeinsam: Sturmmodus → Servo schließt, gelbe LED auf Warnzustand, Buzzer
 
 ### Haus 3 - Partyhaus (Wolfi)
 Zweck: Musik, Lichtspiele für junge und junggebliebene Menschen. Party über Dashboard buchbar.
 - RGB-Modul für Lichtspiele
 - Buzzer für Melodien
 LCD Display: Anzeige der nächsten Party
-Gemeinsam: Sturmmodus → Servo schließt, gelbe LED auf Warnzustand, Buzzer.
-Igor: startet die Party, machen alle anderen Häuser die Fenster zu
 
 ### Haus 4 -Luftqualität & Automatische Lüftung (Alex)
 Zweck: Es soll automatisch für frische Luft und sichere Raumluftqualität gesorgt werden. Der Gas-Sensor erkennt erhöhte Konzentrationen (CO, H₂ o.ä.), das System reagiert mit automatischer Lüftung und meldet den Vorfall ans Dashboard. - Gas anormal → Sofortalarm + Lüften anfordern.
@@ -34,9 +30,10 @@ Zweck: Es soll automatisch für frische Luft und sichere Raumluftqualität gesor
 - RGB-Modul für Warnanzeige
 - Button Module 1: Rücksetzung
 LCD Display: Luftwerte werden angezeigt, ggf. Warnung und Lüfterstatus.
-Gemeinsam: Sturmmodus → Servo schließt, gelbe LED auf Warnzustand, Buzzer.
-Igor: bei Gaswarnung sollen alle Häuser rot blinken!
-Hinweis von Denninger: Gassensor kann auf analog umgekabelt werden. Dann sind Abstufungen möglich.
 
 ## Gemeinsamer Use Case: Smart Beach Resort Management
-Alle vier Häuser bilden zusammen ein intelligentes Ferienhaus-Ökosystem, das sowohl über lokale Bluetooth-Kommunikation als auch über individuelle Handy-Hotspots mit dem Internet verbunden ist. Ein zentrales Dashboard ermöglicht es dem Airbnb-Host, alle vier Häuser gleichzeitig zu überwachen und zu verwalten. Bei Sturmwarnungen werden automatisch alle Fenster in allen Häusern geschlossen und die Lüftung wird deaktiviert, um Sand und Sturm fernzuhalten.
+Alle vier Häuser bilden zusammen ein intelligentes Ferienhaus-Ökosystem, das über individuelle Handy-Hotspots mit dem Internet verbunden ist. Ein zentrales Dashboard ermöglicht es dem Airbnb-Host, alle vier Häuser gleichzeitig zu überwachen und zu verwalten (???). Folgende gemeinsame Use Cases sind definiert:
+
+- Sturmmodus -> Servo schließt, gelbe LED auf Warnzustand, Buzzer
+- Gasmodus -> Häuser blinken rot
+- Partymodus -> startet die Party, machen alle anderen Häuser die Fenster zu
