@@ -1,0 +1,47 @@
+#include "config.h"
+
+// ===== WLAN =====
+//const char* WIFI_SSID     = "xxx";
+//const char* WIFI_PASSWORD = "xxx";
+
+const WiFiEntry WIFI_LIST[] = {
+  { "xxx",    "xxx" }, // Master
+  { "xxx","xxx" },       // Fallback
+  { "xxx",    "xxx" }, // Fallback
+};
+
+// ===== STATIC IP (wenn gewünscht) =====
+const bool USE_STATIC_IP = false;
+// Wenn nicht statisch → einfach ignorieren
+// IPAddress local_IP(192, 168, 8, 244);
+// IPAddress gateway (192, 168, 8, 1);
+// IPAddress subnet (255, 255, 255, 0);
+// IPAddress dns    (192, 168, 8, 1);
+
+// ===== mDNS =====
+const char* MDNS_NAME = "hausX";
+
+// ===== MQTT =====
+const char* MQTT_SERVER   = "xxx"; 
+const int   MQTT_PORT     = 8883;
+const char* MQTT_USER     = "hausX";
+const char* MQTT_PASSWORD = "x";
+
+extern const char* TOPIC_STATUS_HOUSE2      = "xxx"; // Topic für die Belegung Haus 2
+extern const char* TOPIC_STATUS_WINDOW      = "xxx"; // Topic für den Fensterstatus
+extern const char* TOPIC_STATUS_DOOR        = "xxx";   // Topic für den Türstatus
+extern const char* TOPIC_STATUSGAS_HOUSE2   = "xxx"; // Topic für den Gasalarmstatus Haus 2
+extern const char* TOPIC_STATUSSTORM_HOUSE2 = "xxx"; // Topic für den Sturmalarmstatus Haus 2
+extern const char* TOPIC_STATUSPARTY_HOUSE2 = "xxx"; // Topic für den Partymodusstatus Haus 2
+
+extern const char* TOPIC_BC_STORM           = "xxx"; // Topic für Sturmmodus-Broadcast
+extern const char* TOPIC_BC_PARTY           = "xxx"; // Topic für Partymodus-Broadcast
+extern const char* TOPIC_BC_GAS             = "xxx"; // Topic für Gasalarm-Broadcast
+
+// New: retained config topic for RFID key
+extern const char* TOPIC_CONFIG_RFID_KEY    = "xxx";
+extern const char* TOPIC_STATUS_RFID_KEY    = "xxx";
+extern const char* TOPIC_CURRENT_RFID_KEY   = "xxx";
+
+// ===== RFID (runtime) =====
+const char* RFID_KEY_DEFAULT = "xxx"; // Default RFID key (wird bei Erststart verwendet)
