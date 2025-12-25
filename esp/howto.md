@@ -114,27 +114,106 @@ Das "false" verhindert neuerliches Broadcasten, wenn das Haus reagiert. Die Funk
     else if (payload == "STOP") stopParty(false);
   }
   ```
-- in der init-Routine werden die Topics subscribed. Bei mir sieht das so aus:
+- in der init-Routine werden die Topics subscribed. Das sieht so aus:
 ```
-void initParty() {
-  initHardware();
+void initLogic() {
   registerCallbackMqtt(handleMqtt);
+  registerRfidCallback(handleRfidSong);
+  registerMotionCallback(onMotion);
 
   subscribeMqtt(TOPIC_BC_STORM);
-  //subscribeMqtt(TOPIC_BC_PARTY); wird lokal behandelt
-  subscribeMqtt(TOPIC_CMD_PARTY);
-  subscribeMqtt(TOPIC_CMD_STORM);
-  subscribeMqtt(TOPIC_CMD_SONG);
-  subscribeMqtt(TOPIC_CMD_NEXT);
-  // TOPIC_STATUS_HOUSE3  = "resort/house3/status";      --> publish only
-  // TOPIC_CURRENT_SONG   = "resort/house3/party/song";  --> publish only
-
-  Serial.println("Partylogic subscribed all topics");
+  subscribeMqtt(TOPIC_BC_GAS);
+  //subscribeMqtt(TOPIC_BC_PARTY);  //wird lokal behandelt, daher nur Haus 1,2,4
+  //subscribeMqtt(TOPIC_CMD_STORM); // nur Haus 1
+  subscribeMqtt(TOPIC_CMD_PARTY);   // nur Haus3
+  subscribeMqtt(TOPIC_CMD_SONG);    // nur Haus3
+  subscribeMqtt(TOPIC_CMD_NEXT);    // nur Haus3
+  Serial.println("Logic subscribed all topics");
+  publishSongList();
+  mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL");
+  mqttClient.publish(TOPIC_STATUSGAS_HOUSE3, "OFF");
+  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "OFF");
 }
 ```
+## Broadcasts
+Es werden verschiedene Broadcasts von den Häusern ausgesendet auf die die anderen reagieren müssen.
+- Haus 1 schickt Sturmwarnungen aus und published daher TOPIC_BC_STORM, alle Häuser reagieren bei Sturm - je nach Vorgabe hausspezifisch und gemeinsam (gelbe LED soll blinken, Sturmwarnung wird im LCD angezeigt werden).
+- Haus 2 schickt keine Broadcasts aus.
+- Haus 3 schickt den Partymodus aus - die Häuser sollen die Fenster schließen.
+- Haus 4 schickt eine Gaswarnung aus. Alle blinken rot und Sturmwarnung wird im LCD angezeigt werden.
 
-Das Modul mqtt ist seit dem letzten refactoring-Durchlauf komplett generisch. Alle Definitionen sind nun in der Hauslogik
+### Umsetzung der Broadcasts
+1) wie bei den Topics schon geschrieben, müssen die BC-Topics subscribed werden.
+2) Eventsteuerung
+```
+void startGas(bool publish) {
+  currentGasStatus = ON;
+  strip.show();
+
+  printWarnings();
+  if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUSGAS_HOUSE3, "ON");
+}
+void stopGas(bool publish) {
+  currentGasStatus = OFF;
+  strip.show();
+  switchLed(false);
+  printWarnings();
+  if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUSGAS_HOUSE3, "OFF");
+}
+
+void startStorm(bool publish) {
+  currentStormStatus = ON;
+  ctrWindow(WINDOW_CLOSED);
+  ctrDoor(DOOR_CLOSED);  strip.clear();
+  strip.show();
+  buzzer.playTone(0, 0);
+  printWarnings();
+  if (publish && mqttClient.connected())  mqttClient.publish(TOPIC_BC_STORM, "ON");
+  if            (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "ON");
+}
+void stopStorm(bool publish) {
+  currentStormStatus = OFF;
+  ctrWindow(WINDOW_OPEN);
+  ctrDoor(DOOR_OPEN);
+  switchLed(false);
+  printWarnings();
+  if (publish && mqttClient.connected()) {
+    mqttClient.publish(TOPIC_BC_STORM, "OFF");
+    mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL");
+  }
+  if (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "OFF");
+}
+
+void printWarnings() {
+  uint8_t warnMask = (currentStormStatus == ON ? 0b10 : 0) | (currentGasStatus == ON ? 0b01 : 0);
+  switch (warnMask) {
+    case 0b00:
+      printLcd("Next:", (nextPartyText == "" ? "keine Buchung" : nextPartyText ), false);
+      switchLed(false);
+      rgbOff();
+      break;
+    case 0b10:
+      printLcd("STURMWARNUNG", "", false);
+      blinkLed();
+      rgbOff();
+      break;
+    case 0b01:
+      printLcd("GASWARNUNG", "", false);
+      switchLed(false);
+      rgbBlink(255,0,0);
+      break;
+    case 0b11:
+      printLcd("STURM + GAS", "WARNUNG", false);
+      rgbBlink(255,0,0);
+      blinkLed();
+      break;
+  }
+}
+```
+--> Die Funktionen für die gelbe LED und die RGB-LED sind in hardware.h/.cpp, für das Display in mod_lcd.h/cpp
+
 ## Zusammenspiel der Funktionen
+Das Modul mqtt ist seit dem letzten refactoring-Durchlauf komplett generisch. Alle Definitionen sind nun in der Hauslogik.
 - maintainMQTT() muss ständig laufen, damit Nachrichten empfangen werden.
 - reconnectMQTT() verbindet den ESP32 wieder zum MQTT-Broker. Hier werden Abonnements gesetzt.
 - mqttCallback(topic, payload, length) wird immer aufgerufen, wenn eine MQTT-Nachricht reinkommt und reagiert je nach Topic.
@@ -162,6 +241,7 @@ Das Modul mqtt ist seit dem letzten refactoring-Durchlauf komplett generisch. Al
 ```
 #include <Arduino.h>
 #include "config.h"
+#include "hardware.h"     // Pinbelegung, LED, RGB, Servos
 #include "mod_wifi.h"     // WLAN
 #include "mod_mqtt.h"
 #include "mod_lcd.h"      // Display am Haus
@@ -173,6 +253,7 @@ void setup() {
     initWiFi();
     initMqtt();
     initLogic();
+    // und was sonst noch gebraucht wird
 }
 
 void loop() {
@@ -180,6 +261,8 @@ void loop() {
     loopWiFi();
     loopMqtt();
     loopLogic();
+    loopYellowLed();
+    loopRgb();
 }
 ```
 2. Basis Module hineinkopieren (jeweils .h und .cpp):
@@ -197,7 +280,7 @@ void loop() {
       ACHTUNG: der Servo tendiert zu heiß werden. Bei wird wird auch das Display deutlich schwerer lesbar, wenn das Fenster initialisiert wird. Deshalb habe ich bei mir das Fenster ausgeschaltet. Allerdings habe ich den Verdacht, dass der Servo kaputt ist. Suche in hardware.cpp nach ```const bool USE_WINDOW   = false;``` und ändere auf true!
       - **Tür** ```ctrDoor(DOOR_OPEN / DOOR_CLOSED);```
       Die Temperatur des Door-Servos lässt sich nicht so leicht überprüfen, da er tief drinnen verbaut ist. Dieser Motor hat bei mir allerdings keine Probleme gemacht, daher ist er aktiviert: ```const bool USE_DOOR     = true;```
-      - das **RGB-Modul** ist als "strip" schon in der Hardware definiert. Anwendung siehe ```void partyLightsStep(unsigned long now)``` in mod_partylogic.cpp
+      - das **RGB-Modul** ist als "strip" schon in der Hardware definiert. 
       - die **gelbe LED** lässt sich mit ```digitalWrite(PIN_LED_YELLOW, bedingung ? HIGH : LOW);``` ein und ausschalten
       - **Ventilator** ```ctrFan(FAN_ON bzw. FAN_OFF);```
       - **Hum & Temp** tba

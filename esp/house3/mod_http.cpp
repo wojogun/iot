@@ -1,6 +1,7 @@
 #include <WiFi.h>
 #include "mod_partylogic.h"
 #include "mod_songs.h"
+#include "mod_partylogic.h"
 
 static WiFiServer httpServer(80);
 static String lastStatusMessage;
@@ -8,7 +9,6 @@ static String lastStatusMessage;
 static String modeToText() {
     switch (currentMode) {
         case MODE_PARTY: return "PARTY";
-        case MODE_STORM: return "STORM";
         case MODE_NORMAL:
         default:         return "NORMAL";
     }
@@ -110,10 +110,10 @@ void loopHttp() {
 
     // Hier je nach Pfad Aktionen auslösen – an deine HTML-Links anpassen!
     if (path.indexOf("party=START") >= 0) {
-        startParty(true);
+        controlParty(MODE_PARTY,true);
         lastStatusMessage = "Party gestartet";
     } else if (path.indexOf("party=STOP") >= 0) {
-        stopParty(true);
+        controlParty(MODE_NORMAL, true);
         lastStatusMessage = "Party beendet";
     } else if (path.indexOf("storm=ON") >= 0) {
         startStorm(true);

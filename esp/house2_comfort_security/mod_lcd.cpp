@@ -3,26 +3,21 @@
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-// Permanenter Text
-String lcdOben = "";
-String lcdUnten = "";
-
-// Blink-Status
 bool lcdBlinkActive = false;
+bool lcdTempActive = false;
 bool lcdVisible  = true;
 unsigned long lcdBlinkInterval = 500;
-unsigned long lcdLastBlink = 0;
-
-// Temporärer Text
-bool lcdTempActive = false;
 unsigned long lcdTempDuration = 0;
-unsigned long lcdTempEnde = 0;
+unsigned long lcdLastToggle = 0;
+String lcdOben = "";
+String lcdUnten = "";
 
 void initLcd() {
   lcd.init();
   lcd.backlight();
   lcd.display();   // sicherstellen, dass Display an ist
   lcd.clear();
+	lcdLastToggle = millis();
 }
 
 void print(const String& oben, const String& unten) {
@@ -30,39 +25,38 @@ void print(const String& oben, const String& unten) {
 	lcd.display();
 	lcd.clear();
 	lcd.setCursor(0, 0);
-	if (oben != nullptr) lcd.print(oben);
+	lcd.print(oben);
 	lcd.setCursor(0, 1);
-	if (unten != nullptr) lcd.print(unten);
+	lcd.print(unten);
 }
 
 void printLcd(const String& oben, const String& unten, bool flash) {
 	lcdBlinkActive = flash;
-	lcdOben        = oben;
-	lcdUnten       = unten;
-	if (flash) lcdLastBlink  = millis();
+	lcdOben = oben;
+	lcdUnten = unten;
 	print(oben, unten);
+	lcdLastToggle = millis();
 }
 
 void printTempLcd(const String& oben, const String& unten, unsigned long dur) {
 	lcdTempDuration = dur;
-	lcdTempActive   = true;
-  lcdTempEnde     = millis() + dur;
 	print(oben, unten);
+	lcdLastToggle = millis();
 }
 
-void loopLcd() {
+void lcdUpdate() {
 	unsigned long now = millis();
-  if (lcdBlinkActive && !lcdTempActive) {
-		if (now - lcdLastBlink >= lcdBlinkInterval) {
-			lcdLastBlink = now;
+    if (lcdBlinkActive) {
+		if (now - lcdLastToggle >= lcdBlinkInterval) {
+			lcdLastToggle = now;
 			lcdVisible = !lcdVisible;
 			lcdVisible ? lcd.display() : lcd.noDisplay();
 		}
 	}
-	if (lcdTempActive && now >= lcdTempEnde) {
-    lcdTempActive = false;
-    lcdVisible = true;
-    lcd.display();
-    print(lcdOben, lcdUnten);
-  }
+	if (lcdTempActive) {
+		if (now - lcdLastToggle >= lcdTempDuration) {
+			lcdLastToggle = now;
+			print(lcdOben, lcdUnten);
+		}
+	}
 }

@@ -1,0 +1,85 @@
+@startuml
+left to right direction
+
+actor "Betreiber\n(Dashboard)" as Host
+actor "Gast" as Guest
+
+rectangle "Smart Beach Resort Management (Gesamtsystem)" {
+
+  ' Gesamtfunktionen (Dashboard/Resort)
+  usecase "Resort-Status anzeigen" as UC_Status
+  usecase "Warnungen anzeigen/\nquittieren" as UC_Alerts
+  usecase "Sturmwarnung simulieren" as UC_StormSim
+  usecase "Partymodus starten/stoppen" as UC_Party
+  usecase "Serviceanfragen verwalten" as UC_ServiceMgmt
+
+  ' Querschnittsfunktionen
+  usecase "Resortweite Warnung senden\n(MQTT publish)" as UC_Publish
+  usecase "Fenster/Türen schließen\n(alle Häuser)" as UC_CloseAll
+
+  rectangle "Subsystem Haus 1\nWetter & Perimeterschutz" {
+    usecase "Wetterdaten erfassen" as UC_Weather
+    usecase "Sturmmodus auslösen" as UC_StormMode
+    usecase "Warnung lokal anzeigen\n(LCD/Buzzer)" as UC_LocalWarn1
+  }
+
+  rectangle "Subsystem Haus 2\nGäste-Komfort & Sicherheit" {
+    usecase "Check-in per RFID" as UC_Checkin
+    usecase "Check-out per Button" as UC_Checkout
+    usecase "Service anfordern" as UC_ServiceReq
+    usecase "Belegungsstatus anzeigen\n(LCD/RGB)" as UC_Occ
+    usecase "Sicherheitsalarm auslösen\n(PIR bei Leerstand)" as UC_SecAlarm
+  }
+
+  rectangle "Subsystem Haus 3\nPartyhaus" {
+    usecase "Entertainment abspielen\n(Licht/Ton)" as UC_Entertain
+    usecase "Song per RFID wählen" as UC_Song
+    usecase "Party-Status anzeigen\n(LCD)" as UC_PartyInfo
+  }
+
+  rectangle "Subsystem Haus 4\nLuftqualität & Lüftung" {
+    usecase "Luftwerte erfassen" as UC_Air
+    usecase "Gasalarm auslösen" as UC_Gas
+    usecase "Lüftung aktivieren" as UC_Fan
+    usecase "Alarm zurücksetzen\n(Button)" as UC_Reset
+    usecase "Warnung lokal anzeigen\n(LCD/RGB)" as UC_LocalWarn4
+  }
+}
+
+' Akteursbeziehungen
+Host --> UC_Status
+Host --> UC_Alerts
+Host --> UC_StormSim
+Host --> UC_Party
+Host --> UC_ServiceMgmt
+
+Guest --> UC_Checkin
+Guest --> UC_Checkout
+Guest --> UC_ServiceReq
+Guest --> UC_Song
+
+' Include/Extend Beziehungen (Kopplung Gesamt <-> Subsysteme)
+UC_StormSim ..> UC_StormMode : <<include>>
+UC_StormMode ..> UC_CloseAll : <<include>>
+UC_StormMode ..> UC_Publish : <<include>>
+UC_StormMode ..> UC_LocalWarn1 : <<include>>
+UC_StormMode ..> UC_Alerts : <<include>>
+
+UC_Gas ..> UC_Fan : <<include>>
+UC_Gas ..> UC_Publish : <<include>>
+UC_Gas ..> UC_Alerts : <<include>>
+UC_Gas ..> UC_LocalWarn4 : <<include>>
+UC_Reset ..> UC_Gas : <<extend>>
+
+UC_SecAlarm ..> UC_Publish : <<include>>
+UC_SecAlarm ..> UC_Alerts : <<include>>
+
+UC_Party ..> UC_Entertain : <<include>>
+UC_Party ..> UC_CloseAll : <<include>>
+UC_Party ..> UC_PartyInfo : <<include>>
+UC_Party ..> UC_Publish : <<include>>
+
+UC_ServiceReq ..> UC_Publish : <<include>>
+UC_ServiceReq ..> UC_ServiceMgmt : <<include>>
+
+@enduml

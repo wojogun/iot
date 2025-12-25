@@ -1,0 +1,61 @@
+@startuml
+left to right direction
+actor "Betreiber (Dashboard)" as Host
+actor "Gast" as Guest
+
+rectangle "Smart Beach Resort System" {
+  usecase "Resort-Status anzeigen" as UC_Status
+  usecase "Warnungen empfangen\n(Sturm/Gas/Sicherheitsalarm)" as UC_Alerts
+  usecase "Sturmwarnung auslösen\n(simulieren)" as UC_StormSim
+  usecase "Partymodus starten/stoppen" as UC_Party
+  usecase "Serviceanfragen verwalten" as UC_ServiceMgmt
+
+  usecase "Wetterdaten erfassen" as UC_Weather
+  usecase "Sturmmodus auslösen" as UC_StormMode
+  usecase "Warnung lokal anzeigen\n(LCD/Buzzer)" as UC_LocalWarn
+
+  usecase "Check-in per RFID" as UC_Checkin
+  usecase "Check-out per Button" as UC_Checkout
+  usecase "Service anfordern" as UC_ServiceReq
+  usecase "Belegungsstatus anzeigen\n(LCD/RGB)" as UC_Occ
+  usecase "Sicherheitsalarm auslösen\n(PIR bei Leerstand)" as UC_Security
+
+  usecase "Entertainment-Szene abspielen\n(Licht/Ton)" as UC_Entertain
+  usecase "Song per RFID auswählen" as UC_Song
+
+  usecase "Luftwerte erfassen" as UC_Air
+  usecase "Gasalarm auslösen" as UC_Gas
+  usecase "Lüftung aktivieren" as UC_Fan
+  usecase "Alarm zurücksetzen" as UC_Reset
+
+  usecase "Fenster/Türen schließen\n(alle Häuser)" as UC_CloseAll
+  usecase "Resortweite Warnung senden" as UC_Publish
+}
+
+Host --> UC_Status
+Host --> UC_Alerts
+Host --> UC_StormSim
+Host --> UC_Party
+Host --> UC_ServiceMgmt
+
+Guest --> UC_Checkin
+Guest --> UC_Checkout
+Guest --> UC_ServiceReq
+Guest --> UC_Song
+
+UC_StormSim ..> UC_StormMode : <<include>>
+UC_StormMode ..> UC_CloseAll : <<include>>
+UC_StormMode ..> UC_Publish : <<include>>
+UC_StormMode ..> UC_LocalWarn : <<include>>
+
+UC_Gas ..> UC_Fan : <<include>>
+UC_Gas ..> UC_Publish : <<include>>
+UC_Gas ..> UC_Alerts : <<include>>
+UC_Reset ..> UC_Gas : <<extend>>
+
+UC_Party ..> UC_Entertain : <<include>>
+UC_Party ..> UC_CloseAll : <<include>>
+
+UC_Security ..> UC_Alerts : <<include>>
+@enduml
+

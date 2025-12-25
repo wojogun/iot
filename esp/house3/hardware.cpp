@@ -5,7 +5,7 @@
 // -------------------- Pinbelegung (KS5009-Standard) --------------------
 const uint8_t FAN_PWMCH        =  0;
 const uint8_t NEOPIXEL_COUNT   =  4;
-const uint8_t PIN_SERVO_WINDOW =  5;   // Fenster-Servo
+const uint8_t PIN_SERVO_WINDOW =  5;  // Fenster-Servo
 const uint8_t PIN_LED_YELLOW   = 12;  // gelbe LED am Haus
 const uint8_t PIN_SERVO_DOOR   = 13;  // Tür-Servo
 const uint8_t PIN_MOTION       = 14;
@@ -16,13 +16,27 @@ const uint8_t PIN_BUZZER       = 25;  // Buzzer
 const uint8_t PIN_LED_STRIP    = 26;  // SK6812 / NeoPixel
 const uint8_t PIN_BTN1         = 27;
 
-static const uint8_t LED_COUNT = 4;  // Anzahl der Pixel im Strip (RGB)
 
 // -------------------- Globale Objekte --------------------
-Adafruit_NeoPixel strip(LED_COUNT, PIN_LED_STRIP, NEO_GRB + NEO_KHZ800);
+BuzzerESP32 buzzer(PIN_BUZZER);
 Servo windowServo;
 Servo doorServo;
-BuzzerESP32 buzzer(PIN_BUZZER);
+
+// RGBLED
+static const uint8_t LED_COUNT = 4;  // Anzahl der Pixel im Strip (RGB)
+Adafruit_NeoPixel strip(LED_COUNT, PIN_LED_STRIP, NEO_GRB + NEO_KHZ800);
+static bool rgbBlinkEnabled = false;
+static bool rgbStateOn      = false;
+static uint32_t rgbLastToggle = 0;
+static uint32_t rgbInterval   = 500;
+static uint8_t rgbR=0, rgbG=0, rgbB=0;
+static uint8_t rgbBrightness = 255;
+
+// gelbe LED
+static bool     ledBlinkEnabled  = false;
+static bool     ledState         = false;
+static uint32_t ledBlinkInterval = 500;
+static uint32_t ledLastToggle    = 0;
 
 // weil die Servos zu Überhitzung neigen, insbesondere das Fenster
 const bool USE_DOOR     = true;
@@ -33,6 +47,7 @@ void initHardware() {
     // LED
     pinMode(PIN_LED_YELLOW, OUTPUT);
     digitalWrite(PIN_LED_YELLOW, LOW);
+    initRgb();
 
     // Servos vorbereiten (Standard 50 Hz)
     ESP32PWM::allocateTimer(0);
@@ -47,21 +62,119 @@ void initHardware() {
     windowServo.attach(PIN_SERVO_WINDOW, 1000, 2000);
     doorServo.attach(PIN_SERVO_DOOR,   1000, 2000);
 
-    // NeoPixel
-    strip.begin();
-    strip.clear();
-    strip.show();
-
     // Buzzer
     buzzer.setTimbre(30);      // Klangfarbe (Keyestudio-Beispiel)
     buzzer.playTone(0, 0);     // sicherstellen, dass er aus ist
 
     // Fan
-    pinMode(PIN_FAN_DIR, OUTPUT);              // FAN_DIR_PIN ist ein digitaler Ausgang für Richtung od. ein/aus
+    pinMode(PIN_FAN_DIR, OUTPUT); // FAN_DIR_PIN ist ein digitaler Ausgang für Richtung od. ein/aus
 
     // Buttons
     pinMode(PIN_BTN1, INPUT_PULLUP);
     pinMode(PIN_BTN2, INPUT_PULLUP);
+}
+
+void initRgb() {
+  strip.begin();
+  strip.clear();
+  strip.setBrightness(255);
+  strip.show();
+  rgbBlinkEnabled = false;
+  //lichtorgelEnabled = false;
+  rgbStateOn = false;
+}
+void loopRgb() {
+  uint32_t now = millis();
+  // Blinken
+  if (!rgbBlinkEnabled) return;
+
+  if (now - rgbLastToggle >= rgbInterval) {
+    rgbLastToggle = now;
+    rgbStateOn = !rgbStateOn;
+    if (rgbStateOn) rgbApplyColor(rgbR, rgbG, rgbB);
+    else            rgbApplyColor(0,0,0);
+  }
+}
+
+void warnton() {
+  for (uint16_t i = 0; i < 4; i++) {
+    buzzer.playTone(500,1000);
+    delay(500);
+  }
+  buzzer.playTone(0, 0);
+}
+
+void rgbApplyColor(uint8_t r, uint8_t g, uint8_t b) {
+  for (uint16_t i = 0; i < strip.numPixels(); i++) {
+    strip.setPixelColor(i, strip.Color(r, g, b));
+  }
+  strip.show();
+}
+
+void rgbOff() {
+  //partyEnabled = false;
+  rgbBlinkEnabled = false;
+  rgbStateOn = false;
+  rgbR = rgbG = rgbB = 0;
+  rgbApplyColor(rgbR, rgbG, rgbB);
+}
+
+void rgbSet(uint8_t r, uint8_t g, uint8_t b, uint8_t brightness) {
+  //partyEnabled = false;
+  rgbBlinkEnabled = false;
+  rgbR = r; rgbG = g; rgbB = b;
+  rgbBrightness = brightness;
+
+  strip.setBrightness(rgbBrightness);
+  rgbStateOn = true;
+  rgbApplyColor(rgbR, rgbG, rgbB);
+}
+
+void rgbSetHSV(uint16_t hue, uint8_t sat, uint8_t val) {
+  strip.setBrightness(val);
+  uint32_t c = strip.gamma32(strip.ColorHSV(hue, sat, val));
+
+  for (uint16_t i = 0; i < strip.numPixels(); i++) {
+    strip.setPixelColor(i, c);
+  }
+
+    //strip.setPixelColor(idx, c);
+    strip.show();
+}
+
+void rgbBlink(uint8_t r, uint8_t g, uint8_t b, uint32_t intervalMs, uint8_t brightness) {
+  //partyEnabled = false;
+  rgbBlinkEnabled = true;
+
+  rgbR = r; rgbG = g; rgbB = b;
+  rgbBrightness = brightness;
+  rgbInterval = intervalMs;
+  rgbLastToggle = millis();
+  strip.setBrightness(rgbBrightness);
+}
+
+
+
+
+
+
+void switchLed(bool onoff) {
+  ledState = onoff;
+  ledBlinkEnabled = false;
+  digitalWrite(PIN_LED_YELLOW, (onoff ? HIGH : LOW));
+}
+void blinkLed() {
+    ledBlinkEnabled  = true;
+    ledLastToggle    = millis();
+}
+void loopYellowLed() {
+  if (!ledBlinkEnabled) return;
+  uint32_t now = millis();
+  if (now - ledLastToggle >= ledBlinkInterval) {
+    ledLastToggle = now;
+    ledState = !ledState;
+    digitalWrite(PIN_LED_YELLOW, ledState ? HIGH : LOW);
+  }
 }
 
 // -------------------- Helper für Fenster / Tür --------------------
@@ -99,7 +212,6 @@ void ctrFan(FanState state) {
   }
 }
 
-
 // Für die Tür kannst du die Winkel nach Bedarf justieren.
 // Hier: 0° = zu, 90° = auf (oder 180°, wenn es mechanisch besser passt).
 void ctrDoor(DoorState state) {
@@ -116,3 +228,5 @@ void ctrDoor(DoorState state) {
     }
     doorServo.write(angle);
 }
+
+
