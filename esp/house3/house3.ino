@@ -40,4 +40,5 @@ void loop() {
     loopRgb();
     loopMotion();
     loopHttp();
+    loopTempHum();
 }

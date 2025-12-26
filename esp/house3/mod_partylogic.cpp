@@ -23,6 +23,14 @@ static unsigned long lastStormBlink  = 0;
 static bool          stormLedState   = false;
 static uint16_t      partyHue        = 0;
 
+// wann gelüftet werden muss
+static bool fanOn = false;
+static const float FAN_ON_TEMP  = 25.0;
+static const float FAN_OFF_TEMP = 24.0;
+
+float oldTemp = NAN;
+float oldHum = NAN;
+
 void handleMqtt(const String& topic, const String& payload) {
   Serial.print("MQTT in [");
   Serial.print(topic);
@@ -84,9 +92,10 @@ void initParty() {
   // TOPIC_CURRENT_SONG   = "resort/house3/party/song";  --> publish only
   Serial.println("Partylogic subscribed all topics");
   publishSongList();
-  mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL");
-  mqttClient.publish(TOPIC_STATUSGAS_HOUSE3, "OFF");
-  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "OFF");
+  mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL", true);
+  mqttClient.publish(TOPIC_STATUSGAS_HOUSE3, "OFF", false);
+  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "OFF", false);
+  mqttClient.publish(TOPIC_STATUSFAN_HOUSE3, "0", false);
 }
 
 void loopParty() {
@@ -98,7 +107,22 @@ void loopParty() {
     if (ev2 == BUTTON_LONG) controlParty(MODE_NORMAL,true);
 
   if (currentMode == MODE_PARTY) {
-    partyLightsStep(now);
+    // Lichtorgel nur wenn keine Gaswarnung
+    if (currentGasStatus==OFF) partyLightsStep(now);
+
+    // wird es zu heiß oder zu feucht -> Ventilator aktivieren
+    float t = getTemperature();
+    float h = getHuminity();
+    if ( oldTemp != t || oldHum != h) {
+      oldTemp = t;
+      oldHum = h;
+      ctrFan();
+      if (mqttClient.connected()) {
+        mqttClient.publish(TOPIC_STATUSTEMP_HOUSE3, String(t,1).c_str(), false); 
+        mqttClient.publish(TOPIC_STATUSHUM_HOUSE3, String(h,1).c_str(), false);
+        mqttClient.publish(TOPIC_STATUSFAN_HOUSE3, String(getFanSpeed()).c_str(), false);
+      }
+    }
   } 
 
   // kein echter einsatz nur zum testen
@@ -144,11 +168,10 @@ void startStorm(bool publish) {
   ctrWindow(WINDOW_CLOSED);
   ctrDoor(DOOR_CLOSED);  strip.clear();
   strip.show();
-  buzzer.playTone(0, 0);
+  controlParty(MODE_NORMAL,false);  // Party beenden
   printWarnings();
   warnton();
-  if (publish && mqttClient.connected())  mqttClient.publish(TOPIC_BC_STORM, "ON");
-  if            (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "ON");
+  if (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "ON", true);
 }
 void stopStorm(bool publish) {
   currentStormStatus = OFF;
@@ -156,11 +179,7 @@ void stopStorm(bool publish) {
   ctrDoor(DOOR_OPEN);
   switchLed(false);
   printWarnings();
-  if (publish && mqttClient.connected()) {
-    mqttClient.publish(TOPIC_BC_STORM, "OFF");
-    mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL");
-  }
-  if (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "OFF");
+  if (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "OFF", true);
 }
 
 void printWarnings() {
@@ -192,21 +211,29 @@ void printWarnings() {
 void controlParty( Mode mode, bool publish ) {
   Serial.print("controlParty ");
   Serial.print(mode);
-  if (currentStormStatus == ON) return;
+  if ( currentStormStatus == ON && mode == MODE_PARTY) return;
+  if ( currentMode == mode ) return;
+
   if ( mode == MODE_PARTY ) {
-    if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUS_HOUSE3, "PARTY");
+    if (mqttClient.connected()) {
+      mqttClient.publish(TOPIC_BC_PARTY, "PARTY", true);
+      mqttClient.publish(TOPIC_STATUS_HOUSE3, "PARTY", true);
+    }
     ctrWindow(WINDOW_CLOSED);
     ctrDoor(DOOR_CLOSED);
-    ctrFan(FAN_ON);
+    //ctrFan(FAN_ON);
     printLcd(	"Party laeuft", "Haus 3", false);
     strip.show();
     playSong(3);   //smokeOnTheWater();
     currentMode = MODE_PARTY;
   } else if ( mode == MODE_NORMAL ) {
-    if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL");
+    if (mqttClient.connected()) {
+      mqttClient.publish(TOPIC_STATUS_HOUSE3, "NORMAL", true);
+      mqttClient.publish(TOPIC_BC_PARTY, "NORMAL", true);
+    }
     ctrWindow(WINDOW_OPEN);
     ctrDoor(DOOR_OPEN);
-    ctrFan(FAN_OFF);
+    //ctrFan(FAN_OFF);
     printLcd(	"Next:", nextPartyText, false);    
     playSong(5);
     strip.clear();

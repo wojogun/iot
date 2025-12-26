@@ -1,0 +1,77 @@
+@startuml
+skinparam packageStyle rectangle
+title Entwicklungssicht – Paketstruktur (ESP32 + Node-RED)
+
+package "ESP32 Firmware (gemeinsames Grundgerüst)" as FW {
+  package "HAL / Hardware Abstraction" as HAL {
+    [SensorAdapter]
+    [ActuatorAdapter]
+    [Display/Buzzer/LED]
+  }
+
+  package "Connectivity" as CONN {
+    [WiFi Manager]
+    [MQTT Client]
+    [Topic Schema]
+  }
+
+  package "Core" as CORE {
+    [State Machine]
+    [Config]
+    [Scheduler/Loop]
+  }
+
+	package "House Services" as SVC {
+
+	  package "House 1 Service" as H1 {
+		[Storm and Perimeter Logic]
+	  }
+
+	  package "House 2 Service" as H2 {
+		[RFID, Occupancy and Security Logic]
+	  }
+
+	  package "House 3 Service" as H3 {
+		[Party and Wurlitzer Logic]
+	  }
+
+	  package "House 4 Service" as H4 {
+		[Gas and Ventilation Logic]
+	  }
+
+	}
+}
+
+package "Node-RED (Server)" as NR {
+  package "MQTT Integration Flow" as NF1 {
+    [MQTT In/Out Nodes]
+    [Topic Routing]
+  }
+  package "Resort State Flows" as NF2 {
+    [Storm Mode]
+    [Gas Mode]
+    [Party Booking & Cron]
+  }
+  package "Dashboard UI" as UI {
+    [Tabs/Groups]
+    [Buttons/Widgets]
+    [Status Text]
+  }
+  package "Persistence/Context" as CTX {
+    [Flow Context]
+  }
+}
+
+FW ..> HAL
+FW ..> CONN
+FW ..> CORE
+SVC ..> HAL
+SVC ..> CORE
+SVC ..> CONN
+
+NR ..> NF1
+NR ..> NF2
+NR ..> UI
+NF2 ..> CTX
+
+@enduml
