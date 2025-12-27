@@ -8,13 +8,16 @@
 #include "mod_door.h"
 #include "mod_lcd.h"
 #include "mod_mqtt.h"
+#include "mod_common.h"
 #include <Preferences.h>
 
 // IIC pins default to GPIO21 and GPIO22 of ESP32
 // 0x28 is the i2c address of SDA, if doesn't match，please check your address with i2c.
 MFRC522 mfrc522(0x28);   // create MFRC522.
 #define btnPin 16
+#define motionPin 14
 boolean btnFlag = 0;
+boolean isVacant = false;  // Track if house is vacant (LEER)
 
 String password = "";
 
@@ -46,7 +49,9 @@ String getRfidKeyName(const String& uid) {
 // Initialize button
 void initButton() {
   pinMode(btnPin, INPUT_PULLUP);
+  pinMode(motionPin, INPUT);
   Serial.println("Button initialized on pin " + String(btnPin));
+  Serial.println("Motion sensor initialized on pin " + String(motionPin));
 }
 
 // Check button state and handle door close
@@ -60,6 +65,17 @@ void checkButton() {
       closeWindow();
       closeDoor();
       btnFlag = 0;
+      isVacant = true;  // House is now vacant
+    }
+  }
+  
+  // Check motion sensor when house is vacant
+  if (isVacant) {
+    int motionVal = digitalRead(motionPin);
+    if (motionVal == HIGH) {  // Motion detected
+      Serial.println("Motion detected while vacant! Triggering alarm.");
+      startRgbRedLightConstant(50);  // Trigger red light with 50ms delay
+      publishMqtt(TOPIC_STATUS_HOUSE2, "Motion detected");
     }
   }
 }
@@ -126,10 +142,17 @@ void loopRFID() {
     String keyName = getRfidKeyName(password);
     publishMqtt(TOPIC_STATUS_HOUSE2, "BELEGT");
     publishMqtt(TOPIC_STATUS_RFID_KEY, "ok");
+    
+    // Turn off RGB lights
+    extern Adafruit_NeoPixel strip;
+    strip.clear();
+    strip.show();
+    
     openWindow();
     openDoor();
     password = "";
     btnFlag = 1;
+    isVacant = false;  // House is now occupied
   }
   else
   {
