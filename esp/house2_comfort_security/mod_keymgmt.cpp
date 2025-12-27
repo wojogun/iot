@@ -78,6 +78,10 @@ void initRuntimeConfig() {
   String saved = prefs.getString("rfid_key", "");
   g_rfidKey = saved.length() ? saved : String(RFID_KEY_DEFAULT);
   Serial.println("RFID key loaded: " + g_rfidKey);
+  
+  // Publish current RFID key name to MQTT
+  String keyName = getRfidKeyName(g_rfidKey);
+  publishMqtt(TOPIC_CURRENT_RFID_KEY, keyName.c_str());
 }
 
 // Get current RFID key
