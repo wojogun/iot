@@ -142,12 +142,7 @@ void loopRFID() {
     String keyName = getRfidKeyName(password);
     publishMqtt(TOPIC_STATUS_HOUSE2, "BELEGT");
     publishMqtt(TOPIC_STATUS_RFID_KEY, "ok");
-    
-    // Turn off RGB lights
-    extern Adafruit_NeoPixel strip;
-    strip.clear();
-    strip.show();
-    
+    startRgbGreenLightConstant(10);
     openWindow();
     openDoor();
     password = "";
