@@ -8,13 +8,17 @@
 #include "mod_door.h"
 #include "mod_lcd.h"
 #include "mod_mqtt.h"
+#include "mod_common.h"
 #include <Preferences.h>
 
 // IIC pins default to GPIO21 and GPIO22 of ESP32
 // 0x28 is the i2c address of SDA, if doesn't match，please check your address with i2c.
 MFRC522 mfrc522(0x28);   // create MFRC522.
 #define btnPin 16
+#define motionPin 14
 boolean btnFlag = 0;
+boolean isVacant = false;  // Track if house is vacant (LEER)
+boolean motionAlarmTriggered = false;  // Track if motion alarm has been triggered
 
 String password = "";
 
@@ -46,7 +50,9 @@ String getRfidKeyName(const String& uid) {
 // Initialize button
 void initButton() {
   pinMode(btnPin, INPUT_PULLUP);
+  pinMode(motionPin, INPUT);
   Serial.println("Button initialized on pin " + String(btnPin));
+  Serial.println("Motion sensor initialized on pin " + String(motionPin));
 }
 
 // Check button state and handle door close
@@ -60,6 +66,18 @@ void checkButton() {
       closeWindow();
       closeDoor();
       btnFlag = 0;
+      isVacant = true;  // House is now vacant
+    }
+  }
+  
+  // Check motion sensor when house is vacant
+  if (isVacant && !motionAlarmTriggered) {
+    int motionVal = digitalRead(motionPin);
+    if (motionVal == HIGH) {  // Motion detected
+      Serial.println("Motion detected while vacant! Triggering alarm.");
+      startRgbRedLightConstant(10);  // Trigger red light with 10ms delay to reduce blocking time
+      publishMqtt(TOPIC_STATUS_HOUSE2, "Motion detected");
+      motionAlarmTriggered = true;  // Prevent repeated triggering
     }
   }
 }
@@ -78,6 +96,10 @@ void initRuntimeConfig() {
   String saved = prefs.getString("rfid_key", "");
   g_rfidKey = saved.length() ? saved : String(RFID_KEY_DEFAULT);
   Serial.println("RFID key loaded: " + g_rfidKey);
+  
+  // Publish current RFID key name to MQTT
+  String keyName = getRfidKeyName(g_rfidKey);
+  publishMqtt(TOPIC_CURRENT_RFID_KEY, keyName.c_str());
 }
 
 // Get current RFID key
@@ -122,10 +144,13 @@ void loopRFID() {
     String keyName = getRfidKeyName(password);
     publishMqtt(TOPIC_STATUS_HOUSE2, "BELEGT");
     publishMqtt(TOPIC_STATUS_RFID_KEY, "ok");
+    startRgbGreenLightConstant(10);
     openWindow();
     openDoor();
     password = "";
     btnFlag = 1;
+    isVacant = false;  // House is now occupied
+    motionAlarmTriggered = false;  // Reset motion alarm flag when house becomes occupied
   }
   else
   {
