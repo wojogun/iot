@@ -185,6 +185,18 @@ void startRgbRedLightConstant(int wait) {
   }
 }
 
+// GREEN light cycle along whole strip. Pass delay time (in ms) between frames.
+void startRgbGreenLightConstant(int wait) {
+  // Display only GREEN colors on all pixels in the strip.
+  for (int j = 0; j < 50; ++j) { // Show red for a short animation (adjust 50 as needed)
+    for (int i = 0; i < strip.numPixels(); i++) {
+      strip.setPixelColor(i, strip.Color(0, 255, 0)); // Pure red
+    }
+    strip.show();
+    delay(wait);
+  }
+}
+
 // RED light circling on strip for 10 seconds. Pass delay time (in ms) between frames.
 void startRgbRedLightBlink(int wait) {
   int currentPixel = 0;
