@@ -39,6 +39,7 @@ void handleMqtt(const String& topic, const String& payload);
 void switchLed(bool onoff);
 void startRgbRedLightConstant(int wait);
 void startRgbRedLightBlink(int wait);
+void startRgbGreenLightConstant(int wait);
 
 void startGas(bool publish);
 void stopGas(bool publish);
