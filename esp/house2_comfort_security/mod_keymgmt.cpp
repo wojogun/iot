@@ -18,6 +18,7 @@ MFRC522 mfrc522(0x28);   // create MFRC522.
 #define motionPin 14
 boolean btnFlag = 0;
 boolean isVacant = false;  // Track if house is vacant (LEER)
+boolean motionAlarmTriggered = false;  // Track if motion alarm has been triggered
 
 String password = "";
 
@@ -70,12 +71,13 @@ void checkButton() {
   }
   
   // Check motion sensor when house is vacant
-  if (isVacant) {
+  if (isVacant && !motionAlarmTriggered) {
     int motionVal = digitalRead(motionPin);
     if (motionVal == HIGH) {  // Motion detected
       Serial.println("Motion detected while vacant! Triggering alarm.");
       startRgbRedLightConstant(10);  // Trigger red light with 10ms delay to reduce blocking time
       publishMqtt(TOPIC_STATUS_HOUSE2, "Motion detected");
+      motionAlarmTriggered = true;  // Prevent repeated triggering
     }
   }
 }
@@ -148,6 +150,7 @@ void loopRFID() {
     password = "";
     btnFlag = 1;
     isVacant = false;  // House is now occupied
+    motionAlarmTriggered = false;  // Reset motion alarm flag when house becomes occupied
   }
   else
   {
