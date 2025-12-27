@@ -74,7 +74,7 @@ void checkButton() {
     int motionVal = digitalRead(motionPin);
     if (motionVal == HIGH) {  // Motion detected
       Serial.println("Motion detected while vacant! Triggering alarm.");
-      startRgbRedLightConstant(50);  // Trigger red light with 50ms delay
+      startRgbRedLightConstant(10);  // Trigger red light with 10ms delay to reduce blocking time
       publishMqtt(TOPIC_STATUS_HOUSE2, "Motion detected");
     }
   }
