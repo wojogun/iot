@@ -1,5 +1,5 @@
-#ifndef MOD_WIFI_H
-#define MOD_WIFI_H
+#ifndef MOD_CONFIG_WIFI_H
+#define MOD_CONFIG_WIFI_H
 
 #include <Arduino.h>
 //void initSerial();

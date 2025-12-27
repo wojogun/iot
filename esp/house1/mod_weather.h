@@ -1,5 +1,3 @@
-
-
 #ifndef MOD_WEATHER_H
 #define MOD_WEATHER_H
 

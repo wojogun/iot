@@ -2,7 +2,6 @@
 #define CONFIG_H
 
 #include <Arduino.h>
-// #include <IPAddress.h>
 
 // ==== WIFI ====
 struct WiFiEntry {
@@ -13,8 +12,6 @@ struct WiFiEntry {
 // Reihenfolge = Priorität (Index 0 = MASTER)
 extern const WiFiEntry WIFI_LIST[];
 extern const uint8_t   WIFI_LIST_COUNT;
-// extern const char* WIFI_SSID;
-// extern const char* WIFI_PASSWORD;
 
 // ==== MQTT ====
 extern const char* MQTT_SERVER;
@@ -22,44 +19,39 @@ extern const int   MQTT_PORT;
 extern const char* MQTT_USER;
 extern const char* MQTT_PASSWORD;
 
-// Haus 1 – Topics
-extern const char* TOPIC_STATUS_HOUSE1;     // "resort/house1/status"
+// ===== TOPICS HAUS 1 =====
+// Status Topics:
+extern const char* TOPIC_STATUS_HOUSE1;      // "resort/house1/status"
+extern const char* TOPIC_STATUSGAS_HOUSE1;          // "resort/house1/status/gas";  
+extern const char* TOPIC_STATUSSTORM_HOUSE1;        // "resort/house1/status/storm";  
+extern const char* TOPIC_STATUSPARTY_HOUSE1;        // "resort/house1/status/party";   
 
-extern const char* TOPIC_WEATHER_VALUES;    // "resort/house1/weather"
-extern const char* TOPIC_TEMP;              // "resort/house1/weather/temp"
-extern const char* TOPIC_HUM;               // "resort/house1/weather/hum"
-extern const char* TOPIC_STEAM;             // "resort/house1/weather/steam"
-extern const char* TOPIC_WIND;              // "resort/house1/weather/wind"
+extern const char* TOPIC_STATUS_TEMP;               // "resort/house1/status/temp"
+extern const char* TOPIC_STATUS_HUM;                // "resort/house1/status/hum"
+extern const char* TOPIC_STATUS_STEAM;              // "resort/house1/status/steam"
+extern const char* TOPIC_STATUS_WIND;               // "resort/house1/status/wind"
+extern const char* TOPIC_STATUS_FAN;                // "resort/house1/status/fan"
+extern const char* TOPIC_STATUS_WEATHER_VALUES;     // "resort/house1/status/weathervalues"
 
-extern const char* TOPIC_STORM_ALERT;          // "resort/house1/storm/alert" (0/1)
-extern const char* TOPIC_BC_STORM;          // z.B. "resort/bc/storm"
-
-// Manuelle Steuerung durch/in Node-RED
-extern const char* TOPIC_STORM_CMD;         // "resort/house1/cmd/storm"  (AUTO/ON/OFF)
-extern const char* TOPIC_WIND_CMD;          // "resort/house1/cmd/wind"   (0–100)
-
-// TODO
-extern const char* TOPIC_TEMP_CMD;          // "resort/house1/cmd/temp"   (-10–45)
-extern const char* TOPIC_STEAM_CMD;          // "resort/house1/cmd/steam"   (DRY/RAIN/FOG)
-
-// Testen: Command, um Sturm/Gas nur zu testen
-extern const char* TOPIC_CMD_STORM_H1;     // "resort/house1/cmd/storm"
-
-extern const char* TOPIC_MOTION;            // "resort/house1/motion" (Bewgung - Perimeterschutz)
+// Broadcast Haus 1 an alle
+extern const char* TOPIC_BC_STORM;            // "resort/bc/storm"
+// Broadcast alle
+extern const char* TOPIC_BC_PARTY;            // "resort/bc/party"
+extern const char* TOPIC_BC_GAS;              // "resort/bc/gas"      
 
 
+// Simulation / Command Topics
+extern const char* TOPIC_STORM_CMD;           // "resort/house1/storm/cmd"
+extern const char* TOPIC_FAN_CMD;             // "resort/house1/fan/cmd"
+extern const char* TOPIC_SIM_ENABLED;         // "resort/house1/simulation/enabled"
+extern const char* TOPIC_SIM_WIND;            // "resort/house1/simulation/wind"
+extern const char* TOPIC_SIM_STEAM;           // "resort/house1/simulation/steam"
+extern const char* TOPIC_SIM_TEMP;            // "resort/house1/simulation/temp"
 
-// Haus 3 CMD, Broadcast etc (vielleicht später wieder verwenden bei Overall Case)
-// extern const char* TOPIC_STATUS_HOUSE3;
-// extern const char* TOPIC_CMD_PARTY;
-// extern const char* TOPIC_CMD_STORM;
-// extern const char* TOPIC_CMD_SONG;
-// extern const char* TOPIC_CMD_NEXT;
-// extern const char* TOPIC_BC_STORM;
-// extern const char* TOPIC_BC_PARTY;
-// extern const char* TOPIC_BC_GAS;
-// extern const char* TOPIC_CURRENT_SONG;
-// extern const char* TOPIC_SONGLIST;
+
+// TEST/DEBUG 
+extern const char* TOPIC_BUTTON_BTN1;    // "resort/house1/button/btn1"
+extern const char* TOPIC_BUTTON_BTN2;    // "resort/house1/button/btn2"
 
 // ==== STATIC IP / DHCP ====
 extern const bool USE_STATIC_IP;
