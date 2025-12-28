@@ -48,8 +48,8 @@ void handleMqtt(const String& topic, const String& payload) {
   Serial.println(payload);
 
   if (topic == TOPIC_BC_PARTY) {
-    if (payload == "ON") startParty(false);
-    else if (payload == "OFF") stopParty(false);
+    if (payload == "PARTY") startParty(false);
+    else if (payload == "NORMAL") stopParty(false);
     else Serial.print("payload unbekannt:" + payload);
   } 
   else if (topic == TOPIC_BC_STORM) {
