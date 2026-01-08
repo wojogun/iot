@@ -18,9 +18,9 @@ const char* mqtt_user = "xxxxx";
 const char* mqtt_pass = "xxxxxx";
 
 // ================= TOPICS =================
-const char* tStorm = "resort/bc/storm";
-const char* tParty = "resort/bc/party";
-const char* tGas = "resort/bc/gas";
+const char* tStorm = "resort/broadcast/storm";
+const char* tParty = "resort/broadcast/party";
+const char* tGas = "resort/broadcast/gas";
 const char* tGasSensor = "resort/house4/sensor/gas";
 
 // ================= HARDWARE =================
