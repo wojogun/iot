@@ -150,36 +150,36 @@ void partyLightsStep(unsigned long now) {
 // ============= EVENTSTEUERUNG ======================
 void startGas(bool publish) {
   currentGasStatus = ON;
+  if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUSGAS_HOUSE3, "ON");
   strip.show();
   printWarnings();
   warnton();
-  if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUSGAS_HOUSE3, "ON");
 }
 void stopGas(bool publish) {
   currentGasStatus = OFF;
+  if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUSGAS_HOUSE3, "OFF");
   strip.show();
   switchLed(false);
   printWarnings();
-  if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUSGAS_HOUSE3, "OFF");
 }
 
 void startStorm(bool publish) {
   currentStormStatus = ON;
+  if (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "ON", true);
   ctrWindow(WINDOW_CLOSED);
   ctrDoor(DOOR_CLOSED);  strip.clear();
   strip.show();
   controlParty(MODE_NORMAL,false);  // Party beenden
   printWarnings();
   warnton();
-  if (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "ON", true);
 }
 void stopStorm(bool publish) {
   currentStormStatus = OFF;
+  if (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "OFF", true);
   ctrWindow(WINDOW_OPEN);
   ctrDoor(DOOR_OPEN);
   switchLed(false);
   printWarnings();
-  if (mqttClient.connected())  mqttClient.publish(TOPIC_STATUSSTORM_HOUSE3, "OFF", true);
 }
 
 void printWarnings() {
