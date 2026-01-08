@@ -14,8 +14,8 @@ const char* password = "XXXXXX";
 // ================= MQTT =================
 const char* mqtt_server = "5e16dbde757548029c0591f1f71f376c.s1.eu.hivemq.cloud";
 const int mqtt_port = 8883;
-const char* mqtt_user = "haus4";
-const char* mqtt_pass = "yba4AHU-pvm0qdy_eqh";
+const char* mqtt_user = "xxxxx";
+const char* mqtt_pass = "xxxxxx";
 
 // ================= TOPICS =================
 const char* tStorm = "resort/bc/storm";
