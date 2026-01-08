@@ -8,14 +8,6 @@
         "env": []
     },
     {
-        "id": "286557666808980f",
-        "type": "tab",
-        "label": "Broadcasts",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "2c844c3793f1d538",
         "type": "tab",
         "label": "Lisa",
@@ -307,7 +299,7 @@
         "type": "ui_group",
         "name": "Navigation",
         "tab": "28c5ad1ca752bc29",
-        "order": 3,
+        "order": 4,
         "disp": true,
         "width": 6,
         "collapse": false,
@@ -373,7 +365,7 @@
         "type": "ui_group",
         "name": "Navigation",
         "tab": "386d33745bb63295",
-        "order": 2,
+        "order": 3,
         "disp": true,
         "width": 6,
         "collapse": false,
@@ -384,7 +376,7 @@
         "type": "ui_group",
         "name": "Wurlitzer",
         "tab": "28c5ad1ca752bc29",
-        "order": 2,
+        "order": 3,
         "disp": true,
         "width": 6,
         "collapse": false,
@@ -435,7 +427,7 @@
     {
         "id": "e7f891494f2a241a",
         "type": "ui_group",
-        "name": "Monitoring Temperatur & Huminity",
+        "name": "Monitoring Temperature & Huminity",
         "tab": "0bb41b5d881f5f19",
         "order": 4,
         "disp": true,
@@ -510,6 +502,255 @@
         "disp": true,
         "width": "6",
         "collapse": false
+    },
+    {
+        "id": "MQTT_BROKER_PLACEHOLDER",
+        "type": "mqtt-broker",
+        "name": "HiveMQ Cloud",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "haus4_ui_group",
+        "type": "ui_group",
+        "name": "Haus 4 Luftqualität",
+        "tab": "",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "d210af45e3e7dd1a",
+        "type": "ui_group",
+        "name": "Infos zum Haus",
+        "tab": "28c5ad1ca752bc29",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "cf67257e6ff523f5",
+        "type": "ui_group",
+        "name": "Group 4",
+        "tab": "64825012a596ae10",
+        "order": 4,
+        "disp": true,
+        "width": 6
+    },
+    {
+        "id": "e88a19abd4c999b4",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "d71f0e3b0e2238d0",
+        "order": 1,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "275fe9e697fb99db",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "1e8024d9de399da1",
+        "order": 1,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "73a2e4a3435b4f09",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "1e8024d9de399da1",
+        "order": 7,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "118c94637e3240f7",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "1e8024d9de399da1",
+        "order": 13,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "4fb71d312c3b2265",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "d71f0e3b0e2238d0",
+        "order": 12,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "a34bd73556ecb69a",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "d71f0e3b0e2238d0",
+        "order": 7,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "13b31f8d0b842824",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "1e8024d9de399da1",
+        "order": 11,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "6292287c3497faab",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "e7f891494f2a241a",
+        "order": 1,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "80dadd12e89fa52f",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "e7f891494f2a241a",
+        "order": 3,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "f192000b4076ac83",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "e7f891494f2a241a",
+        "order": 6,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "c94ad8722286b51b",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "e7f891494f2a241a",
+        "order": 5,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "80a136d64cdf81c1",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "f4990f2439e68862",
+        "order": 1,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "0b293776cede12de",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "f4990f2439e68862",
+        "order": 3,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "072a320bc3c83b99",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "f4990f2439e68862",
+        "order": 5,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "12b07b6287c94875",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "f4990f2439e68862",
+        "order": 6,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "10700a406573d000",
+        "type": "ui_spacer",
+        "z": "2c844c3793f1d538",
+        "name": "spacer",
+        "group": "1e8024d9de399da1",
+        "order": 12,
+        "width": "6",
+        "height": "1"
+    },
+    {
+        "id": "c710d9ab02ba0237",
+        "type": "ui_spacer",
+        "z": "e0e6e27fee6730d6",
+        "name": "spacer",
+        "group": "f1301ef20b18c6b9",
+        "order": 1,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "6b6ebe4652e48a91",
+        "type": "ui_group",
+        "name": "Broadcast",
+        "tab": "386d33745bb63295",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "74f1ebbd5419930d",
+        "type": "ui_spacer",
+        "z": "e0e6e27fee6730d6",
+        "name": "spacer",
+        "group": "6b6ebe4652e48a91",
+        "order": 3,
+        "width": 1,
+        "height": 1
     },
     {
         "id": "6b8a05d262ab0379",
@@ -691,7 +932,7 @@
         "width": 0,
         "height": 0,
         "passthru": false,
-        "label": "Simulation",
+        "label": "Simulation (dev only)",
         "tooltip": "",
         "color": "",
         "bgcolor": "",
@@ -701,7 +942,7 @@
         "payloadType": "json",
         "topic": "topic",
         "topicType": "msg",
-        "x": 130,
+        "x": 160,
         "y": 300,
         "wires": [
             [
@@ -747,7 +988,7 @@
         "type": "ui_text",
         "z": "2db7a37be5d36cbd",
         "group": "c9ce7202cfd50d48",
-        "order": 9,
+        "order": 8,
         "width": "3",
         "height": "1",
         "name": "",
@@ -864,30 +1105,9 @@
         "y": 900,
         "wires": [
             [
-                "32914fd07674fd06"
+                "555ffa6c9c1ccc6c"
             ]
         ]
-    },
-    {
-        "id": "32914fd07674fd06",
-        "type": "ui_text",
-        "z": "2db7a37be5d36cbd",
-        "group": "c9ce7202cfd50d48",
-        "order": 18,
-        "width": "3",
-        "height": "1",
-        "name": "",
-        "label": "Haus 4:",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 320,
-        "y": 900,
-        "wires": []
     },
     {
         "id": "328af5a018f70904",
@@ -915,7 +1135,7 @@
         "type": "ui_text",
         "z": "2db7a37be5d36cbd",
         "group": "c9ce7202cfd50d48",
-        "order": 8,
+        "order": 9,
         "width": "2",
         "height": "1",
         "name": "",
@@ -1285,7 +1505,7 @@
         ],
         "allowColorForValueInMessage": false,
         "shape": "circle",
-        "showGlow": false,
+        "showGlow": true,
         "name": "s2g",
         "x": 470,
         "y": 580,
@@ -1385,57 +1605,6 @@
         ]
     },
     {
-        "id": "14ee02898351e537",
-        "type": "ui_led",
-        "z": "2db7a37be5d36cbd",
-        "order": 20,
-        "group": "c9ce7202cfd50d48",
-        "width": "1",
-        "height": "1",
-        "label": "",
-        "labelPlacement": "left",
-        "labelAlignment": "left",
-        "colorForValue": [
-            {
-                "color": "#ff0000",
-                "value": "ON",
-                "valueType": "str"
-            },
-            {
-                "color": "#008000",
-                "value": "OFF",
-                "valueType": "str"
-            },
-            {
-                "color": "#ff0000",
-                "value": "false",
-                "valueType": "bool"
-            },
-            {
-                "color": "#008000",
-                "value": "true",
-                "valueType": "bool"
-            },
-            {
-                "color": "#008000",
-                "value": "1",
-                "valueType": "num"
-            },
-            {
-                "color": "#ff0000",
-                "value": "0",
-                "valueType": "num"
-            }
-        ],
-        "allowColorForValueInMessage": false,
-        "shape": "circle",
-        "showGlow": true,
-        "name": "s4g",
-        "x": 470,
-        "y": 900,
-        "wires": []
-    },
-    {
         "id": "fd68c88ede362649",
         "type": "mqtt in",
         "z": "2db7a37be5d36cbd",
@@ -1452,60 +1621,9 @@
         "y": 940,
         "wires": [
             [
-                "14ee02898351e537"
+                "d8e3ad919c25d254"
             ]
         ]
-    },
-    {
-        "id": "36eab110d32d1d70",
-        "type": "ui_led",
-        "z": "2db7a37be5d36cbd",
-        "order": 19,
-        "group": "c9ce7202cfd50d48",
-        "width": "2",
-        "height": "1",
-        "label": "",
-        "labelPlacement": "left",
-        "labelAlignment": "left",
-        "colorForValue": [
-            {
-                "color": "#ff0000",
-                "value": "ON",
-                "valueType": "str"
-            },
-            {
-                "color": "#008000",
-                "value": "OFF",
-                "valueType": "str"
-            },
-            {
-                "color": "#ff0000",
-                "value": "false",
-                "valueType": "bool"
-            },
-            {
-                "color": "#008000",
-                "value": "true",
-                "valueType": "bool"
-            },
-            {
-                "color": "#008000",
-                "value": "1",
-                "valueType": "num"
-            },
-            {
-                "color": "#ff0000",
-                "value": "0",
-                "valueType": "num"
-            }
-        ],
-        "allowColorForValueInMessage": false,
-        "shape": "circle",
-        "showGlow": true,
-        "name": "s4s",
-        "x": 590,
-        "y": 900,
-        "wires": []
     },
     {
         "id": "af5aeac6deebd041",
@@ -1524,9 +1642,92 @@
         "y": 980,
         "wires": [
             [
-                "36eab110d32d1d70"
+                "64baf84d02ea3acb"
             ]
         ]
+    },
+    {
+        "id": "555ffa6c9c1ccc6c",
+        "type": "ui_text",
+        "z": "2db7a37be5d36cbd",
+        "group": "c9ce7202cfd50d48",
+        "order": 18,
+        "width": "3",
+        "height": "1",
+        "name": "",
+        "label": "Haus 4:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 320,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "d8e3ad919c25d254",
+        "type": "ui_led",
+        "z": "2db7a37be5d36cbd",
+        "order": 19,
+        "group": "c9ce7202cfd50d48",
+        "width": "1",
+        "height": "1",
+        "label": "",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "s4g",
+        "x": 470,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "64baf84d02ea3acb",
+        "type": "ui_led",
+        "z": "2db7a37be5d36cbd",
+        "order": 20,
+        "group": "c9ce7202cfd50d48",
+        "width": "2",
+        "height": "1",
+        "label": "",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "s4s",
+        "x": 590,
+        "y": 900,
+        "wires": []
     },
     {
         "id": "be79fe1645d534af",
@@ -1545,7 +1746,7 @@
         "name": "zurück",
         "events": "change",
         "x": 290,
-        "y": 1280,
+        "y": 1320,
         "wires": [
             []
         ]
@@ -1556,9 +1757,9 @@
         "z": "2c844c3793f1d538",
         "name": "",
         "group": "d71f0e3b0e2238d0",
-        "order": 10,
-        "width": 0,
-        "height": 0,
+        "order": 13,
+        "width": "6",
+        "height": "1",
         "passthru": false,
         "label": "zurück",
         "tooltip": "",
@@ -1571,7 +1772,7 @@
         "topic": "topic",
         "topicType": "msg",
         "x": 90,
-        "y": 1280,
+        "y": 1320,
         "wires": [
             [
                 "c5161f0831cb356d"
@@ -1579,117 +1780,24 @@
         ]
     },
     {
-        "id": "849ac0b705c3f7e6",
-        "type": "ui_button",
-        "z": "2c844c3793f1d538",
-        "name": "Sturmwarnung ON",
-        "group": "1e8024d9de399da1",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Sturmwarnung ON",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "ON",
-        "payloadType": "str",
-        "topic": "topic",
-        "topicType": "msg",
-        "x": 110,
-        "y": 780,
-        "wires": [
-            [
-                "ddfa55bd007e202a",
-                "f30b4a51b32a6fa7"
-            ]
-        ]
-    },
-    {
-        "id": "ddfa55bd007e202a",
-        "type": "mqtt out",
-        "z": "2c844c3793f1d538",
-        "name": "",
-        "topic": "resort/bc/storm",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "7330420b6e6914f6",
-        "x": 680,
-        "y": 880,
-        "wires": []
-    },
-    {
-        "id": "b2ab65039c11db9f",
-        "type": "ui_button",
-        "z": "2c844c3793f1d538",
-        "name": "Sturmwarnung OFF",
-        "group": "1e8024d9de399da1",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Sturmwarnung OFF",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "OFF",
-        "payloadType": "str",
-        "topic": "topic",
-        "topicType": "msg",
-        "x": 110,
-        "y": 840,
-        "wires": [
-            [
-                "ddfa55bd007e202a",
-                "f30b4a51b32a6fa7"
-            ]
-        ]
-    },
-    {
-        "id": "a3177e3c98b070d7",
-        "type": "debug",
-        "z": "2c844c3793f1d538",
-        "name": "debug Sturmwarnung",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 960,
-        "y": 800,
-        "wires": []
-    },
-    {
         "id": "252b9e7b2478f84a",
         "type": "ui_chart",
         "z": "2c844c3793f1d538",
         "name": "",
         "group": "e7f891494f2a241a",
-        "order": 5,
-        "width": 0,
-        "height": 0,
+        "order": 2,
+        "width": "6",
+        "height": "4",
         "label": "Temperatur Chart",
         "chartType": "line",
         "legend": "false",
-        "xformat": "HH:mm:ss",
+        "xformat": "HH:mm",
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
         "ymin": "-10",
         "ymax": "45",
-        "removeOlder": 1,
+        "removeOlder": "3",
         "removeOlderPoints": "",
         "removeOlderUnit": "3600",
         "cutout": 0,
@@ -1710,7 +1818,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 470,
-        "y": 220,
+        "y": 420,
         "wires": [
             []
         ]
@@ -1721,19 +1829,19 @@
         "z": "2c844c3793f1d538",
         "name": "",
         "group": "f4990f2439e68862",
-        "order": 5,
-        "width": 0,
-        "height": 0,
+        "order": 2,
+        "width": "6",
+        "height": "4",
         "label": "Steam Chart",
         "chartType": "line",
         "legend": "false",
-        "xformat": "HH:mm:ss",
+        "xformat": "HH:mm",
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
         "ymin": "0",
         "ymax": "5000",
-        "removeOlder": 1,
+        "removeOlder": "3",
         "removeOlderPoints": "",
         "removeOlderUnit": "3600",
         "cutout": 0,
@@ -1754,7 +1862,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 450,
-        "y": 360,
+        "y": 540,
         "wires": [
             []
         ]
@@ -1764,7 +1872,7 @@
         "type": "mqtt in",
         "z": "2c844c3793f1d538",
         "name": "Wetterdaten Temperatur",
-        "topic": "resort/house1/weather/temp",
+        "topic": "resort/house1/status/temp",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "7330420b6e6914f6",
@@ -1773,7 +1881,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 140,
-        "y": 220,
+        "y": 420,
         "wires": [
             [
                 "252b9e7b2478f84a"
@@ -1786,19 +1894,19 @@
         "z": "2c844c3793f1d538",
         "name": "",
         "group": "e7f891494f2a241a",
-        "order": 5,
-        "width": 0,
-        "height": 0,
-        "label": "Humintiy Chart ",
+        "order": 4,
+        "width": "6",
+        "height": "4",
+        "label": "Huminity Chart ",
         "chartType": "line",
         "legend": "false",
-        "xformat": "HH:mm:ss",
+        "xformat": "HH:mm",
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
         "ymin": "0",
         "ymax": "100",
-        "removeOlder": 1,
+        "removeOlder": "3",
         "removeOlderPoints": "",
         "removeOlderUnit": "3600",
         "cutout": 0,
@@ -1819,7 +1927,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 460,
-        "y": 300,
+        "y": 480,
         "wires": [
             []
         ]
@@ -1830,19 +1938,19 @@
         "z": "2c844c3793f1d538",
         "name": "",
         "group": "f4990f2439e68862",
-        "order": 5,
+        "order": 4,
         "width": 0,
         "height": 0,
         "label": "Wind Chart",
         "chartType": "line",
         "legend": "false",
-        "xformat": "HH:mm:ss",
+        "xformat": "HH:mm",
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
         "ymin": "0",
         "ymax": "100",
-        "removeOlder": 1,
+        "removeOlder": "3",
         "removeOlderPoints": "",
         "removeOlderUnit": "3600",
         "cutout": 0,
@@ -1863,7 +1971,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 450,
-        "y": 420,
+        "y": 600,
         "wires": [
             []
         ]
@@ -1881,8 +1989,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 930,
-        "y": 360,
+        "x": 790,
+        "y": 200,
         "wires": []
     },
     {
@@ -1890,7 +1998,7 @@
         "type": "mqtt in",
         "z": "2c844c3793f1d538",
         "name": "Wetterdaten Humanity",
-        "topic": "resort/house1/weather/hum",
+        "topic": "resort/house1/status/hum",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "7330420b6e6914f6",
@@ -1899,7 +2007,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 140,
-        "y": 300,
+        "y": 480,
         "wires": [
             [
                 "ef09c3a5550afc96"
@@ -1911,7 +2019,7 @@
         "type": "mqtt in",
         "z": "2c844c3793f1d538",
         "name": "Wetterdaten Steam/Regen/Nebel",
-        "topic": "resort/house1/weather/steam",
+        "topic": "resort/house1/status/steam",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "7330420b6e6914f6",
@@ -1920,7 +2028,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 170,
-        "y": 360,
+        "y": 540,
         "wires": [
             [
                 "dd6804222ad20f62"
@@ -1932,7 +2040,7 @@
         "type": "mqtt in",
         "z": "2c844c3793f1d538",
         "name": "Wetterdaten Wind",
-        "topic": "resort/house1/weather/wind",
+        "topic": "resort/house1/status/wind",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "7330420b6e6914f6",
@@ -1941,7 +2049,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 130,
-        "y": 420,
+        "y": 600,
         "wires": [
             [
                 "2035709934bb76e8"
@@ -1949,95 +2057,11 @@
         ]
     },
     {
-        "id": "4021fa5638b74780",
-        "type": "ui_text",
-        "z": "2c844c3793f1d538",
-        "group": "d71f0e3b0e2238d0",
-        "order": 1,
-        "width": "6",
-        "height": "1",
-        "name": "",
-        "label": "Temperatur",
-        "format": "{{msg.payload.temp}} °C",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 810,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "388d107b2e1cd877",
-        "type": "ui_text",
-        "z": "2c844c3793f1d538",
-        "group": "d71f0e3b0e2238d0",
-        "order": 2,
-        "width": "6",
-        "height": "1",
-        "name": "",
-        "label": "Luftfeuchtigkeit",
-        "format": "{{msg.payload.hum}} %",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 820,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "7193dd767f9926bf",
-        "type": "ui_text",
-        "z": "2c844c3793f1d538",
-        "group": "d71f0e3b0e2238d0",
-        "order": 3,
-        "width": "6",
-        "height": "1",
-        "name": "",
-        "label": "Niederschlag",
-        "format": "{{msg.payload.steam}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 810,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "1cea3ad4b49bf69a",
-        "type": "ui_text",
-        "z": "2c844c3793f1d538",
-        "group": "d71f0e3b0e2238d0",
-        "order": 4,
-        "width": "6",
-        "height": "1",
-        "name": "",
-        "label": "Wind",
-        "format": "{{msg.payload.wind}} km/h",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 790,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "3022e6f09e4763d3",
+        "id": "69aa9ff0c62e2262",
         "type": "mqtt in",
         "z": "2c844c3793f1d538",
-        "name": "Sturm Alert",
-        "topic": "resort/house1/storm/alert",
+        "name": "resort/house1/status",
+        "topic": "resort/house1/status",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "7330420b6e6914f6",
@@ -2045,43 +2069,20 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 80,
-        "y": 600,
+        "x": 130,
+        "y": 100,
         "wires": [
             [
-                "343247e2c51e31a6",
-                "1342b4a9b1125e55",
-                "d77a1655a5c669ef"
+                "6a7a6b4f43e14fd3"
             ]
         ]
     },
     {
-        "id": "343247e2c51e31a6",
-        "type": "function",
-        "z": "2c844c3793f1d538",
-        "d": true,
-        "name": "Send Alert",
-        "func": "\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 370,
-        "y": 680,
-        "wires": [
-            [
-                "ddfa55bd007e202a"
-            ]
-        ]
-    },
-    {
-        "id": "806e414d868c9123",
+        "id": "8064b6f0c00bf35f",
         "type": "mqtt in",
         "z": "2c844c3793f1d538",
-        "name": "Alle Wetterdaten House 1",
-        "topic": "resort/house1/weathervalues",
+        "name": "resort/house1/status/temp",
+        "topic": "resort/house1/status/temp",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "7330420b6e6914f6",
@@ -2090,59 +2091,794 @@
         "rh": 0,
         "inputs": 0,
         "x": 150,
-        "y": 120,
+        "y": 160,
         "wires": [
             [
-                "2074c82873eee622",
-                "4021fa5638b74780",
-                "388d107b2e1cd877",
-                "7193dd767f9926bf",
-                "1cea3ad4b49bf69a"
+                "2f27d9469edd6a3e"
             ]
         ]
     },
     {
-        "id": "2074c82873eee622",
-        "type": "json",
+        "id": "7ab20a7690d76b5e",
+        "type": "mqtt in",
         "z": "2c844c3793f1d538",
-        "name": "Weather Parser",
-        "property": "payload",
-        "action": "obj",
-        "pretty": false,
-        "x": 460,
-        "y": 80,
+        "name": "resort/house1/status/hum",
+        "topic": "resort/house1/status/hum",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 220,
         "wires": [
             [
-                "0b9ee5a4ec1d3639"
+                "40aaa364539dff06"
             ]
         ]
     },
     {
-        "id": "0b9ee5a4ec1d3639",
-        "type": "ui_text",
+        "id": "4e9828729c58b1ab",
+        "type": "mqtt in",
+        "z": "2c844c3793f1d538",
+        "name": "resort/house1/status/steam",
+        "topic": "resort/house1/status/steam",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "11b16c9af8f3d1c1"
+            ]
+        ]
+    },
+    {
+        "id": "395594c4efd72fad",
+        "type": "mqtt in",
+        "z": "2c844c3793f1d538",
+        "name": "resort/house1/status/wind",
+        "topic": "resort/house1/status/wind",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 340,
+        "wires": [
+            [
+                "a9875fcde48c1835"
+            ]
+        ]
+    },
+    {
+        "id": "a29f249f10889769",
+        "type": "ui_switch",
+        "z": "2c844c3793f1d538",
+        "name": "Storm active",
+        "label": "Change values manually",
+        "tooltip": "",
+        "group": "1e8024d9de399da1",
+        "order": 2,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 110,
+        "y": 920,
+        "wires": [
+            [
+                "4f1c95a6a5cf7615"
+            ]
+        ]
+    },
+    {
+        "id": "4f1c95a6a5cf7615",
+        "type": "mqtt out",
+        "z": "2c844c3793f1d538",
+        "name": "",
+        "topic": "resort/house1/simulation/enabled",
+        "qos": "",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 540,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "f32f95312761e251",
+        "type": "ui_slider",
+        "z": "2c844c3793f1d538",
+        "name": "",
+        "label": "Simulation Wind",
+        "tooltip": "",
+        "group": "1e8024d9de399da1",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "100",
+        "step": "10",
+        "className": "",
+        "x": 120,
+        "y": 1180,
+        "wires": [
+            [
+                "db738a31a7a92a95"
+            ]
+        ]
+    },
+    {
+        "id": "db738a31a7a92a95",
+        "type": "mqtt out",
+        "z": "2c844c3793f1d538",
+        "name": "",
+        "topic": "resort/house1/simulation/wind",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 530,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "9d9be7f4959ed23f",
+        "type": "ui_slider",
+        "z": "2c844c3793f1d538",
+        "name": "",
+        "label": "Simulation Rain",
+        "tooltip": "",
+        "group": "1e8024d9de399da1",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "4499",
+        "step": "100",
+        "className": "",
+        "x": 120,
+        "y": 1220,
+        "wires": [
+            [
+                "fe480483404e28d2"
+            ]
+        ]
+    },
+    {
+        "id": "fe480483404e28d2",
+        "type": "mqtt out",
+        "z": "2c844c3793f1d538",
+        "name": "",
+        "topic": "resort/house1/simulation/steam",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 530,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "6efecbbb1ccc920e",
+        "type": "ui_button",
         "z": "2c844c3793f1d538",
         "d": true,
+        "name": "Sturmwarnung AUTO",
+        "group": "1e8024d9de399da1",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Sturmwarnung AUTO",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "AUTO",
+        "payloadType": "str",
+        "topic": "resort/house1/cmd/storm",
+        "topicType": "msg",
+        "x": 140,
+        "y": 960,
+        "wires": [
+            [
+                "50c482b7515dd6c5",
+                "05049ada60a94126"
+            ]
+        ]
+    },
+    {
+        "id": "2f27d9469edd6a3e",
+        "type": "ui_text",
+        "z": "2c844c3793f1d538",
         "group": "d71f0e3b0e2238d0",
-        "order": 7,
+        "order": 2,
         "width": "6",
-        "height": "2",
-        "name": "Alle Wetterdaten anzeigen",
-        "label": "Weather",
-        "format": "<b>Temperatur:</b> {{msg.payload.temp}} °C<br> <b>Humidity:</b> {{msg.payload.hum}} %<br> <b>Steam:</b> {{msg.payload.steam}}<br> <b>Wind:</b> {{msg.payload.wind}} km/h",
+        "height": "1",
+        "name": "",
+        "label": "Temperatur",
+        "format": "{{msg.payload}} °C",
         "layout": "row-spread",
         "className": "",
         "style": false,
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 860,
-        "y": 80,
+        "x": 470,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "40aaa364539dff06",
+        "type": "ui_text",
+        "z": "2c844c3793f1d538",
+        "group": "d71f0e3b0e2238d0",
+        "order": 3,
+        "width": "6",
+        "height": "1",
+        "name": "",
+        "label": "Luftfeuchtigkeit",
+        "format": "{{msg.payload}} %",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 480,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "11b16c9af8f3d1c1",
+        "type": "ui_text",
+        "z": "2c844c3793f1d538",
+        "group": "d71f0e3b0e2238d0",
+        "order": 4,
+        "width": "6",
+        "height": "1",
+        "name": "",
+        "label": "Niederschlag",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 470,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "a9875fcde48c1835",
+        "type": "ui_text",
+        "z": "2c844c3793f1d538",
+        "group": "d71f0e3b0e2238d0",
+        "order": 5,
+        "width": "6",
+        "height": "1",
+        "name": "",
+        "label": "Wind",
+        "format": "{{msg.payload}} km/h",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 450,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "6a7a6b4f43e14fd3",
+        "type": "ui_text",
+        "z": "2c844c3793f1d538",
+        "group": "d71f0e3b0e2238d0",
+        "order": 6,
+        "width": "6",
+        "height": "1",
+        "name": "",
+        "label": "Status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 450,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a79589a796b71d3f",
+        "type": "mqtt in",
+        "z": "2c844c3793f1d538",
+        "name": "",
+        "topic": "resort/house1/status/gas",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 760,
+        "wires": [
+            [
+                "7c38dd0844b9583e"
+            ]
+        ]
+    },
+    {
+        "id": "caa4414da6274dbd",
+        "type": "mqtt in",
+        "z": "2c844c3793f1d538",
+        "name": "",
+        "topic": "resort/house1/status/storm",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 700,
+        "wires": [
+            [
+                "81baf38fb580715d",
+                "9f4a3a8aecef0c38"
+            ]
+        ]
+    },
+    {
+        "id": "140c0af835e4daaf",
+        "type": "mqtt in",
+        "z": "2c844c3793f1d538",
+        "name": "",
+        "topic": "resort/house1/status/party",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 820,
+        "wires": [
+            [
+                "09286da77ffa3ecf",
+                "9f4a3a8aecef0c38"
+            ]
+        ]
+    },
+    {
+        "id": "64c91e896bd3fcba",
+        "type": "ui_button",
+        "z": "2c844c3793f1d538",
+        "name": "Sturmwarnung ON",
+        "group": "1e8024d9de399da1",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Sturmwarnung ON",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "ON",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 130,
+        "y": 1000,
+        "wires": [
+            [
+                "50c482b7515dd6c5",
+                "05049ada60a94126"
+            ]
+        ]
+    },
+    {
+        "id": "d7fc737c60423b03",
+        "type": "ui_button",
+        "z": "2c844c3793f1d538",
+        "name": "Sturmwarnung OFF",
+        "group": "1e8024d9de399da1",
+        "order": 10,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Sturmwarnung OFF",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "OFF",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 130,
+        "y": 1040,
+        "wires": [
+            [
+                "50c482b7515dd6c5",
+                "05049ada60a94126"
+            ]
+        ]
+    },
+    {
+        "id": "05049ada60a94126",
+        "type": "mqtt out",
+        "z": "2c844c3793f1d538",
+        "name": "",
+        "topic": "resort/bc/storm",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 480,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "50c482b7515dd6c5",
+        "type": "mqtt out",
+        "z": "2c844c3793f1d538",
+        "name": "",
+        "topic": "resort/house1/storm/cmd",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 510,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "acbd5c6de88661c1",
+        "type": "ui_slider",
+        "z": "2c844c3793f1d538",
+        "name": "",
+        "label": "Simulation Temperature",
+        "tooltip": "",
+        "group": "1e8024d9de399da1",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": "-5",
+        "max": "45",
+        "step": "1",
+        "className": "",
+        "x": 150,
+        "y": 1140,
+        "wires": [
+            [
+                "d0c226a1b6b0c045"
+            ]
+        ]
+    },
+    {
+        "id": "d0c226a1b6b0c045",
+        "type": "mqtt out",
+        "z": "2c844c3793f1d538",
+        "name": "",
+        "topic": "resort/house1/simulation/temp",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 530,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "a052918ef5674409",
+        "type": "ui_slider",
+        "z": "2c844c3793f1d538",
+        "name": "",
+        "label": "Simulation Fan",
+        "tooltip": "",
+        "group": "1e8024d9de399da1",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "100",
+        "step": "10",
+        "className": "",
+        "x": 120,
+        "y": 1100,
+        "wires": [
+            [
+                "5bfa850ee5fa771e"
+            ]
+        ]
+    },
+    {
+        "id": "5bfa850ee5fa771e",
+        "type": "mqtt out",
+        "z": "2c844c3793f1d538",
+        "name": "",
+        "topic": "resort/house1/fan/cmd",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 500,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "7c38dd0844b9583e",
+        "type": "ui_led",
+        "z": "2c844c3793f1d538",
+        "order": 10,
+        "group": "d71f0e3b0e2238d0",
+        "width": "6",
+        "height": "1",
+        "label": "BC Status Gas",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "ON",
+                "valueType": "str"
+            },
+            {
+                "color": "#008000",
+                "value": "OFF",
+                "valueType": "str"
+            },
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "1",
+                "valueType": "num"
+            },
+            {
+                "color": "#ff0000",
+                "value": "0",
+                "valueType": "num"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "Led Gas",
+        "x": 460,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "81baf38fb580715d",
+        "type": "ui_led",
+        "z": "2c844c3793f1d538",
+        "order": 9,
+        "group": "d71f0e3b0e2238d0",
+        "width": "6",
+        "height": "1",
+        "label": "BC Status Storm",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "ON",
+                "valueType": "str"
+            },
+            {
+                "color": "#008000",
+                "value": "OFF",
+                "valueType": "str"
+            },
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "1",
+                "valueType": "num"
+            },
+            {
+                "color": "#ff0000",
+                "value": "0",
+                "valueType": "num"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "Led Storm",
+        "x": 470,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "09286da77ffa3ecf",
+        "type": "ui_led",
+        "z": "2c844c3793f1d538",
+        "order": 11,
+        "group": "d71f0e3b0e2238d0",
+        "width": "6",
+        "height": "1",
+        "label": "BC Status Party",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "ON",
+                "valueType": "str"
+            },
+            {
+                "color": "#008000",
+                "value": "OFF",
+                "valueType": "str"
+            },
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "1",
+                "valueType": "num"
+            },
+            {
+                "color": "#ff0000",
+                "value": "0",
+                "valueType": "num"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "Led Party",
+        "x": 460,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "a3177e3c98b070d7",
+        "type": "debug",
+        "z": "2c844c3793f1d538",
+        "name": "debug Sturmwarnung",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "9f4a3a8aecef0c38",
+        "type": "debug",
+        "z": "2c844c3793f1d538",
+        "name": "debug Broadcast sturm",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 720,
         "wires": []
     },
     {
         "id": "10c54e3723e279a6",
         "type": "ui_switch",
         "z": "2c844c3793f1d538",
+        "d": true,
         "name": "Storm active",
         "label": "Storm active",
         "tooltip": "",
@@ -2165,8 +2901,8 @@
         "offcolor": "",
         "animate": false,
         "className": "",
-        "x": 750,
-        "y": 600,
+        "x": 770,
+        "y": 1540,
         "wires": [
             [
                 "06011d0f9afc1891"
@@ -2174,177 +2910,27 @@
         ]
     },
     {
-        "id": "b072fcfe9174cd3e",
-        "type": "ui_button",
-        "z": "2c844c3793f1d538",
-        "name": "Sturmwarnung AUTO",
-        "group": "1e8024d9de399da1",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Sturmwarnung AUTO",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "AUTO",
-        "payloadType": "str",
-        "topic": "resort/house1/cmd/storm",
-        "topicType": "msg",
-        "x": 120,
-        "y": 720,
-        "wires": [
-            [
-                "f30b4a51b32a6fa7",
-                "ddfa55bd007e202a"
-            ]
-        ]
-    },
-    {
-        "id": "f30b4a51b32a6fa7",
-        "type": "mqtt out",
-        "z": "2c844c3793f1d538",
-        "name": "",
-        "topic": "resort/house1/cmd/storm",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "7330420b6e6914f6",
-        "x": 710,
-        "y": 720,
-        "wires": []
-    },
-    {
-        "id": "d131288f9efa285a",
-        "type": "ui_slider",
-        "z": "2c844c3793f1d538",
-        "name": "Wind Slider",
-        "label": "Wind",
-        "tooltip": "",
-        "group": "1e8024d9de399da1",
-        "order": 15,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "outs": "end",
-        "topic": "topic",
-        "topicType": "msg",
-        "min": 0,
-        "max": "100",
-        "step": "5",
-        "className": "",
-        "x": 90,
-        "y": 960,
-        "wires": [
-            [
-                "516899b9d98fa6ae"
-            ]
-        ]
-    },
-    {
-        "id": "516899b9d98fa6ae",
-        "type": "mqtt out",
-        "z": "2c844c3793f1d538",
-        "name": "Change Wind manual ",
-        "topic": "resort/house1/cmd/wind",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "7330420b6e6914f6",
-        "x": 700,
-        "y": 960,
-        "wires": []
-    },
-    {
-        "id": "a39c3854ddf3cb57",
-        "type": "ui_slider",
-        "z": "2c844c3793f1d538",
-        "name": "Temperatur Slider",
-        "label": "Temperatur",
-        "tooltip": "",
-        "group": "1e8024d9de399da1",
-        "order": 15,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "outs": "end",
-        "topic": "topic",
-        "topicType": "msg",
-        "min": "-10",
-        "max": "50",
-        "step": "1",
-        "className": "",
-        "x": 110,
-        "y": 1020,
-        "wires": [
-            [
-                "1cf52d37afbd20f7"
-            ]
-        ]
-    },
-    {
-        "id": "1cf52d37afbd20f7",
-        "type": "mqtt out",
-        "z": "2c844c3793f1d538",
-        "name": "Change Temperature manual ",
-        "topic": "resort/house1/cmd/temo",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "7330420b6e6914f6",
-        "x": 720,
-        "y": 1020,
-        "wires": []
-    },
-    {
-        "id": "d108cd4fc3df3bc0",
+        "id": "3022e6f09e4763d3",
         "type": "mqtt in",
         "z": "2c844c3793f1d538",
-        "name": "Test Broadcast Sturm",
-        "topic": "resort/bc/storm",
+        "d": true,
+        "name": "Sturm Alert",
+        "topic": "resort/house1/storm/alert",
         "qos": "2",
-        "datatype": "utf8",
+        "datatype": "auto-detect",
         "broker": "7330420b6e6914f6",
         "nl": false,
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 120,
-        "y": 1100,
+        "x": 100,
+        "y": 1540,
         "wires": [
-            []
+            [
+                "1342b4a9b1125e55",
+                "d77a1655a5c669ef"
+            ]
         ]
-    },
-    {
-        "id": "9f4a3a8aecef0c38",
-        "type": "debug",
-        "z": "2c844c3793f1d538",
-        "name": "debug Broadcast sturm",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 710,
-        "y": 1100,
-        "wires": []
     },
     {
         "id": "1342b4a9b1125e55",
@@ -2377,8 +2963,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 460,
-        "y": 540,
+        "x": 480,
+        "y": 1480,
         "wires": [
             [
                 "10c54e3723e279a6"
@@ -2389,6 +2975,7 @@
         "id": "06011d0f9afc1891",
         "type": "debug",
         "z": "2c844c3793f1d538",
+        "d": true,
         "name": "debug Sturm Alert",
         "active": true,
         "tosidebar": true,
@@ -2398,21 +2985,276 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1010,
-        "y": 600,
+        "x": 1030,
+        "y": 1540,
         "wires": []
     },
     {
-        "id": "185a4176dc714c87",
+        "id": "d77a1655a5c669ef",
+        "type": "function",
+        "z": "2c844c3793f1d538",
+        "d": true,
+        "name": "Parse Alert",
+        "func": "const v = msg.payload;\nmsg.payload = (v === 1 || v === \"1\" || v === true);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 1540,
+        "wires": [
+            [
+                "10c54e3723e279a6"
+            ]
+        ]
+    },
+    {
+        "id": "e2aa0c59425f8fb8",
+        "type": "mqtt out",
+        "z": "2c844c3793f1d538",
+        "d": true,
+        "name": "",
+        "topic": "resort/broadcast/storm",
+        "qos": "",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 1540,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "adf7231cdc485d45",
+        "type": "ui_switch",
+        "z": "2c844c3793f1d538",
+        "d": true,
+        "name": "",
+        "label": "Sturm",
+        "tooltip": "",
+        "group": "ea513cf81ffdb818",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "ON",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "OFF",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 1210,
+        "y": 260,
+        "wires": [
+            [
+                "e2aa0c59425f8fb8"
+            ]
+        ]
+    },
+    {
+        "id": "9f08a5ac5faabb90",
+        "type": "mqtt in",
+        "z": "2c844c3793f1d538",
+        "d": true,
+        "name": "",
+        "topic": "TOPIC_BC_STORM",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1250,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8de5db0e88c4d891",
+        "type": "mqtt in",
+        "z": "2c844c3793f1d538",
+        "d": true,
+        "name": "",
+        "topic": "TOPIC_BC_GAS",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1240,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4c0104760e7c4fba",
+        "type": "mqtt in",
+        "z": "2c844c3793f1d538",
+        "d": true,
+        "name": "",
+        "topic": "TOPIC_BC_PARTY",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1250,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2d08f6e9445cd695",
+        "type": "comment",
+        "z": "2c844c3793f1d538",
+        "d": true,
+        "name": "von jedem Haus zu verarbeiten!",
+        "info": "",
+        "x": 1510,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "8f334080035b26f5",
+        "type": "mqtt out",
+        "z": "2c844c3793f1d538",
+        "d": true,
+        "name": "",
+        "topic": "resort/broadcast/gas",
+        "qos": "",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 1540,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "1f0380fb1e652989",
+        "type": "ui_switch",
+        "z": "2c844c3793f1d538",
+        "d": true,
+        "name": "",
+        "label": "Gas",
+        "tooltip": "",
+        "group": "ea513cf81ffdb818",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "ON",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "OFF",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 1210,
+        "y": 220,
+        "wires": [
+            [
+                "8f334080035b26f5"
+            ]
+        ]
+    },
+    {
+        "id": "5a1c31597dbef0ba",
+        "type": "mqtt out",
+        "z": "2c844c3793f1d538",
+        "d": true,
+        "name": "",
+        "topic": "resort/broadcast/party",
+        "qos": "",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 1540,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "4848ee8061ce2862",
+        "type": "ui_switch",
+        "z": "2c844c3793f1d538",
+        "d": true,
+        "name": "",
+        "label": "Party",
+        "tooltip": "",
+        "group": "ea513cf81ffdb818",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "ON",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "OFF",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 1210,
+        "y": 300,
+        "wires": [
+            [
+                "5a1c31597dbef0ba"
+            ]
+        ]
+    },
+    {
+        "id": "bce0e85fa6187742",
         "type": "ui_button",
         "z": "2c844c3793f1d538",
-        "name": "Siedlung Sturmwarnung (BC)",
-        "group": "1e8024d9de399da1",
-        "order": 0,
+        "d": true,
+        "name": "Sturmwarnung ON",
+        "group": "ea513cf81ffdb818",
+        "order": 9,
         "width": 0,
         "height": 0,
         "passthru": false,
-        "label": "Siedlung Sturmwarnung",
+        "label": "gas an",
         "tooltip": "",
         "color": "",
         "bgcolor": "",
@@ -2422,31 +3264,11 @@
         "payloadType": "str",
         "topic": "topic",
         "topicType": "msg",
-        "x": 140,
-        "y": 880,
+        "x": 1250,
+        "y": 160,
         "wires": [
             [
-                "ddfa55bd007e202a"
-            ]
-        ]
-    },
-    {
-        "id": "d77a1655a5c669ef",
-        "type": "function",
-        "z": "2c844c3793f1d538",
-        "name": "Parse Alert",
-        "func": "const v = msg.payload;\nmsg.payload = (v === 1 || v === \"1\" || v === true);\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 450,
-        "y": 600,
-        "wires": [
-            [
-                "10c54e3723e279a6"
+                "8f334080035b26f5"
             ]
         ]
     },
@@ -3046,8 +3868,8 @@
         "correl": "",
         "expiry": "",
         "broker": "7330420b6e6914f6",
-        "x": 450,
-        "y": 180,
+        "x": 690,
+        "y": 240,
         "wires": []
     },
     {
@@ -3114,14 +3936,14 @@
         "z": "e418cf23a41a22ec",
         "name": "",
         "group": "423d54cdcab51aad",
-        "order": 5,
+        "order": 6,
         "width": 0,
         "height": 0,
         "passthru": false,
         "label": "Party buchen",
         "tooltip": "",
-        "color": "",
-        "bgcolor": "",
+        "color": "#FFF",
+        "bgcolor": "#007acc",
         "className": "",
         "icon": "",
         "payload": "",
@@ -3132,7 +3954,7 @@
         "y": 420,
         "wires": [
             [
-                "6e26917ea22f199d"
+                "67913fb2f1ba4984"
             ]
         ]
     },
@@ -3145,7 +3967,7 @@
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "nächste Party (local time):",
+        "label": "nächste Party:",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
@@ -3153,8 +3975,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 630,
-        "y": 420,
+        "x": 660,
+        "y": 340,
         "wires": []
     },
     {
@@ -3162,7 +3984,7 @@
         "type": "function",
         "z": "e418cf23a41a22ec",
         "name": "saveDate",
-        "func": "flow.set('partyDateTimeString', msg.payload);\nreturn msg;",
+        "func": "let v = msg.payload;\nnode.warn(\"payload: \" + v);\nflow.set(\"partySelectedTs\", v);\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -3172,48 +3994,6 @@
         "x": 360,
         "y": 380,
         "wires": [
-            [
-                "ac08162c3a7a09fb"
-            ]
-        ]
-    },
-    {
-        "id": "ac08162c3a7a09fb",
-        "type": "debug",
-        "z": "e418cf23a41a22ec",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 680,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "6e26917ea22f199d",
-        "type": "function",
-        "z": "e418cf23a41a22ec",
-        "name": "bookParty",
-        "func": "// raw kann String (\"2025-12-13T18:30\") ODER Number (1766659380000) sein\nlet raw = flow.get(\"partyDateTimeString\");\n\n// 1) Wenn Number: direkt als ms-Timestamp verwenden\nlet bookingTs = null;\nif (typeof raw === \"number\" && Number.isFinite(raw)) {\n  bookingTs = raw;\n} else {\n  // 2) Wenn String: parsen\n  if (typeof raw !== \"string\") raw = \"\";\n  raw = raw.trim().replace(\" \", \"T\");\n  const d = new Date(raw);\n  const ts = d.getTime();\n  bookingTs = Number.isFinite(ts) ? ts : null;\n}\n\nif (!bookingTs) {\n  msg.payload = \"Ungültige oder leere Datum/Zeit-Eingabe.\";\n  return [msg, null];\n}\n// toTimestamp: akzeptiert \"YYYY-MM-DDTHH:MM\" oder \"YYYY-MM-DD HH:MM\"\nfunction toTimestampLocal(s) {\n    if (!s || typeof s !== \"string\") return null;\n    s = s.trim().replace(\" \", \"T\");          // \" \" -> \"T\"\n    // datetime-local liefert ohne Sekunden; Date kann das lokal parsen.\n    const d = new Date(s);\n    const ts = d.getTime();\n    return Number.isFinite(ts) ? ts : null;\n}\n\n// formatLocal: Anzeige in Europe/Vienna\nfunction formatLocalVienna(ts) {\n    return new Date(ts).toLocaleString(\"de-AT\", {\n        timeZone: \"Europe/Vienna\",\n        year: \"numeric\", month: \"2-digit\", day: \"2-digit\",\n        hour: \"2-digit\", minute: \"2-digit\"\n    });\n}\n\nflow.set(\"partyBookingTs\", bookingTs);\nflow.set(\"partyTriggered\", false);\n\nconst formatted = formatLocalVienna(bookingTs);\n\n// Output 1: fürs Dashboard/Text\nconst outUi = { payload: formatted };\n\n// Output 2: an MQTT (next-party)\nconst outMqtt = {\n    topic: \"resort/house3/party/next\",\n    payload: formatted\n};\n\nreturn [outUi, outMqtt];\n",
-        "outputs": 2,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 360,
-        "y": 420,
-        "wires": [
-            [
-                "f191207527f28720",
-                "bd45afae07cf9e87",
-                "ac08162c3a7a09fb"
-            ],
             []
         ]
     },
@@ -3231,7 +4011,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "10",
+        "repeat": "1",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -3242,7 +4022,8 @@
         "y": 340,
         "wires": [
             [
-                "2ec6d6320977fdfd"
+                "2ec6d6320977fdfd",
+                "901ff111421c4f60"
             ]
         ]
     },
@@ -3251,8 +4032,8 @@
         "type": "function",
         "z": "e418cf23a41a22ec",
         "name": "cronFunction",
-        "func": "const formatLocal = flow.get('formatLocal');\nconst bookingTs = flow.get('partyBookingTs');\nconst triggered = flow.get('partyTriggered') || false;\n\nif (!bookingTs || triggered) return null;\n\nconst now = Date.now();\nconst windowMs = 1 * 60 * 1000; // Toleranzfenster, z.B. 1 Minuten nach Buchungszeit\n\n// Debug, um zu sehen was passiert\nnode.log(\"Check booking: now=\" + now + \" bookingTs=\" + bookingTs);\n\n// Liegen wir im Zeitfenster?\nif (now >= bookingTs && now <= bookingTs + windowMs) {\n    flow.set('partyTriggered', true);\n\n    // Nachricht an Haus 3 -> Party START\n    const outMqtt = {\n        topic: \"resort/house3/party/cmd\",\n        payload: \"START\"\n    };\n\n    // Status fürs Dashboard\n    const outStatus = {\n        payload: \"Party automatisch gestartet um \" + formatLocal(bookingTs)\n    };\n\n    return [outMqtt, outStatus];\n}\n\n// Noch zu früh oder schon vorbei\nreturn null;\n",
-        "outputs": 1,
+        "func": "const OFFSET_MS = 60 * 60 * 1000; // 1 Stunde\nconst now = Date.now() + OFFSET_MS;\n\nconst partyMs = 60 * 1000;\nconst windowMs = 60 * 1000;\n\nfunction fmtTodayOrDateUTC(ts) {\n  const nowD = new Date();\n  const d = new Date(ts);\n\n  const sameDay =\n    nowD.getUTCFullYear() === d.getUTCFullYear() &&\n    nowD.getUTCMonth() === d.getUTCMonth() &&\n    nowD.getUTCDate() === d.getUTCDate();\n\n  const HH = String(d.getUTCHours()).padStart(2, \"0\");\n  const MM = String(d.getUTCMinutes()).padStart(2, \"0\");\n\n  if (sameDay) return `HEUTE ${HH}:${MM}`;\n\n  const yyyy = d.getUTCFullYear();\n  const mm = String(d.getUTCMonth() + 1).padStart(2, \"0\");\n  const dd = String(d.getUTCDate()).padStart(2, \"0\");\n  return `${dd}.${mm}.${yyyy} ${HH}:${MM}`;\n}\n\n// Anzeige nur senden, wenn Text sich ändert\nfunction emitUi(text) {\n  const last = flow.get(\"partyLastUiText\") || \"\";\n  if (text === last) return null;\n  flow.set(\"partyLastUiText\", text);\n  return { topic: \"resort/house3/party/next\", payload: text };\n}\n\n// --- A) Buchung übernehmen (nur wenn bestätigt) ---\nconst req = flow.get(\"partyBookRequest\");\n//node.warn(\"cron: bookRequest:\" + req);\n\nif (typeof req === \"number\" && Number.isFinite(req)) {\n  flow.set(\"partyBookRequest\", null); // konsumieren (Event)\n\n  const ts = req; // bereits Timestamp in ms\n\n  flow.set(\"partyBookingTs\", ts);\n  flow.set(\"partyTriggered\", false);\n  flow.set(\"partyRunningUntilTs\", 0);\n\n  node.warn(\"cron: consumed request ts=\" + ts);\n\n  return [null, emitUi(`${fmtTodayOrDateUTC(ts)}`)];\n}\n\n// --- B) Laufzeitverwaltung ---\nconst bookingTs = flow.get(\"partyBookingTs\");\nconst triggered = flow.get(\"partyTriggered\") || false;\nconst runningUntil = flow.get(\"partyRunningUntilTs\") || 0;\n\nif (!bookingTs) return [null, emitUi(\"keine Buchung\")];\n\nif (runningUntil && now >= runningUntil) {\n  flow.set(\"partyRunningUntilTs\", 0);\n  flow.set(\"partyTriggered\", false);\n  flow.set(\"partyBookingTs\", null);\n  return [null, emitUi(\"keine Buchung\")];\n}\n\nif (!triggered && now > bookingTs + windowMs) {\n  flow.set(\"partyBookingTs\", null);\n  flow.set(\"partyTriggered\", false);\n  flow.set(\"partyRunningUntilTs\", 0);\n  return [null, emitUi(\"keine Buchung\")];\n}\n\nif (!triggered && now >= bookingTs && now <= bookingTs + windowMs) {\n  flow.set(\"partyTriggered\", true);\n  const until = now + partyMs;\n  flow.set(\"partyRunningUntilTs\", until);\n\n  const outCmd = { topic: \"resort/house3/party/cmd\", payload: \"PARTY\" };\n  const outUi = emitUi(`Party läuft bis: ${fmtTodayOrDateUTC(until)}`);\n\n  return [outCmd, outUi];\n}\n\n// noch zu früh: Next (nur wenn geändert)\nreturn [null, emitUi(`${fmtTodayOrDateUTC(bookingTs)}`)];\n",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -3262,7 +4043,11 @@
         "y": 340,
         "wires": [
             [
-                "f191207527f28720"
+                "7bcd232ccd2a9159"
+            ],
+            [
+                "f191207527f28720",
+                "bd45afae07cf9e87"
             ]
         ]
     },
@@ -3275,8 +4060,8 @@
         "tooltip": "YYYY-MM-DD HH:MM",
         "group": "423d54cdcab51aad",
         "order": 4,
-        "width": 0,
-        "height": 0,
+        "width": "4",
+        "height": "1",
         "passthru": true,
         "mode": "datetime-local",
         "delay": 300,
@@ -3288,8 +4073,7 @@
         "y": 380,
         "wires": [
             [
-                "84a07eafd0a1b3f2",
-                "ac08162c3a7a09fb"
+                "84a07eafd0a1b3f2"
             ]
         ]
     },
@@ -3307,8 +4091,8 @@
         "correl": "",
         "expiry": "",
         "broker": "7330420b6e6914f6",
-        "x": 590,
-        "y": 460,
+        "x": 690,
+        "y": 380,
         "wires": []
     },
     {
@@ -3327,8 +4111,8 @@
         "z": "e418cf23a41a22ec",
         "name": "zurück",
         "events": "change",
-        "x": 290,
-        "y": 760,
+        "x": 310,
+        "y": 980,
         "wires": [
             []
         ]
@@ -3353,8 +4137,8 @@
         "payloadType": "json",
         "topic": "topic",
         "topicType": "msg",
-        "x": 90,
-        "y": 760,
+        "x": 110,
+        "y": 980,
         "wires": [
             [
                 "1f230d75c3607661"
@@ -3386,8 +4170,8 @@
         "id": "77731675084af5d1",
         "type": "ui_text",
         "z": "e418cf23a41a22ec",
-        "group": "423d54cdcab51aad",
-        "order": 5,
+        "group": "d210af45e3e7dd1a",
+        "order": 1,
         "width": 0,
         "height": 0,
         "name": "",
@@ -3435,8 +4219,8 @@
         "correl": "",
         "expiry": "",
         "broker": "7330420b6e6914f6",
-        "x": 440,
-        "y": 120,
+        "x": 680,
+        "y": 180,
         "wires": []
     },
     {
@@ -3484,13 +4268,343 @@
         ]
     },
     {
+        "id": "d63deec9c88acfd0",
+        "type": "mqtt in",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "topic": "resort/house3/status/temp",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 720,
+        "wires": [
+            [
+                "105a804996f04dc5",
+                "a6ebf594d5cd7d18"
+            ]
+        ]
+    },
+    {
+        "id": "105a804996f04dc5",
+        "type": "ui_text",
+        "z": "e418cf23a41a22ec",
+        "group": "d210af45e3e7dd1a",
+        "order": 2,
+        "width": "2",
+        "height": "1",
+        "name": "",
+        "label": "Temp:",
+        "format": "{{msg.payload}}°C",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 350,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "4e786e9308f2f4c7",
+        "type": "mqtt in",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "topic": "resort/house3/status/hum",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 760,
+        "wires": [
+            [
+                "1378545b5769156d",
+                "84c0353971f690d7"
+            ]
+        ]
+    },
+    {
+        "id": "1378545b5769156d",
+        "type": "ui_text",
+        "z": "e418cf23a41a22ec",
+        "group": "d210af45e3e7dd1a",
+        "order": 3,
+        "width": "2",
+        "height": "1",
+        "name": "",
+        "label": "Hum:",
+        "format": "{{msg.payload}}%",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 470,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "78ec494f4c0955c3",
+        "type": "mqtt in",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "topic": "resort/house3/status/fan",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 800,
+        "wires": [
+            [
+                "5894140da3994924"
+            ]
+        ]
+    },
+    {
+        "id": "5894140da3994924",
+        "type": "ui_text",
+        "z": "e418cf23a41a22ec",
+        "group": "d210af45e3e7dd1a",
+        "order": 4,
+        "width": "2",
+        "height": "1",
+        "name": "",
+        "label": "Fan:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 590,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "1f3a88de2c7d7b2d",
+        "type": "debug",
+        "z": "e418cf23a41a22ec",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "67913fb2f1ba4984",
+        "type": "function",
+        "z": "e418cf23a41a22ec",
+        "name": "bookParty",
+        "func": "let raw = flow.get(\"partySelectedTs\");\nflow.set(\"partyBookRequest\", raw);\nflow.set(\"partyBookRequestTs\", Date.now()); \n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b76f897cdb336dbe",
+        "type": "mqtt in",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "topic": "resort/house3/party/next",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 330,
+        "y": 500,
+        "wires": [
+            [
+                "1f3a88de2c7d7b2d"
+            ]
+        ]
+    },
+    {
+        "id": "c70b44c40e7ca561",
+        "type": "mqtt out",
+        "z": "e418cf23a41a22ec",
+        "name": "NUR ZUM TESTEN",
+        "topic": "resort/house3/status",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 890,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "07602284aca6e21f",
+        "type": "ui_text",
+        "z": "e418cf23a41a22ec",
+        "group": "423d54cdcab51aad",
+        "order": 5,
+        "width": "2",
+        "height": "1",
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 390,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "901ff111421c4f60",
+        "type": "function",
+        "z": "e418cf23a41a22ec",
+        "name": "function 1",
+        "func": "const OFFSET_MS = 0; // 60 * 60 * 1000; // 1 Stunde\nconst now = new Date(Date.now() + OFFSET_MS);\n\nconst HH = String(now.getHours()).padStart(2, \"0\");\nconst MM = String(now.getMinutes()).padStart(2, \"0\");\nconst SS = String(now.getSeconds()).padStart(2, \"0\");\n\nmsg.payload = `${HH}:${MM}:${SS}`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 300,
+        "wires": [
+            [
+                "07602284aca6e21f"
+            ]
+        ]
+    },
+    {
+        "id": "a6ebf594d5cd7d18",
+        "type": "ui_chart",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "group": "d210af45e3e7dd1a",
+        "order": 2,
+        "width": "6",
+        "height": "4",
+        "label": "Temperaturverlauf",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "10",
+        "ymax": "30",
+        "removeOlder": "3",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 510,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "84c0353971f690d7",
+        "type": "ui_chart",
+        "z": "e418cf23a41a22ec",
+        "name": "",
+        "group": "d210af45e3e7dd1a",
+        "order": 4,
+        "width": "6",
+        "height": "4",
+        "label": "Feuchtigkeitsverlauf",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "3",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 520,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "f75607c65d1a2e44",
         "type": "comment",
         "z": "e0e6e27fee6730d6",
         "name": "Haus 4 -Luftqualität & Automatische Lüftung ",
         "info": "",
-        "x": 210,
-        "y": 40,
+        "x": 250,
+        "y": 80,
         "wires": []
     },
     {
@@ -3499,8 +4613,8 @@
         "z": "e0e6e27fee6730d6",
         "name": "zurück",
         "events": "change",
-        "x": 290,
-        "y": 820,
+        "x": 370,
+        "y": 1040,
         "wires": [
             []
         ]
@@ -3525,8 +4639,8 @@
         "payloadType": "json",
         "topic": "topic",
         "topicType": "msg",
-        "x": 90,
-        "y": 820,
+        "x": 150,
+        "y": 1040,
         "wires": [
             [
                 "3623221ace3b9176"
@@ -3534,9 +4648,678 @@
         ]
     },
     {
-        "id": "3623221ace3b9176",
-        "type": "ui_ui_control",
+        "id": "9d29197e7d3d4ae9",
+        "type": "mqtt in",
         "z": "e0e6e27fee6730d6",
+        "name": "Haus4 Gas Sensor",
+        "topic": "resort/house4/sensor/gas",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 200,
+        "wires": [
+            [
+                "8d906b9bc58ebb19"
+            ]
+        ]
+    },
+    {
+        "id": "8d906b9bc58ebb19",
+        "type": "function",
+        "z": "e0e6e27fee6730d6",
+        "name": "Gas Parser",
+        "func": "// ===============================\n// GAS PARSER – Haus 4 (FIX: Broadcast ON/OFF)\n// ===============================\n\n// 0) Messwert\nlet v = Number(msg.payload);\nif (isNaN(v)) {\n    return [null, null, null, null, null, null, null, null, null];\n}\n\n// 1) Grenzwert\nlet limit = Number(flow.get('gas_limit')) || 300;\n\n// 2) Alarm berechnen\nlet alarm = v >= limit;\n\n// 3) Gauge\nlet msgGauge = { payload: v };\n\n// 4) LED Haus 4\nlet msgLed = {\n    topic: \"haus4/gas/led\",\n    payload: alarm,\n    retain: true\n};\n\n// 5) Text Haus 4\nlet msgText = {\n    topic: \"haus4/gas/statusText\",\n    payload: alarm ? \"Gasalarm\" : \"Normal\",\n    retain: true\n};\n\n// 6) Mittelwert\nlet buf = flow.get('gas_buffer') || [];\nbuf.push(v);\nif (buf.length > 6) buf.shift();\n\nlet msgAvg = null;\nif (buf.length === 6) {\n    let sum = buf.reduce((a, b) => a + b, 0);\n    let avg = sum / buf.length;\n    msgAvg = { payload: avg };\n}\nflow.set('gas_buffer', buf);\n\n// 7) Broadcast ESP + zentraler Gas-Broadcast (JETZT IMMER!)\nlet bcMsgs = null;\nif (alarm) {\n    // ALARM → ON\n    bcMsgs = [\n        {\n            topic: \"haus4/gas/alarm\",\n            payload: \"Gasalarm Haus 4\"\n        },\n        {\n            topic: \"resort/bc/gas\",\n            payload: \"ON\",\n            retain: true\n        }\n    ];\n} else {\n    // NORMAL → OFF (Reset!)\n    bcMsgs = [\n        {\n            topic: \"resort/bc/gas\",\n            payload: \"OFF\",\n            retain: true\n        }\n    ];\n}\n\n// 8) globale Flags\nglobal.set('house4_gas_alarm', alarm);\nglobal.set('house4_gas_status', alarm ? \"ALARM\" : \"NORMAL\");\n\n// 9) LED fürs Auswahldashboard\nlet msgSelLed = {\n    topic: \"resort/house4/status/gas\",\n    payload: alarm,\n    retain: true\n};\n\n// 10) Status fürs Auswahldashboard\nlet stormAlarm = global.get('house4_storm_alarm') || false;\nlet houseText = (alarm || stormAlarm) ? \"ALARM\" : \"NORMAL\";\n\nlet msgSelStatus = {\n    topic: \"resort/house4/status\",\n    payload: houseText,\n    retain: true\n};\n\n// Outputs (9)\nreturn [\n    msgGauge,      // 1: Gauge\n    msgLed,        // 2: LED Haus 4\n    msgText,       // 3: Text Haus 4\n    msgAvg,        // 4: Mittelwert\n    bcMsgs,        // 5: Array -> MQTT-OUT \"Gas BC OUT\"\n    msgSelLed,     // 6: LED Auswahl\n    msgSelStatus,  // 7: Status Auswahl\n    null,          // 8: frei\n    null           // 9: frei\n];\n",
+        "outputs": 7,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 200,
+        "wires": [
+            [
+                "b4e63cbefd0fce16"
+            ],
+            [
+                "43d6ce5348ec2521"
+            ],
+            [
+                "b88f3037c57378ed"
+            ],
+            [
+                "4e038d72d952b737"
+            ],
+            [
+                "3cdf600f86d75957"
+            ],
+            [
+                "c903a2017ee216cf"
+            ],
+            [
+                "5b445befbb20fa02"
+            ]
+        ]
+    },
+    {
+        "id": "b4e63cbefd0fce16",
+        "type": "ui_gauge",
+        "z": "e0e6e27fee6730d6",
+        "name": "Gaswert",
+        "group": "f1301ef20b18c6b9",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Gaswert Haus 4 (ppm)",
+        "label": "ppm",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": 500,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 920,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "3cdf600f86d75957",
+        "type": "mqtt out",
+        "z": "e0e6e27fee6730d6",
+        "name": "Gas BC OUT",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 930,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "ff534c75a64d0246",
+        "type": "function",
+        "z": "e0e6e27fee6730d6",
+        "name": "Reset",
+        "func": "// wird vom UI-Button \"GASALARM RESET\" ausgelöst\n\n// Slider auf 500 setzen\nmsg.payload = 500;          // Zahl\nmsg.topic = \"Grenzwert\";  // wie im Slider-Node eintragen\n\n// optional: Mittelwert-Puffer leeren\nflow.set('gas_buffer', []);\n\n// an Slider AUSGEBEN\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 940,
+        "wires": [
+            [
+                "91b454a03a8b80e2"
+            ]
+        ]
+    },
+    {
+        "id": "7855553ce232b98c",
+        "type": "mqtt in",
+        "z": "e0e6e27fee6730d6",
+        "name": "BC Sturm",
+        "topic": "resort/bc/storm",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 160,
+        "y": 560,
+        "wires": [
+            [
+                "2774f0b2f549c53a"
+            ]
+        ]
+    },
+    {
+        "id": "2774f0b2f549c53a",
+        "type": "function",
+        "z": "e0e6e27fee6730d6",
+        "name": "Reaktion Sturm",
+        "func": "// 0) LETZTEN Zustand laden\nlet lastStorm = global.get('house4_storm_last') || false;\n\n// 1) NEUEN Zustand berechnen\nlet newStorm = (msg.payload === \"ON\");\n\n// 2) NUR bei Änderung!\nif (newStorm !== lastStorm) {\n    global.set('house4_storm_last', newStorm);\n    global.set('house4_storm_alarm', newStorm);\n    global.set('house4_storm_status', newStorm ? 'STURM' : 'NORMAL');\n\n    // Gas-Status\n    let gasAlarm = global.get('house4_gas_alarm') || false;\n    let houseText = (gasAlarm || newStorm) ? \"ALARM\" : \"NORMAL\";\n\n    // Outputs\n    let msgLed = {\n        topic: \"resort/house4/status/storm\",\n        payload: newStorm\n    };\n\n    let msgText = {\n        topic: \"resort/house4/status\",\n        payload: houseText,\n        retain: true\n    };\n\n    let msgEsp = {\n        topic: \"resort/bc/storm\",\n        payload: newStorm ? \"ON\" : \"OFF\",\n        retain: true\n    };\n\n    node.warn(\"STURM BC: \" + msgEsp.payload + \" (letzte: \" + lastStorm + \")\");\n    return [msgLed, msgText, msgEsp];\n}\n\nnode.warn(\"STURM gleich: \" + newStorm + \" -> KEIN BC\");\nreturn null;  // KEIN Flood!\n",
+        "outputs": 3,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 560,
+        "wires": [
+            [
+                "794cad3a60837140",
+                "6f2759f0c49e4c65",
+                "2c859767da2f2485"
+            ],
+            [
+                "c034b0ad5d5bdf34"
+            ],
+            [
+                "0634581ffa9e9310"
+            ]
+        ]
+    },
+    {
+        "id": "c2e60fba4a5417fd",
+        "type": "mqtt in",
+        "z": "e0e6e27fee6730d6",
+        "name": "BC Party",
+        "topic": "resort/bc/party",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "7330420b6e6914f6",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 160,
+        "y": 760,
+        "wires": [
+            [
+                "fe35f62cb943bfdc"
+            ]
+        ]
+    },
+    {
+        "id": "fe35f62cb943bfdc",
+        "type": "function",
+        "z": "e0e6e27fee6730d6",
+        "name": "Reaktion Party",
+        "func": "// KOMPLETT ersetzen!\nlet lastParty = flow.get('house4_party_last') || false;\nlet party = (msg.payload === \"ON\");\n\nnode.warn(\"FORCE INPUT: \" + msg.payload + \" (letzte: \" + lastParty + \")\");\n\n// NUR bei Änderung!\nif (party !== lastParty) {\n    flow.set('house4_party_last', party);\n    node.warn(\"FORCE BC CHANGE: \" + (party ? \"ON\" : \"OFF\"));\n\n    // DASHBOARD\n    msg.topic = \"resort/house4/status/party\";\n    msg.payload = party;\n\n    // ESP32 BC\n    let msgEsp = {\n        topic: \"resort/bc/party\",\n        payload: party ? \"ON\" : \"OFF\",\n        retain: true\n    };\n\n    return [msg, msgEsp];\n} else {\n    node.warn(\"KEIN CHANGE: \" + (party ? \"ON\" : \"OFF\"));\n    return null;  // Nichts senden!\n}\n",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 760,
+        "wires": [
+            [
+                "449be5350acd1a19",
+                "3895dcf6df2bc0ea"
+            ],
+            [
+                "a6cee099de9613b7"
+            ]
+        ]
+    },
+    {
+        "id": "91b454a03a8b80e2",
+        "type": "ui_slider",
+        "z": "e0e6e27fee6730d6",
+        "name": "",
+        "label": "Gasgrenzwert",
+        "tooltip": "",
+        "group": "f1301ef20b18c6b9",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "Grenzwert",
+        "topicType": "str",
+        "min": 0,
+        "max": "500",
+        "step": "10",
+        "className": "",
+        "x": 540,
+        "y": 940,
+        "wires": [
+            [
+                "1e9164750acde6a4",
+                "ef83f6eb85e897ce"
+            ]
+        ]
+    },
+    {
+        "id": "1e9164750acde6a4",
+        "type": "mqtt out",
+        "z": "e0e6e27fee6730d6",
+        "name": "Reserve ESP32",
+        "topic": "haus4/cmd/gaslimit",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 940,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "a2d187f210aa952f",
+        "type": "ui_button",
+        "z": "e0e6e27fee6730d6",
+        "name": "",
+        "group": "f1301ef20b18c6b9",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Gasalarm Reset",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "\"RESET\"",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 180,
+        "y": 940,
+        "wires": [
+            [
+                "ff534c75a64d0246"
+            ]
+        ]
+    },
+    {
+        "id": "4e038d72d952b737",
+        "type": "ui_chart",
+        "z": "e0e6e27fee6730d6",
+        "name": "",
+        "group": "f1301ef20b18c6b9",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "Gasverlauf Haus 4",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "auto",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "800",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ccd63d",
+            "#eb0f0f",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 950,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ef83f6eb85e897ce",
+        "type": "function",
+        "z": "e0e6e27fee6730d6",
+        "name": "Grenzwert Chart",
+        "func": "// ======================================\n// GRENZWERT - Haus 4 Gas (Slider + Reset) DEBUG\n// ======================================\n\nnode.warn(\"INPUT: topic=\" + msg.topic + \" payload=\" + msg.payload + \" reset=\" + msg.reset);\n\nif (msg.reset === true) {\n    msg.payload = 500;          \n    node.warn(\"RESET → Grenzwert = 500\");\n}\n\nlet limit = Number(msg.payload);\nflow.set('gas_limit', limit);\nnode.warn(\"flow.set('gas_limit', \" + limit + \")\");\n\nmsg.topic = \"haus4/gaslimit\";\nnode.warn(\"OUTPUT MQTT: haus4/gaslimit = \" + limit);\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 880,
+        "wires": [
+            [
+                "1e9164750acde6a4"
+            ]
+        ]
+    },
+    {
+        "id": "43d6ce5348ec2521",
+        "type": "ui_led",
+        "z": "e0e6e27fee6730d6",
+        "order": 5,
+        "group": "f1301ef20b18c6b9",
+        "width": 0,
+        "height": 0,
+        "label": "LED GAS",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "GAS LED",
+        "x": 920,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "b88f3037c57378ed",
+        "type": "ui_text",
+        "z": "e0e6e27fee6730d6",
+        "group": "f1301ef20b18c6b9",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status GAS",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 930,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "0634581ffa9e9310",
+        "type": "mqtt out",
+        "z": "e0e6e27fee6730d6",
+        "name": "MQTT-OUT (ESP32)",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 960,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "5b445befbb20fa02",
+        "type": "mqtt out",
+        "z": "e0e6e27fee6730d6",
+        "name": "LED GAS",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 920,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "c903a2017ee216cf",
+        "type": "mqtt out",
+        "z": "e0e6e27fee6730d6",
+        "name": "Status GAS",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 930,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "794cad3a60837140",
+        "type": "mqtt out",
+        "z": "e0e6e27fee6730d6",
+        "name": "STURM-LED",
+        "topic": "resort/house4/status/storm",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 930,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "c034b0ad5d5bdf34",
+        "type": "mqtt out",
+        "z": "e0e6e27fee6730d6",
+        "name": "STURM-Text ",
+        "topic": "resort/house4/status",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 930,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "a6cee099de9613b7",
+        "type": "mqtt out",
+        "z": "e0e6e27fee6730d6",
+        "name": "MQTT-OUT (ESP32)",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 960,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "2c859767da2f2485",
+        "type": "debug",
+        "z": "e0e6e27fee6730d6",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "0ad196e9d2543318",
+        "type": "inject",
+        "z": "e0e6e27fee6730d6",
+        "name": "Sturm ON",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "TOPIC_BC_STURM",
+        "payload": "OFF",
+        "payloadType": "str",
+        "x": 120,
+        "y": 420,
+        "wires": [
+            [
+                "2774f0b2f549c53a"
+            ]
+        ]
+    },
+    {
+        "id": "6f2759f0c49e4c65",
+        "type": "ui_led",
+        "z": "e0e6e27fee6730d6",
+        "order": 1,
+        "group": "6b6ebe4652e48a91",
+        "width": 0,
+        "height": 0,
+        "label": "STURM",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "STURM LED LOKAL",
+        "x": 960,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "3895dcf6df2bc0ea",
+        "type": "ui_led",
+        "z": "e0e6e27fee6730d6",
+        "order": 2,
+        "group": "6b6ebe4652e48a91",
+        "width": 0,
+        "height": 0,
+        "label": "PARTY ",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "PARTY LED LOKAL",
+        "x": 960,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "6b57c7d3cef5d052",
+        "type": "inject",
+        "z": "e0e6e27fee6730d6",
+        "name": "Party ON",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "TOPIC_BC_PARTY",
+        "payload": "OFF",
+        "payloadType": "str",
+        "x": 120,
+        "y": 680,
+        "wires": [
+            [
+                "fe35f62cb943bfdc"
+            ]
+        ]
+    },
+    {
+        "id": "449be5350acd1a19",
+        "type": "debug",
+        "z": "e0e6e27fee6730d6",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "dbe37db88e6ed05b",
+        "type": "ui_ui_control",
+        "z": "05760b3c32ad25bd",
         "name": "zurück",
         "events": "change",
         "x": 310,
@@ -3546,12 +5329,12 @@
         ]
     },
     {
-        "id": "c40f2977c3710636",
+        "id": "9fbd754c8bfd9201",
         "type": "ui_button",
-        "z": "e0e6e27fee6730d6",
+        "z": "05760b3c32ad25bd",
         "name": "",
-        "group": "4f58ccc89db32579",
-        "order": 8,
+        "group": "b79f18d8edb48dbf",
+        "order": 2,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -3569,7 +5352,7 @@
         "y": 480,
         "wires": [
             [
-                "3623221ace3b9176"
+                "dbe37db88e6ed05b"
             ]
         ]
     },
@@ -3580,7 +5363,7 @@
         "name": "",
         "topic": "resort/broadcast/storm",
         "qos": "",
-        "retain": "",
+        "retain": "true",
         "respTopic": "",
         "contentType": "",
         "userProps": "",
@@ -3605,7 +5388,7 @@
         "correl": "",
         "expiry": "",
         "broker": "7330420b6e6914f6",
-        "x": 330,
+        "x": 370,
         "y": 320,
         "wires": []
     },
@@ -3616,7 +5399,7 @@
         "name": "",
         "topic": "resort/broadcast/gas",
         "qos": "",
-        "retain": "",
+        "retain": "true",
         "respTopic": "",
         "contentType": "",
         "userProps": "",
@@ -3656,7 +5439,9 @@
         "x": 110,
         "y": 80,
         "wires": [
-            []
+            [
+                "3f1059e2c3d55d60"
+            ]
         ]
     },
     {
@@ -3775,7 +5560,59 @@
         "wires": []
     },
     {
-        "id": "dc0af3665f510c1c",
+        "id": "f9b705098eaf1634",
+        "type": "mqtt out",
+        "z": "05760b3c32ad25bd",
+        "name": "NUR ZUM TESTEN",
+        "topic": "resort/house3/status",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7330420b6e6914f6",
+        "x": 710,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "dca9bd9168d40637",
+        "type": "ui_switch",
+        "z": "05760b3c32ad25bd",
+        "name": "",
+        "label": "Party",
+        "tooltip": "",
+        "group": "07edb1714217ca9f",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "PARTY",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "NORMAL",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "d5746648e6bbe258"
+            ]
+        ]
+    },
+    {
+        "id": "d5746648e6bbe258",
         "type": "mqtt out",
         "z": "05760b3c32ad25bd",
         "name": "",
@@ -3791,40 +5628,6 @@
         "x": 320,
         "y": 200,
         "wires": []
-    },
-    {
-        "id": "a7795735333324ff",
-        "type": "ui_switch",
-        "z": "05760b3c32ad25bd",
-        "name": "",
-        "label": "Party",
-        "tooltip": "",
-        "group": "07edb1714217ca9f",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "decouple": "false",
-        "topic": "topic",
-        "topicType": "msg",
-        "style": "",
-        "onvalue": "ON",
-        "onvalueType": "str",
-        "onicon": "",
-        "oncolor": "",
-        "offvalue": "OFF",
-        "offvalueType": "str",
-        "officon": "",
-        "offcolor": "",
-        "animate": false,
-        "className": "",
-        "x": 110,
-        "y": 200,
-        "wires": [
-            [
-                "dc0af3665f510c1c"
-            ]
-        ]
     },
     {
         "id": "996b13a27ac4213f",
@@ -3904,7 +5707,7 @@
         "wires": []
     },
     {
-        "id": "a8e4e0185095e340",
+        "id": "a2195b23a46f61c7",
         "type": "global-config",
         "env": [],
         "modules": {
