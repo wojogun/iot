@@ -8,8 +8,8 @@
 LiquidCrystal_I2C lcd(0x27,16,2);
 
 // ================= WIFI =================
-const char* ssid = "Lexlan";
-const char* password = "gekajo67";
+const char* ssid = "XXXXXX";
+const char* password = "XXXXXX";
 
 // ================= MQTT =================
 const char* mqtt_server = "5e16dbde757548029c0591f1f71f376c.s1.eu.hivemq.cloud";
