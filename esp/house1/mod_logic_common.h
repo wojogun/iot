@@ -5,9 +5,9 @@
 
 enum Onoff { OFF = 0, ON = 1 };
 
-void InitCommon();
+void initCommon();
 
-// MQTT handler (wird vom Dispatcher aufgerufen)
+// MQTT handler Broadcast Gas & Party
 void handleMqttCommon(const String& topic, const String& payload);
 
 // Events
@@ -17,7 +17,7 @@ void stopGas(bool publish);
 void startParty(bool publish);
 void stopParty(bool publish);
 
-// Status getter (optional, aber praktisch)
+// Status getter
 Onoff getGasStatus();
 Onoff getPartyStatus();
 

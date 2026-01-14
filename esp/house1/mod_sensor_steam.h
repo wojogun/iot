@@ -3,13 +3,17 @@
 
 #include <Arduino.h>
 
-struct SteamData { int raw; };
+struct SteamData { int raw; };              // 0 bis 4095
 
 void initSteam();
-SteamData readSteam();
 
 // simulation
 void setSteamSimulationEnabled(bool on);
-void setSimulatedSteam(int raw);
+void setSimulatedSteam(int pct);
+// void setSimulatedSteam(int raw);         // Für Analoge werte 0-4095
+
+SteamData readSteam();
+
+int getSteamPercent();
 
 #endif

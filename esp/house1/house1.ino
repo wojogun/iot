@@ -10,33 +10,36 @@
 #include "mod_logic_storm.h"
 #include "mod_logic_weather.h"
 #include "mod_mqtt_house1.h"
+#include "mod_sensor_button.h"
 #include "mod_sensor_lcd.h"
 #include "mod_weather.h"
 
+void setup()
+{
+  Serial.begin(115200);
+  initHardware();
+  initLcd();
+  initWiFi();
+  initMqtt();           // verbindet
+  initMqttHouse1();     // registriert callback + subscribes
+  initCommon();         // nur publish initial gas/party
+  initStormLogic();     // publish Status initial (storm)
 
+  // Haus 1 Weather Logic
+  initWeather(); // Temp/Hum/Steam/Wind
+  initWeatherLogic();
 
-void setup() {
-    Serial.begin(115200);
-    initHardware();
-    initLcd();
-    initWiFi();
-    initMqtt();
-    initMqttHouse1();
-    InitCommon();
-    
-
-    //Haus 1 Weather Logic
-    initWeather();      // Temp/Hum/Steam/Wind
-    initWeatherLogic();
-    initStormLogic();
+    initButtons();      // lokale buttons initial
 }
 
-void loop() {
+void loop()
+{
   wiFiLoop();
   mqttLoop();
   loopMqttHouse1();
-  lcdUpdate();          // Display aktualisieren    
-  loopYellowLed(); 
-//   loopRgb();
-  loopWeatherLogic();   // ruft intern readWeather + loopStormLogic(w)
+  lcdUpdate();            // Display aktualisieren
+  loopYellowLed();
+  loopRgb();
+  loopButtons();
+  loopWeatherLogic();     // ruft intern readWeather + loopStormLogic(w)
 }

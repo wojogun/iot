@@ -3,101 +3,158 @@
 #include "config.h"
 #include "mod_config_mqtt.h"
 #include "hardware.h"
-#include "mod_sensor_lcd.h"   // falls du printLcd hier nutzen willst
+#include "mod_sensor_lcd.h"
+#include "mod_logic_storm.h"
 
-static Onoff currentGasStatus   = OFF;
+static Onoff currentGasStatus = OFF;
 static Onoff currentPartyStatus = OFF;
 
-static bool isOnPayload(const String& payload) {
-  String p = payload; p.trim(); p.toUpperCase();
+static bool isOnPayload(const String &payload)
+{
+  String p = payload;
+  p.trim();
+  p.toUpperCase();
   return (p == "ON" || p == "1" || p == "TRUE" || p == "YES" || p == "PARTY");
 }
 
-static void publishGas() {
-  publishMqtt(TOPIC_STATUSGAS_HOUSE1, currentGasStatus == ON ? "ON" : "OFF", true);
+static void publishGas()
+{
+  publishMqtt(TOPIC_STATUS_GAS_HOUSE1, currentGasStatus == ON ? "ON" : "OFF", true);
 }
 
-static void publishParty() {
- publishMqtt(TOPIC_STATUSPARTY_HOUSE1, currentPartyStatus == ON ? "ON" : "OFF", true);
+static void publishParty()
+{
+  publishMqtt(TOPIC_STATUS_PARTY_HOUSE1, currentPartyStatus == ON ? "PARTY" : "OFF", true);
 }
 
-static void printWarnings() {
-  // Minimal: nur Gas/Party anzeigen (Storm macht dein Storm-Modul)
-  uint8_t warnMask =
-      (currentGasStatus   == ON ? 0b01 : 0) |
-      (currentPartyStatus == ON ? 0b10 : 0) | (currentPartyStatus == ON ? 0b100 : 0);
-
-  switch (warnMask) {
-    case 0b00:
-      // nichts – WeatherLogic zeigt ja normalen Screen
-      break;
-    case 0b01:
-      printLcd("GASWARNUNG", "", false);
-      break;
-    case 0b10:
-      printLcd("PARTY", "MODE", false);
-      break;
-    case 0b11:
-      printLcd("GAS + PARTY", "WARNUNG", false);
-      break;
-    case 0b100:
-      printLcd("WOLFI PSSSSST", "SEI BITTE LEISER!!! :D", false);
-      break;
-  }
-}
-
-void handleMqttCommon(const String& topic, const String& payload) {
-  // Broadcast GAS
-  if (topic == TOPIC_BC_GAS) {
-    if (isOnPayload(payload)) startGas(false);
-    else stopGas(false);
+void handleMqttCommon(const String &topic, const String &payload)
+{
+  Serial.print("[MQTT][COMMON] topic=");
+  Serial.print(topic);
+  Serial.print(" payload=");
+  Serial.println(payload);
+  if (topic == TOPIC_BC_GAS)
+  {
+    if (isOnPayload(payload))
+      startGas(false);
+    else
+      stopGas(false);
     return;
   }
 
-  // Broadcast PARTY
-  if (topic == TOPIC_BC_PARTY) {
-    if (isOnPayload(payload)) startParty(false);
-    else stopParty(false);
+  if (topic == TOPIC_BC_PARTY)
+  {
+    if (isOnPayload(payload))
+      startParty(false);
+    else
+      stopParty(false);
     return;
   }
 }
 
-void startGas(bool publish) {
+void startGas(bool publish)
+{
   currentGasStatus = ON;
   publishGas();
-  printWarnings();
 
-  // optional: Effekte
-  // warnton(); oder rgbBlink rot etc.
+  // GAS hat Prio über Party
+  printLcd("GASWARNUNG", "", false);
+
+
+  rgbBlink(255, 0, 0, 500, 255);
+
+
+  // wenn Storm aktiv ist beide Status anzeigen + Aktoren/Loops
+  if (isStormActive())
+  {
+    printLcd("STURMWARNUNG &", "GASWARNUNG", false);
+    Serial.println("[COMMON] ACHTUNG - GAS & STURM WARNUNG!!");
+    refreshStormUi();
+    return;
+  }
+    warnton();
 }
 
-void stopGas(bool publish) {
+void stopGas(bool publish)
+{
   currentGasStatus = OFF;
   publishGas();
-  printWarnings();
+
+  rgbOff();
+  buzzer.playTone(0, 0);
+
+  // wenn Storm aktiv ist bleibt Status Sturmwarnung
+  if (isStormActive())
+  {
+    printLcd("STURMWARNUNG", "", false);
+    Serial.println("[COMMON] Gas ignored -keep STORM");
+    refreshStormUi();
+    return;
+  }
+  // wenn Party noch aktiv -> Party wieder anzeigen + Fenster zu
+  if (currentPartyStatus == ON)
+  {
+    printLcd("PARTY BEI WOLFI!", "BIER UND METAL!", false);
+    ctrWindow(WINDOW_CLOSED);
+    return;
+  }
+  // LCD updaten
+  refreshStormUi();
 }
 
-void startParty(bool publish) {
+void startParty(bool publish)
+{
+  // Serial.println("[COMMON] startParty()");            // DEBUG !!
+
+  if (isStormActive())
+  {
+    // STORM blockt party (Fenster wegen Sturm bereits zu)
+    Serial.println("[COMMON] Party ignored - STURM");
+    printLcd("STURMWARNUNG!!", "No Party! :(", false);
+    return;
+  }
+
   currentPartyStatus = ON;
   publishParty();
-  printWarnings();
+  // Serial.println("[COMMON] Party -> WINDOW_CLOSED");         // DEBUG !!
+  ctrWindow(WINDOW_CLOSED);
+
+  if (getGasStatus() == OFF)
+  {
+    printLcd("PARTY BEI WOLFI!", "BIER UND METAL!", false);
+  }
 }
 
-void stopParty(bool publish) {
+void stopParty(bool publish)
+{
+  // Serial.println("[COMMON] stopParty()");            // DEBUG !!
+
   currentPartyStatus = OFF;
   publishParty();
-  printWarnings();
+  if (isStormActive()) // Backup & update display
+  {
+    // Serial.println("[COMMON] stopParty: keep STORM");         // DEBUG !!
+    ctrWindow(WINDOW_CLOSED); // Backup - Fenster bleibt beim Storm geschlossen
+    refreshStormUi();
+    return;
+  }
+  if (currentGasStatus == ON)
+  {
+    // Gas hat Prio und bleibt am Display
+    Serial.println("[COMMON] stopParty: keep Gaswarnung");
+    return;
+  }
+
+  // Serial.println("[COMMON] Party OFF -> WINDOW_OPEN");        // DEBUG !!
+  ctrWindow(WINDOW_OPEN);
+  refreshStormUi();
 }
 
 Onoff getGasStatus() { return currentGasStatus; }
 Onoff getPartyStatus() { return currentPartyStatus; }
 
-void InitCommon() {
-  // subscribe broadcast topics
-  subscribeMqtt(TOPIC_BC_GAS);
-  subscribeMqtt(TOPIC_BC_PARTY);
-
-  // initial publish damit UI richtig steht
+void initCommon()
+{
   publishGas();
   publishParty();
 }

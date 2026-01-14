@@ -21,16 +21,15 @@ extern const char* MQTT_PASSWORD;
 
 // ===== TOPICS HAUS 1 =====
 // Status Topics:
-extern const char* TOPIC_STATUS_HOUSE1;      // "resort/house1/status"
-extern const char* TOPIC_STATUSGAS_HOUSE1;          // "resort/house1/status/gas";  
-extern const char* TOPIC_STATUSSTORM_HOUSE1;        // "resort/house1/status/storm";  
-extern const char* TOPIC_STATUSPARTY_HOUSE1;        // "resort/house1/status/party";   
+extern const char* TOPIC_STATUS_HOUSE1;              // "resort/house1/status"
+extern const char* TOPIC_STATUS_GAS_HOUSE1;          // "resort/house1/status/gas";  
+extern const char* TOPIC_STATUS_STORM_HOUSE1;        // "resort/house1/status/storm";  
+extern const char* TOPIC_STATUS_PARTY_HOUSE1;        // "resort/house1/status/party";   
 
 extern const char* TOPIC_STATUS_TEMP;               // "resort/house1/status/temp"
 extern const char* TOPIC_STATUS_HUM;                // "resort/house1/status/hum"
 extern const char* TOPIC_STATUS_STEAM;              // "resort/house1/status/steam"
 extern const char* TOPIC_STATUS_WIND;               // "resort/house1/status/wind"
-extern const char* TOPIC_STATUS_FAN;                // "resort/house1/status/fan"
 extern const char* TOPIC_STATUS_WEATHER_VALUES;     // "resort/house1/status/weathervalues"
 
 // Broadcast Haus 1 an alle
@@ -49,7 +48,7 @@ extern const char* TOPIC_SIM_STEAM;           // "resort/house1/simulation/steam
 extern const char* TOPIC_SIM_TEMP;            // "resort/house1/simulation/temp"
 
 
-// TEST/DEBUG 
+// TEST/DEBUG Buttons
 extern const char* TOPIC_BUTTON_BTN1;    // "resort/house1/button/btn1"
 extern const char* TOPIC_BUTTON_BTN2;    // "resort/house1/button/btn2"
 

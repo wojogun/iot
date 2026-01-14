@@ -33,8 +33,8 @@ enum WindowState {
 };
 
 enum DoorState {
-    DOOR_CLOSED = 0,
-    DOOR_OPEN   = 1
+    DOOR_CLOSED = 1,
+    DOOR_OPEN   = 0
 };
 
 enum FanState {
@@ -49,18 +49,18 @@ extern Servo windowServo;
 extern Servo doorServo;
 extern BuzzerESP32 buzzer;
 
-
 // Globaler Text für "Aktuelles Wetter" (weather_logic)
 extern String actualWeather;
 
 
-// Fenster und Tür in definierte Zustände fahren
+// Fenster und Tür in definierte Zustände bringen
 void initHardware();   
 void ctrWindow(WindowState state);
 void ctrDoor(DoorState state);
 void ctrFan(FanState state);
 
-// ==== LED / BUZZER helper (used by logic modules) ====
+// ==== LED / BUZZER helper ====
+// Buzzer
 void warnton();
 
 // Yellow LED
@@ -68,7 +68,7 @@ void switchLed(bool onoff);
 void blinkLed();
 void loopYellowLed();
 
-// RGB (optional - only if you use it somewhere)
+// RGB LED
 void initRgb();
 void loopRgb();
 void rgbOff();

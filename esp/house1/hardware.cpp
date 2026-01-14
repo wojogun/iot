@@ -26,6 +26,18 @@ BuzzerESP32 buzzer(PIN_BUZZER);
 Servo windowServo;
 Servo doorServo;
 
+// Fenster Winkel (kalibriert)
+static const int WINDOW_OPEN_ANGLE  = 170;
+static const int WINDOW_CLOSE_ANGLE = 60;
+
+// Tür Winkel (kalibriert)
+static const int DOOR_OPEN_ANGLE  = 100;
+static const int DOOR_CLOSE_ANGLE = 50;
+
+// Servo-Zeit zum "ankommen" (ms)
+static const int SERVO_MOVE_DELAY_MS = 1000;
+static void moveServoOnce(Servo& servo, uint8_t pin, int angle);
+
 // RBG Leds 
 static const uint8_t LED_COUNT  = 4;     // Anzahl der Pixel im Strip (RGB)
 Adafruit_NeoPixel strip(LED_COUNT, PIN_LED_STRIP, NEO_GRB + NEO_KHZ800);
@@ -42,10 +54,9 @@ static bool     ledState         = false;
 static uint32_t ledBlinkInterval = 500;
 static uint32_t ledLastToggle    = 0;
 
-// weil die Servos zu Überhitzung neigen, insbesondere das Fenster
+// SERVO (Ausschalten wenn überlasten bzw. nicht richtig funktioniert (Überhitzung))
 const bool USE_DOOR     = true;
-const bool USE_WINDOW   = false;
-
+const bool USE_WINDOW   = true;
 
 
 // -------------------- Initialisierung --------------------
@@ -53,7 +64,9 @@ void initHardware() {
     // LED
     pinMode(PIN_LED_YELLOW, OUTPUT);
     digitalWrite(PIN_LED_YELLOW, LOW);
-    //initRgb();
+
+    // RGB / NeoPixel AKTIVIEREN
+    initRgb();
 
     // Servos vorbereiten (Standard 50 Hz)
     ESP32PWM::allocateTimer(0);
@@ -64,38 +77,26 @@ void initHardware() {
     windowServo.setPeriodHertz(50);
     doorServo.setPeriodHertz(50);
 
-    // Min/Max-Pulse ggf. feinjustieren
-    // windowServo.attach(PIN_SERVO_WINDOW, 1000, 2000);
-    // doorServo.attach(PIN_SERVO_DOOR,   1000, 2000);
-
     // FAN
     initFan();
-    // pinMode(PIN_FAN_PWM, OUTPUT);     // Informiert ESP32 - dieser Pin steuert ein Signal aus
-    // pinMode(PIN_FAN_DIR, OUTPUT);
-    // analogWrite(PIN_FAN_PWM, 0);      // Fan bekommt kein "Speed"-Impuls
-    // digitalWrite(PIN_FAN_DIR, LOW);   // Setzt Richtung/Enable Leitung auf eine definierte Zustand
 
     // BUTTONS
     pinMode(PIN_BTN1, INPUT_PULLUP);
     pinMode(PIN_BTN2, INPUT_PULLUP);
 
     // BUZZER
-    buzzer.setTimbre(30);      // Klangfarbe (Keyestudio-Beispiel)
-    buzzer.playTone(0, 0);     // sicherstellen, dass er aus ist
-
-    // NeoPixel
-    // strip.begin();
-    // strip.clear();
-    // strip.show();
+    buzzer.setTimbre(30);     
+    buzzer.playTone(0, 0);  
 
     // SET DEFAULT SAFE STATE
     ctrFan(FAN_OFF);
     ctrDoor(DOOR_OPEN);
+    delay(300);
     ctrWindow(WINDOW_OPEN);
 
     switchLed(false);
     buzzer.playTone(0,0);
-   // rgbOff();                
+    rgbOff();                
 }
 
 
@@ -138,7 +139,6 @@ void initRgb() {
   strip.setBrightness(255);
   strip.show();
   rgbBlinkEnabled = false;
-  //lichtorgelEnabled = false;
   rgbStateOn = false;
 }
 
@@ -162,9 +162,7 @@ void loopRgb() {
   }
 }
 
-
 void rgbOff() {
-  //partyEnabled = false;
   rgbBlinkEnabled   = false;
   rgbStateOn        = false;
   rgbR = rgbG = rgbB = 0;
@@ -172,7 +170,6 @@ void rgbOff() {
 }
 
 void rgbSet(uint8_t r, uint8_t g, uint8_t b, uint8_t brightness) {
-  //partyEnabled = false;
   rgbBlinkEnabled   = false;
   rgbR = r; rgbG = g; rgbB = b;
   rgbBrightness = brightness;
@@ -189,13 +186,10 @@ void rgbSetHSV(uint16_t hue, uint8_t sat, uint8_t val) {
   for (uint16_t i = 0; i < strip.numPixels(); i++) {
     strip.setPixelColor(i, c);
   }
-
-    //strip.setPixelColor(idx, c);
     strip.show();
 }
 
 void rgbBlink(uint8_t r, uint8_t g, uint8_t b, uint32_t intervalMs, uint8_t brightness) {
-  //partyEnabled = false;
   rgbBlinkEnabled = true;
 
   rgbR = r; rgbG = g; rgbB = b;
@@ -205,71 +199,45 @@ void rgbBlink(uint8_t r, uint8_t g, uint8_t b, uint32_t intervalMs, uint8_t brig
   strip.setBrightness(rgbBrightness);
 }
 
-
-
-// ====== HELPER WINDOW / DOOR / FANHelper für Fenster / Tür ========
-// Hinweis: Aus dem Keyestudio-Beispiel: 0° ~ „zu“, 176° ~ „auf“ für Fenster. :contentReference[oaicite:1]{index=1}
-void ctrWindow(WindowState state) {
-    if (!USE_WINDOW) return;
-    int angle = 0;
-    switch (state) {
-        case WINDOW_OPEN:
-            angle = 176;   // ganz auf
-            break;
-        case WINDOW_CLOSED:
-        default:
-            angle = 0;     // ganz zu
-            break;
-    }
-    windowServo.write(angle);
+// ====== HELPER WINDOW / DOOR / FAN ========
+static void moveServoOnce(Servo& servo, uint8_t pin, int angle) {
+  if (!servo.attached()) {
+    servo.attach(pin, 500, 2500);
+  }
+  servo.write(angle);
+  delay(SERVO_MOVE_DELAY_MS);
+  servo.detach();
 }
 
-// Für die Tür kannst du die Winkel nach Bedarf justieren.
-// Hier: 0° = zu, 90° = auf (oder 180°, wenn es mechanisch besser passt).
-// void ctrDoor(DoorState state) {
-//     if (!USE_DOOR) return;
-//     int angle = 0;
-//     switch (state) {
-//         case DOOR_OPEN:
-//             angle = 90;    // oder 180, je nach Mechanik
-//             break;
-//         case DOOR_CLOSED:
-//         default:
-//             angle = 0;
-//             break;
-//     }
-//     doorServo.write(angle);
-// }
 void ctrDoor(DoorState state) {
   if (!USE_DOOR) return;
 
-  if (!doorServo.attached()) {
-    doorServo.attach(PIN_SERVO_DOOR, 1000, 2000);
-  }
+  static DoorState last = (DoorState)255;
+  if (state == last) return;
+  last = state;
 
-  int angle = (state == DOOR_OPEN) ? 90 : 0;
-  doorServo.write(angle);
+  int angle = (state == DOOR_OPEN) ? DOOR_OPEN_ANGLE : DOOR_CLOSE_ANGLE;
+  moveServoOnce(doorServo, PIN_SERVO_DOOR, angle);
 
-  delay(300);        // kurz Zeit geben zum fahren
-  doorServo.detach(); // dann Ruhe + weniger Hitze
+  Serial.printf("[HW] ctrDoor -> %s\n", state == DOOR_OPEN ? "OPEN" : "CLOSED");
 }
 
-// void ctrFan(FanState state) {
-//   switch (state) {
-//     case FAN_ON:
-//       digitalWrite(PIN_FAN_DIR, HIGH);
-//       analogWrite(PIN_FAN_PWM, 255);
-//       delay(200);               
-//       analogWrite(PIN_FAN_PWM, 180);
-//       break;
 
-//     case FAN_OFF:
-//       digitalWrite(PIN_FAN_DIR, LOW);  
-//       analogWrite(PIN_FAN_PWM, 0);
-//       break;
-//     default:
-//       break;
-//   }
+void ctrWindow(WindowState state) {
+  if (!USE_WINDOW) return;
+
+  static WindowState last = (WindowState)255;     // ungültig beim Start
+
+  if (state == last) {
+    return;               // nix zu tun ->  Dauer-Detach/Attach verhindert
+  }
+  last = state;
+
+  int angle = (state == WINDOW_OPEN) ? WINDOW_OPEN_ANGLE : WINDOW_CLOSE_ANGLE;
+  moveServoOnce(windowServo, PIN_SERVO_WINDOW, angle);
+
+  Serial.printf("[HW] ctrWindow -> %s\n", state == WINDOW_OPEN ? "OPEN" : "CLOSED");
+}
 
 void ctrFan(FanState state) {
   if (state == FAN_ON) {
@@ -278,3 +246,4 @@ void ctrFan(FanState state) {
     setFanPercent(0);    // "OFF"
   }
 }
+
