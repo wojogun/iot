@@ -1,0 +1,255 @@
+#include <WiFi.h>
+#include <WiFiClientSecure.h>
+#include <PubSubClient.h>
+#include <LiquidCrystal_I2C.h>
+#include <ESP32Servo.h>
+
+// ================= DISPLAY =================
+LiquidCrystal_I2C lcd(0x27,16,2);
+
+// ================= WIFI =================
+const char* ssid = "XXXXXX";
+const char* password = "XXXXXX";
+
+// ================= MQTT =================
+const char* mqtt_server = "xxxxxxxxxxxxxxxxxxxxx";
+const int mqtt_port = xxxxxx;
+const char* mqtt_user = "xxxxx";
+const char* mqtt_pass = "xxxxxx";
+
+// ================= TOPICS =================
+const char* tStorm = "resort/broadcast/storm";
+const char* tParty = "resort/broadcast/party";
+const char* tGas = "resort/broadcast/gas";
+const char* tGasSensor = "resort/house4/sensor/gas";
+
+// ================= HARDWARE =================
+const int FAN_PIN = 19;
+const int BUZZER_PIN = 25;
+const int STURM_SERVO_PIN = 13;
+const int PARTY_SERVO_PIN = 5;
+const int YELLOW_LED = 12;
+const int DIGITAL_GAS_PIN = 23;
+
+// ================= STATES =================
+bool wifiNow=false, wifiOld=false;
+bool mqttNow=false, mqttOld=false;
+bool storm=false, party=false, gas=false;
+bool oStorm=false, oParty=false, oGas=false;
+bool fan=false, oFan=false;
+float lastGasPpm=0;
+bool gasAlarm = false;
+int stormServoPos = 90;
+bool partyWindowClosed=false;
+
+unsigned long lastReconnectAttempt=0;
+unsigned long lastDigitalPrint = 0;
+unsigned long lastBuzzer = 0;
+bool buzzerState = false;
+unsigned long lastStormBlink = 0;
+bool stormLedBlink = false;
+
+// ================= OBJECTS =================
+Servo stormServo;
+Servo partyServo;
+WiFiClientSecure net;
+PubSubClient mqtt(net);
+
+// ================= UTILS =================
+void showStatus(const String& title, const String& status){
+  lcd.clear();
+  lcd.setCursor(0,0); lcd.print(title);
+  lcd.setCursor(0,1); lcd.print(status);
+  Serial.print("📺 LCD: "); Serial.print(title); Serial.print(" | "); Serial.println(status);
+}
+
+// ================= FAN =================
+void updateFan(){
+  fan = gasAlarm || gas;
+  digitalWrite(FAN_PIN, fan ? HIGH : LOW);
+}
+
+// ================= YELLOW LED =================
+void updateYellowLed(){
+  if(storm){ // 🔴 Sturm blinkt
+    if(millis() - lastStormBlink > 1000){
+      lastStormBlink = millis();
+      stormLedBlink = !stormLedBlink;
+      digitalWrite(YELLOW_LED, stormLedBlink ? HIGH : LOW);
+    }
+  } else if(gasAlarm || gas){ // 🟡 Gas dauerhaft
+    digitalWrite(YELLOW_LED, HIGH);
+  } else { // alles ok
+    digitalWrite(YELLOW_LED, LOW);
+  }
+}
+
+// ================= GAS STATUS DISPLAY =================
+void updateGasDisplay(){
+  String status = (gasAlarm || gas) ? "ON" : "OFF";
+  showStatus("GAS", status);
+}
+
+// ================= DIGITAL GAS SENSOR =================
+void updateDigitalGasSensor() {
+  boolean gasVal = digitalRead(DIGITAL_GAS_PIN);
+
+  if(gasVal == 0){ // Lokaler Gasalarm
+    gasAlarm = true;
+    lastGasPpm = 500;
+    Serial.println("ALARM 500ppm (lokal)");
+  } else { 
+    gasAlarm = false;
+    lastGasPpm = random(340, 371);
+    Serial.print("OK "); Serial.print((int)lastGasPpm); Serial.println("ppm");
+  }
+
+  if(mqtt.connected()){
+    mqtt.publish(tGas, gasAlarm ? "ON" : "OFF");
+    char buf[8];
+    dtostrf(lastGasPpm, 0, 0, buf);
+    mqtt.publish(tGasSensor, buf);
+  }
+
+  updateFan();
+  updateYellowLed();
+  updateGasDisplay();
+}
+
+// ================= STURM BUZZER =================
+void updateStormBuzzer(){
+  if (storm && millis() - lastBuzzer > 2000){
+    lastBuzzer = millis();
+    buzzerState = !buzzerState;
+    if (buzzerState){
+      tone(BUZZER_PIN, 1500, 2000);
+      Serial.println("🔊 STURM BUZZER ON!");
+    } else {
+      noTone(BUZZER_PIN);
+      Serial.println("🔇 STURM BUZZER OFF");
+    }
+  }
+}
+
+// ================= MQTT CALLBACK =================
+void mqttCallback(char* topic, byte* payload, unsigned int len){
+  String t(topic), msg;
+  for(uint8_t i=0;i<len;i++) msg += (char)payload[i];
+  msg.trim();
+  bool on = (msg == "ON");
+
+  if(t == tStorm && storm != on){
+    storm = on;
+    if(on){
+      stormServo.write(0); stormServoPos = 0;
+      lastBuzzer = millis(); lastStormBlink = millis();
+      Serial.println("🌪️ STURM ALARM + BUZZER + BLINK!");
+    } else {
+      stormServo.write(90); stormServoPos = 90;
+      noTone(BUZZER_PIN);
+      Serial.println("✅ STURM ENDE");
+    }
+    if(storm != oStorm){ oStorm = storm; showStatus("STURM", storm ? "ON" : "OFF"); }
+    updateFan();
+    updateYellowLed();
+  }
+
+  if(t == tParty && party != on){
+    party = on;
+    partyServo.write(on ? 0 : 180);
+    partyWindowClosed = on;
+    if(party != oParty){ oParty = party; showStatus("PARTY", party ? "ON" : "OFF"); }
+    updateFan();
+  }
+
+  if(t == tGas){  // BC Gasalarm
+    gas = on;
+    Serial.print("🔥 BC GAS: "); Serial.println(gas ? "ALARM" : "OK");
+    updateFan();
+    updateYellowLed();
+    updateGasDisplay();
+  }
+}
+
+// ================= WIFI & MQTT =================
+void connectWiFi(){
+  if(WiFi.status() != WL_CONNECTED && (millis() - lastReconnectAttempt > 5000)) {
+    lastReconnectAttempt = millis();
+    Serial.println("WiFi: Versuch verbinden...");
+    WiFi.begin(ssid, password);
+  }
+}
+
+void connectMQTT(){
+  if(!mqtt.connected() && (millis() - lastReconnectAttempt > 5000)){
+    lastReconnectAttempt = millis();
+    Serial.println("MQTT: Versuch verbinden...");
+    String clientId = "ESP32_Haus4_" + String(random(0xFFFF), HEX);
+    if(mqtt.connect(clientId.c_str(), mqtt_user, mqtt_pass)){
+      mqtt.subscribe(tStorm);
+      mqtt.subscribe(tParty);
+      mqtt.subscribe(tGas);
+      mqtt.publish(tGasSensor,"ONLINE");
+      Serial.println("MQTT: Verbunden");
+    }
+  }
+}
+
+// ================= SETUP =================
+void setup(){
+  Serial.begin(115200);
+  pinMode(FAN_PIN,OUTPUT); pinMode(BUZZER_PIN,OUTPUT);
+  pinMode(YELLOW_LED,OUTPUT); pinMode(DIGITAL_GAS_PIN, INPUT);
+  digitalWrite(FAN_PIN,LOW); digitalWrite(YELLOW_LED,LOW);
+
+  stormServo.attach(STURM_SERVO_PIN); partyServo.attach(PARTY_SERVO_PIN);
+  stormServo.write(90); partyServo.write(90);
+
+  lcd.init(); lcd.backlight();
+  showStatus("BOOT...","HAUS4");
+
+  connectWiFi();
+  net.setInsecure();
+  mqtt.setServer(mqtt_server,mqtt_port);
+  mqtt.setCallback(mqttCallback);
+  randomSeed(esp_random());
+}
+
+// ================= LOOP =================
+void loop(){
+  static unsigned long lastUpdate = 0;
+  unsigned long now = millis();
+
+  // ----------------- Storm / Buzzer -----------------
+  updateStormBuzzer();
+  updateYellowLed();
+
+  // ----------------- WiFi -----------------
+  wifiNow = (WiFi.status() == WL_CONNECTED);
+  if(wifiNow != wifiOld){
+    wifiOld = wifiNow;
+    showStatus("WiFi", wifiNow ? "ON" : "OFF");
+    Serial.print("WiFi: "); Serial.println(wifiNow ? "ON" : "OFF");
+  }
+  connectWiFi();
+
+  // ----------------- MQTT -----------------
+  mqttNow = mqtt.connected();
+  if(mqttNow != mqttOld){
+    mqttOld = mqttNow;
+    showStatus("MQTT", mqttNow ? "ON" : "OFF");
+    Serial.print("MQTT: "); Serial.println(mqttNow ? "ON" : "OFF");
+  }
+  if(wifiNow) connectMQTT();
+  mqtt.loop();
+
+  // ----------------- Gas Sensor -----------------
+  if(now - lastUpdate > 3000){
+    lastUpdate = now;
+    updateDigitalGasSensor();
+    Serial.print("FAN: "); Serial.println(fan ? "ON" : "OFF");
+  }
+
+  if(storm != oStorm){ oStorm = storm; showStatus("STURM", storm ? "ON" : "OFF"); }
+  if(party != oParty){ oParty = party; showStatus("PARTY", party ? "ON" : "OFF"); }
+}

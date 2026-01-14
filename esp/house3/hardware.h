@@ -5,6 +5,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <ESP32Servo.h>
 #include <BuzzerESP32.h>
+#include <dht11.h>
 
 // -------------------- Pinbelegung (KS5009) --------------------
 extern const uint8_t PIN_LED_YELLOW;
@@ -17,6 +18,7 @@ extern const uint8_t PIN_FAN_DIR;
 extern const uint8_t PIN_BTN1;
 extern const uint8_t PIN_BTN2;
 extern const uint8_t PIN_MOTION;
+extern const uint8_t DHT11PIN; // Temperature and humidity sensor pin
 
 // Anzahl LEDs im NeoPixel-Strip (RGB-Modul)
 extern const uint8_t NEOPIXEL_COUNT;
@@ -25,20 +27,22 @@ extern const uint8_t FAN_PWMCH;
 extern const bool USE_DOOR;
 extern const bool USE_WINDOW;
 
-// -------------------- Zustände für Fenster / Tür --------------------
+// -------------------- Zustände für Fenster / Tür / Vent --------------------
 enum WindowState {
     WINDOW_CLOSED = 0,
     WINDOW_OPEN   = 1
 };
-
 enum DoorState {
     DOOR_CLOSED = 0,
     DOOR_OPEN   = 1
 };
-
 enum FanState {
     FAN_OFF = 0,
     FAN_ON  = 1
+};
+struct Climate {
+  float temp;
+  float hum;
 };
 
 // -------------------- Globale Hardware-Objekte --------------------
@@ -55,8 +59,12 @@ void initHardware();
 void ctrWindow(WindowState state);
 void ctrDoor(DoorState state);
 void ctrFan(FanState state);
+void ctrFan(); 
+uint8_t getFanSpeed();
+void setFanSpeed(uint8_t speed);
 
 void warnton();
+void initFan();
 void initRgb();
 void loopRgb();
 void rgbApplyColor(uint8_t r, uint8_t g, uint8_t b);
@@ -68,5 +76,9 @@ void rgbBlink(uint8_t r, uint8_t g, uint8_t b, uint32_t intervalMs=500, uint8_t 
 void switchLed(bool onoff);
 void blinkLed();
 void loopYellowLed();
+
+void loopTempHum();
+float getTemperature();
+float getHuminity();
 
 #endif

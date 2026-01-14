@@ -1,0 +1,42 @@
+@startuml
+title Entwicklungssicht – Komponenten & Schnittstellen (MQTT)
+
+skinparam componentStyle rectangle
+
+component "House 1\nESP32 Firmware" as C1
+component "House 2\nESP32 Firmware" as C2
+component "House 3\nESP32 Firmware" as C3
+component "House 4\nESP32 Firmware" as C4
+
+component "Node-RED Runtime\n(Flows + Dashboard)" as NR
+component "Docker Container\nnode-red" as DOCKER
+component "HiveMQ Cloud\nMQTT Broker" as BROKER
+
+artifact "Git Repository\n(Firmware + flows.json)" as GIT
+
+DOCKER -down- NR
+NR -down- GIT
+C1 -down- GIT
+C2 -down- GIT
+C3 -down- GIT
+C4 -down- GIT
+
+interface "MQTT Topic API" as TOPICS
+
+C1 -right- TOPICS
+C2 -right- TOPICS
+C3 -right- TOPICS
+C4 -right- TOPICS
+NR -left- TOPICS
+
+TOPICS -down- BROKER
+
+note right of TOPICS
+Beispiele:
+- resort/broadcast/storm
+- resort/broadcast/gas
+- resort/house3/party/cmd
+- resort/house2/status/occupancy
+end note
+
+@enduml

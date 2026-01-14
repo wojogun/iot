@@ -48,8 +48,8 @@ void handleMqtt(const String& topic, const String& payload) {
   Serial.println(payload);
 
   if (topic == TOPIC_BC_PARTY) {
-    if (payload == "ON") startParty(false);
-    else if (payload == "OFF") stopParty(false);
+    if (payload == "PARTY") startParty(false);
+    else if (payload == "NORMAL") stopParty(false);
     else Serial.print("payload unbekannt:" + payload);
   } 
   else if (topic == TOPIC_BC_STORM) {
@@ -84,7 +84,7 @@ void startGas(bool publish) {
   currentGasStatus = ON;
   if (mqttClient.connected()) mqttClient.publish(TOPIC_STATUSGAS_HOUSE2, "ON");
   printWarnings();
-  startRgbRedLight(10); // Flowing red cycle along the whole strip
+  startRgbRedLightBlink(100); // Flowing red cycle along the whole strip
 }
 
 // Stop gas alarm
@@ -174,7 +174,7 @@ void switchLed(bool onoff) {
 }
 
 // RED light cycle along whole strip. Pass delay time (in ms) between frames.
-void startRgbRedLight(int wait) {
+void startRgbRedLightConstant(int wait) {
   // Display only RED colors on all pixels in the strip.
   for (int j = 0; j < 50; ++j) { // Show red for a short animation (adjust 50 as needed)
     for (int i = 0; i < strip.numPixels(); i++) {
@@ -183,6 +183,43 @@ void startRgbRedLight(int wait) {
     strip.show();
     delay(wait);
   }
+}
+
+// GREEN light cycle along whole strip. Pass delay time (in ms) between frames.
+void startRgbGreenLightConstant(int wait) {
+  // Display only GREEN colors on all pixels in the strip.
+  for (int j = 0; j < 50; ++j) { // Show green for a short animation (adjust 50 as needed)
+    for (int i = 0; i < strip.numPixels(); i++) {
+      strip.setPixelColor(i, strip.Color(0, 255, 0)); // Pure green
+    }
+    strip.show();
+    delay(wait);
+  }
+}
+
+// RED light circling on strip for 10 seconds. Pass delay time (in ms) between frames.
+void startRgbRedLightBlink(int wait) {
+  int currentPixel = 0;
+  unsigned long startTime = millis();
+  const unsigned long duration = 10000; // 10 seconds
+  
+  while (millis() - startTime < duration) {
+    // Clear all pixels
+    strip.clear();
+    
+    // Light up current pixel in red
+    strip.setPixelColor(currentPixel, strip.Color(255, 0, 0)); // Pure red
+    strip.show();
+    
+    // Move to next pixel
+    currentPixel = (currentPixel + 1) % strip.numPixels();
+    
+    delay(wait);
+  }
+  
+  // Clear strip after 10 seconds
+  strip.clear();
+  strip.show();
 }
 
 // Initialise common module
